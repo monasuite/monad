@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // mruInventoryMap provides a concurrency safe map that is limited to a maximum

@@ -14,8 +14,8 @@ import (
 	"runtime/debug"
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/integration/rpctest"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/integration/rpctest"
 )
 
 func testGetBestBlock(r *rpctest.Harness, t *testing.T) {

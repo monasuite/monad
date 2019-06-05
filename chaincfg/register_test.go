@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/wakiyamap/monad/chaincfg"
+	. "github.com/monasuite/monad/chaincfg"
 )
 
 // Define some of the required parameters for a user-registered

@@ -17,7 +17,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/wakiyamap/monad/btcec"
+	"github.com/monasuite/monad/btcec"
 )
 
 func main() {

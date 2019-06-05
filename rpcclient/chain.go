@@ -10,9 +10,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"github.com/wakiyamap/monad/btcjson"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/btcjson"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 )
 
 // FutureGetBestBlockHashResult is a future promise to deliver the result of a

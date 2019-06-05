@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/wire"
 )
 
 const (

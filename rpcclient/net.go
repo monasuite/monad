@@ -7,7 +7,7 @@ package rpcclient
 import (
 	"encoding/json"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // AddNodeCommand enumerates the available commands that the AddNode function

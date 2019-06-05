@@ -10,8 +10,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/wakiyamap/monad/txscript"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/txscript"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

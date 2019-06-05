@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/wire"
 )
 
 // ScriptFlags is a bitmask defining additional operations or tests that will be

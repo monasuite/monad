@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/txscript"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/txscript"
 	"github.com/wakiyamap/monautil"
 )
 

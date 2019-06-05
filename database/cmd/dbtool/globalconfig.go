@@ -10,10 +10,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/database"
-	_ "github.com/wakiyamap/monad/database/ffldb"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/database"
+	_ "github.com/monasuite/monad/database/ffldb"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

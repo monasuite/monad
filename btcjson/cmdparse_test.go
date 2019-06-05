@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // TestAssignField tests the assignField function handles supported combinations

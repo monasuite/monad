@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/rpcclient"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/rpcclient"
 )
 
 // JoinType is an enum representing a particular type of "node join". A node

@@ -12,14 +12,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/blockchain/fullblocktests"
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
-	_ "github.com/wakiyamap/monad/database/ffldb"
-	"github.com/wakiyamap/monad/txscript"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/blockchain/fullblocktests"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
+	_ "github.com/monasuite/monad/database/ffldb"
+	"github.com/monasuite/monad/txscript"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

@@ -7,8 +7,8 @@ package txscript
 import (
 	"sync"
 
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // sigCacheEntry represents an entry in the SigCache. Entries within the

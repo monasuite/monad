@@ -10,10 +10,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/database"
-	_ "github.com/wakiyamap/monad/database/ffldb"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/database"
+	_ "github.com/monasuite/monad/database/ffldb"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 
@@ -22,8 +22,8 @@ func ExampleCreate() {
 	// This example assumes the ffldb driver is imported.
 	//
 	// import (
-	// 	"github.com/wakiyamap/monad/database"
-	// 	_ "github.com/wakiyamap/monad/database/ffldb"
+	// 	"github.com/monasuite/monad/database"
+	// 	_ "github.com/monasuite/monad/database/ffldb"
 	// )
 
 	// Create a database and schedule it to be closed and removed on exit.
@@ -48,8 +48,8 @@ func Example_basicUsage() {
 	// This example assumes the ffldb driver is imported.
 	//
 	// import (
-	// 	"github.com/wakiyamap/monad/database"
-	// 	_ "github.com/wakiyamap/monad/database/ffldb"
+	// 	"github.com/monasuite/monad/database"
+	// 	_ "github.com/monasuite/monad/database/ffldb"
 	// )
 
 	// Create a database and schedule it to be closed and removed on exit.
@@ -114,8 +114,8 @@ func Example_blockStorageAndRetrieval() {
 	// This example assumes the ffldb driver is imported.
 	//
 	// import (
-	// 	"github.com/wakiyamap/monad/database"
-	// 	_ "github.com/wakiyamap/monad/database/ffldb"
+	// 	"github.com/monasuite/monad/database"
+	// 	_ "github.com/monasuite/monad/database/ffldb"
 	// )
 
 	// Create a database and schedule it to be closed and removed on exit.

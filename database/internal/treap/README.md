@@ -1,8 +1,8 @@
 treap
 =====
 
-[![Build Status](https://travis-ci.org/wakiyamap/monad.png?branch=master)]
-(https://travis-ci.org/wakiyamap/monad)
+[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)]
+(https://travis-ci.org/monasuite/monad)
 
 Package treap implements a treap data structure that is used to hold ordered
 key/value pairs using a combination of binary search tree and heap semantics.

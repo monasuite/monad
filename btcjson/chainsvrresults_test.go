@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // TestChainSvrCustomResults ensures any results that have custom marshalling

@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/wakiyamap/monad/addrmgr"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/addrmgr"
+	"github.com/monasuite/monad/wire"
 )
 
 // naTest is used to describe a test to be performed against the NetAddressKey

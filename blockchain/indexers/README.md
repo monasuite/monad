@@ -1,7 +1,7 @@
 indexers
 ========
 
-[![Build Status](https://travis-ci.org/wakiyamap/monad.png?branch=master)](https://travis-ci.org/wakiyamap/monad)
+[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)](https://travis-ci.org/monasuite/monad)
 
 Package indexers implements optional block chain indexes.
 
@@ -21,7 +21,7 @@ via an RPC interface.
 ## Installation
 
 ```bash
-$ go get -u github.com/wakiyamap/monad/blockchain/indexers
+$ go get -u github.com/monasuite/monad/blockchain/indexers
 ```
 
 ## License

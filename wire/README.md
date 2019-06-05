@@ -2,9 +2,9 @@ wire
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-(https://travis-ci.org/wakiyamap/monad) [![ISC License]
+(https://travis-ci.org/monasuite/monad) [![ISC License]
 (http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/wakiyamap/monad/wire)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/monasuite/monad/wire)
 =======
 
 Package wire implements the bitcoin wire protocol.  A comprehensive suite of
@@ -20,7 +20,7 @@ protocol level.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/wakiyamap/monad/wire
+$ go get -u github.com/monasuite/monad/wire
 ```
 
 ## Bitcoin Message Overview

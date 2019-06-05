@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/wakiyamap/monad/addrmgr"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/addrmgr"
+	"github.com/monasuite/monad/wire"
 )
 
 func TestChance(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // TestBtcdExtCmds tests all of the monad extended commands marshal and unmarshal

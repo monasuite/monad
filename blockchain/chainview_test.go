@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // testNoncePrng provides a deterministic prng for the nonce in generated fake

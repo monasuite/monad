@@ -12,7 +12,7 @@ import (
 
 	"github.com/btcsuite/btclog"
 	flags "github.com/jessevdk/go-flags"
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/database"
 )
 
 const (

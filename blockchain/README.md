@@ -1,9 +1,9 @@
 blockchain
 ==========
 
-[![Build Status](http://img.shields.io/travis/wakiyamap/monad.svg)](https://travis-ci.org/wakiyamap/monad) 
+[![Build Status](http://img.shields.io/travis/monasuite/monad.svg)](https://travis-ci.org/monasuite/monad) 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/wakiyamap/monad/blockchain)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/monasuite/monad/blockchain)
 
 Package blockchain implements bitcoin block handling and chain selection rules.
 The test coverage is currently only around 60%, but will be increasing over
@@ -21,7 +21,7 @@ block chain.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/wakiyamap/monad/blockchain
+$ go get -u github.com/monasuite/monad/blockchain
 ```
 
 ## Bitcoin Chain Processing Overview
@@ -61,13 +61,13 @@ is by no means exhaustive:
 
 ## Examples
 
-* [ProcessBlock Example](http://godoc.org/github.com/wakiyamap/monad/blockchain#example-BlockChain-ProcessBlock)  
+* [ProcessBlock Example](http://godoc.org/github.com/monasuite/monad/blockchain#example-BlockChain-ProcessBlock)  
   Demonstrates how to create a new chain instance and use ProcessBlock to
   attempt to add a block to the chain.  This example intentionally
   attempts to insert a duplicate genesis block to illustrate how an invalid
   block is handled.
 
-* [CompactToBig Example](http://godoc.org/github.com/wakiyamap/monad/blockchain#example-CompactToBig)  
+* [CompactToBig Example](http://godoc.org/github.com/monasuite/monad/blockchain#example-CompactToBig)  
   Demonstrates how to convert the compact "bits" in a block header which
   represent the target difficulty to a big integer and display it using the
   typical hex notation.

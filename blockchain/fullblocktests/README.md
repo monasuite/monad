@@ -1,7 +1,7 @@
 fullblocktests
 ==============
 
-[![Build Status](http://img.shields.io/travis/wakiyamap/monad.svg)](https://travis-ci.org/wakiyamap/monad) 
+[![Build Status](http://img.shields.io/travis/monasuite/monad.svg)](https://travis-ci.org/monasuite/monad) 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)]
 
@@ -20,7 +20,7 @@ of blocks that exercise the consensus validation rules.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/wakiyamap/monad/blockchain/fullblocktests
+$ go get -u github.com/monasuite/monad/blockchain/fullblocktests
 ```
 
 ## License

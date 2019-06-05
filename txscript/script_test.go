@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // TestParseOpcode tests for opcode parsing with bad data templates.

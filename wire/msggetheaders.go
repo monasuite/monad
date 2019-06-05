@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // MsgGetHeaders implements the Message interface and represents a bitcoin

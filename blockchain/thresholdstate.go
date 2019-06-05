@@ -7,7 +7,7 @@ package blockchain
 import (
 	"fmt"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // ThresholdState define the various threshold states used when voting on

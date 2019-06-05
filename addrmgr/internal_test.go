@@ -7,7 +7,7 @@ package addrmgr
 import (
 	"time"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 func TstKnownAddressIsBad(ka *KnownAddress) bool {

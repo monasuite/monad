@@ -22,14 +22,14 @@ import (
 
 	"github.com/btcsuite/go-socks/socks"
 	flags "github.com/jessevdk/go-flags"
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/connmgr"
-	"github.com/wakiyamap/monad/database"
-	_ "github.com/wakiyamap/monad/database/ffldb"
-	"github.com/wakiyamap/monad/mempool"
-	"github.com/wakiyamap/monad/peer"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/connmgr"
+	"github.com/monasuite/monad/database"
+	_ "github.com/monasuite/monad/database/ffldb"
+	"github.com/monasuite/monad/mempool"
+	"github.com/monasuite/monad/peer"
 	"github.com/wakiyamap/monautil"
 )
 

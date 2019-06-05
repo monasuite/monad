@@ -10,9 +10,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/peer"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/peer"
+	"github.com/monasuite/monad/wire"
 )
 
 // mockRemotePeer creates a basic inbound peer listening on the simnet port for

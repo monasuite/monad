@@ -7,7 +7,7 @@ package blockchain
 import (
 	"math"
 
-	"github.com/wakiyamap/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg"
 )
 
 const (

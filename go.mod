@@ -1,4 +1,4 @@
-module github.com/wakiyamap/monad
+module github.com/monasuite/monad
 
 require (
 	github.com/aead/siphash v1.0.1 // indirect

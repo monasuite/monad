@@ -9,8 +9,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
 )
 
 // fetchBlockCmd defines the configuration options for the fetchblock command.

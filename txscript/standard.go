@@ -7,8 +7,8 @@ package txscript
 import (
 	"fmt"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

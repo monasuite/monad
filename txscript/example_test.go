@@ -8,11 +8,11 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/txscript"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/txscript"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

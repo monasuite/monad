@@ -12,9 +12,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/database/ffldb"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/database/ffldb"
 	"github.com/wakiyamap/monautil"
 )
 

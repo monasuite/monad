@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg"
 )
 
 // TestNotifications ensures that notification callbacks are fired on events.

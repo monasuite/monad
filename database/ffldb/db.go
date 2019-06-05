@@ -21,10 +21,10 @@ import (
 	"github.com/btcsuite/goleveldb/leveldb/iterator"
 	"github.com/btcsuite/goleveldb/leveldb/opt"
 	"github.com/btcsuite/goleveldb/leveldb/util"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/database/internal/treap"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/database/internal/treap"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

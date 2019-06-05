@@ -5,8 +5,8 @@
 package mempool
 
 import (
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/wire"
 )
 
 // RuleError identifies a rule violation.  It is used to indicate that

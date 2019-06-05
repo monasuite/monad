@@ -10,10 +10,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/wire"
 )
 
 // blockStatus is a bit field representing the validation state of the block.

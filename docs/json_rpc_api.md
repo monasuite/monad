@@ -1157,8 +1157,8 @@ package main
 import (
 	"github.com/btcsuite/btcrpcclient"
 	"github.com/wakiyamap/monautil"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -1249,8 +1249,8 @@ package main
 import (
 	"github.com/btcsuite/btcrpcclient"
 	"github.com/wakiyamap/monautil"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 	"io/ioutil"
 	"log"
 	"path/filepath"

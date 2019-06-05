@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/wakiyamap/monad/database"
-	_ "github.com/wakiyamap/monad/database/ffldb"
+	"github.com/monasuite/monad/database"
+	_ "github.com/monasuite/monad/database/ffldb"
 )
 
 var (

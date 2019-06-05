@@ -5,8 +5,8 @@
 package main
 
 import (
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/wire"
 )
 
 // activeNetParams is a pointer to the parameters specific to the

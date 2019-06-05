@@ -5,8 +5,8 @@
 package blockchain
 
 import (
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/txscript"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/txscript"
 )
 
 // -----------------------------------------------------------------------------

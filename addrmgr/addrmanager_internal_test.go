@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // randAddr generates a *wire.NetAddress backed by a random IPv4/IPv6 address.

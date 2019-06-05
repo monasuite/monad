@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // helpDescsEnUS defines the English descriptions used for the help strings.

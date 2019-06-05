@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/wakiyamap/monad/txscript"
+	"github.com/monasuite/monad/txscript"
 )
 
 // TestCheckBlockScripts ensures that validating the all of the scripts in a

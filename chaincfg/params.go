@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 )
 
 // These variables are the chain proof-of-work limit parameters for each default

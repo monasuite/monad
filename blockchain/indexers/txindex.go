@@ -8,10 +8,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

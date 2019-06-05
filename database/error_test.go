@@ -8,7 +8,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/database"
 )
 
 // TestErrorCodeStringer tests the stringized output for the ErrorCode type.

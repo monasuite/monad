@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/wakiyamap/monad/rpcclient"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/rpcclient"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

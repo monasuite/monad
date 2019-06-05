@@ -11,8 +11,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/btcjson"
+	"github.com/monasuite/monad/wire"
 )
 
 // TestChainSvrCmds tests all of the chain server commands marshal and unmarshal

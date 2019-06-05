@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	flags "github.com/jessevdk/go-flags"
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 	"github.com/wakiyamap/monautil"
 )
 

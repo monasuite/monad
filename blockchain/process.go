@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/database"
 	"github.com/wakiyamap/monautil"
 )
 

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"hash/crc32"
 
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/database"
 )
 
 // The serialized write cursor location format is:

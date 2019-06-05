@@ -15,10 +15,10 @@ import (
 	"runtime/debug"
 	"runtime/pprof"
 
-	"github.com/wakiyamap/monad/blockchain/indexers"
-	"github.com/wakiyamap/monad/checkpoint"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/limits"
+	"github.com/monasuite/monad/blockchain/indexers"
+	"github.com/monasuite/monad/checkpoint"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/limits"
 )
 
 const (

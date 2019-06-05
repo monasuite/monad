@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/database"
 	"github.com/wakiyamap/monautil"
 )
 

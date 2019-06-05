@@ -7,8 +7,8 @@ package txscript
 import (
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 )
 
 // TestBadPC sets the pc to a deliberately bad result then confirms that Step()

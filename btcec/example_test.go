@@ -8,8 +8,8 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // This example demonstrates signing a message with a secp256k1 private key that

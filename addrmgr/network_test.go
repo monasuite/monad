@@ -8,8 +8,8 @@ import (
 	"net"
 	"testing"
 
-	"github.com/wakiyamap/monad/addrmgr"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/addrmgr"
+	"github.com/monasuite/monad/wire"
 )
 
 // TestIPTypes ensures the various functions which determine the type of an IP

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // FilterType is used to represent a filter type.

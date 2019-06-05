@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // TestChainSvrWsCmds tests all of the chain server websocket-specific commands

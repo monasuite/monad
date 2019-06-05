@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // TestThresholdStateStringer tests the stringized output for the

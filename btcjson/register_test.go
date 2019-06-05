@@ -9,7 +9,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/wakiyamap/monad/btcjson"
+	"github.com/monasuite/monad/btcjson"
 )
 
 // TestUsageFlagStringer tests the stringized output for the UsageFlag type.

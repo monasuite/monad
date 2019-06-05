@@ -11,8 +11,8 @@ import (
 	"encoding/binary"
 	"errors"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/database"
 	"github.com/wakiyamap/monautil"
 )
 

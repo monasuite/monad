@@ -12,11 +12,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/mining"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/mining"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

@@ -49,7 +49,7 @@ func monadExecutablePath() (string, error) {
 		outputPath += ".exe"
 	}
 	cmd := exec.Command(
-		"go", "build", "-o", outputPath, "github.com/wakiyamap/monad",
+		"go", "build", "-o", outputPath, "github.com/monasuite/monad",
 	)
 	err = cmd.Run()
 	if err != nil {

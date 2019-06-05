@@ -7,12 +7,12 @@ package main
 import (
 	"sync/atomic"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/mempool"
-	"github.com/wakiyamap/monad/netsync"
-	"github.com/wakiyamap/monad/peer"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/mempool"
+	"github.com/monasuite/monad/netsync"
+	"github.com/monasuite/monad/peer"
+	"github.com/monasuite/monad/wire"
 	"github.com/wakiyamap/monautil"
 )
 

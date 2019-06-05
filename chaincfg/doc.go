@@ -26,7 +26,7 @@
 //          "log"
 //
 //          "github.com/wakiyamap/monautil"
-//          "github.com/wakiyamap/monad/chaincfg"
+//          "github.com/monasuite/monad/chaincfg"
 //  )
 //
 //  var testnet = flag.Bool("testnet", false, "operate on the testnet Bitcoin network")

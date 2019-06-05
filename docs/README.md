@@ -69,7 +69,7 @@ details on how to install on the supported operating systems.
 
 **2.1.1 Windows Installation**<br />
 
-* Install the MSI available at: https://github.com/wakiyamap/monad/releases
+* Install the MSI available at: https://github.com/monasuite/monad/releases
 * Launch monad from the Start Menu
 
 <a name="PosixInstallation" />
@@ -95,8 +95,8 @@ recommended that `GOPATH` is set to a directory in your home directory such as
 - Run the following commands to obtain monad, all dependencies, and install it:
 
 ```bash
-$ git clone https://github.com/wakiyamap/monad $GOPATH/src/github.com/wakiyamap/monad
-$ cd $GOPATH/src/github.com/wakiyamap/monad
+$ git clone https://github.com/monasuite/monad $GOPATH/src/github.com/monasuite/monad
+$ cd $GOPATH/src/github.com/monasuite/monad
 $ GO111MODULE=on go install -v . ./cmd/...
 ```
 
@@ -109,7 +109,7 @@ $ GO111MODULE=on go install -v . ./cmd/...
 - Run the following commands to update monad, all dependencies, and install it:
 
 ```bash
-$ cd $GOPATH/src/github.com/wakiyamap/monad
+$ cd $GOPATH/src/github.com/monasuite/monad
 $ git pull && GO111MODULE=on go install -v . ./cmd/...
 ```
 
@@ -126,7 +126,7 @@ $ git pull && GO111MODULE=on go install -v . ./cmd/...
 
 **2.2 Configuration**
 
-monad has a number of [configuration](http://godoc.org/github.com/wakiyamap/monad)
+monad has a number of [configuration](http://godoc.org/github.com/monasuite/monad)
 options, which can be viewed by running: `$ monad --help`.
 
 <a name="BtcctlConfig" />
@@ -210,16 +210,16 @@ configuration necessary, however, there is an optional method to use a
 
 **3.1.1 bootstrap.dat**
 
-* [Using bootstrap.dat](https://github.com/wakiyamap/monad/tree/master/docs/using_bootstrap_dat.md)
+* [Using bootstrap.dat](https://github.com/monasuite/monad/tree/master/docs/using_bootstrap_dat.md)
 
 <a name="NetworkConfig" />
 
 **3.1.2 Network Configuration**
 
-* [What Ports Are Used by Default?](https://github.com/wakiyamap/monad/tree/master/docs/default_ports.md)
-* [How To Listen on Specific Interfaces](https://github.com/wakiyamap/monad/tree/master/docs/configure_peer_server_listen_interfaces.md)
-* [How To Configure RPC Server to Listen on Specific Interfaces](https://github.com/wakiyamap/monad/tree/master/docs/configure_rpc_server_listen_interfaces.md)
-* [Configuring monad with Tor](https://github.com/wakiyamap/monad/tree/master/docs/configuring_tor.md)
+* [What Ports Are Used by Default?](https://github.com/monasuite/monad/tree/master/docs/default_ports.md)
+* [How To Listen on Specific Interfaces](https://github.com/monasuite/monad/tree/master/docs/configure_peer_server_listen_interfaces.md)
+* [How To Configure RPC Server to Listen on Specific Interfaces](https://github.com/monasuite/monad/tree/master/docs/configure_rpc_server_listen_interfaces.md)
+* [Configuring monad with Tor](https://github.com/monasuite/monad/tree/master/docs/configuring_tor.md)
 
 <a name="Wallet" />
 
@@ -255,12 +255,12 @@ information.
 
 <a name="ContributionGuidelines" />
 
-* [Code Contribution Guidelines](https://github.com/wakiyamap/monad/tree/master/docs/code_contribution_guidelines.md)
+* [Code Contribution Guidelines](https://github.com/monasuite/monad/tree/master/docs/code_contribution_guidelines.md)
 
 <a name="JSONRPCReference" />
 
-* [JSON-RPC Reference](https://github.com/wakiyamap/monad/tree/master/docs/json_rpc_api.md)
-    * [RPC Examples](https://github.com/wakiyamap/monad/tree/master/docs/json_rpc_api.md#ExampleCode)
+* [JSON-RPC Reference](https://github.com/monasuite/monad/tree/master/docs/json_rpc_api.md)
+    * [RPC Examples](https://github.com/monasuite/monad/tree/master/docs/json_rpc_api.md#ExampleCode)
 
 <a name="GoPackages" />
 
@@ -269,28 +269,28 @@ information.
       robust and easy to use Websocket-enabled Bitcoin JSON-RPC client
     * [btcjson](https://github.com/btcsuite/btcd/tree/master/btcjson) - Provides an extensive API
       for the underlying JSON-RPC command and return values
-    * [wire](https://github.com/wakiyamap/monad/tree/master/wire) - Implements the
+    * [wire](https://github.com/monasuite/monad/tree/master/wire) - Implements the
       Bitcoin wire protocol
-    * [peer](https://github.com/wakiyamap/monad/tree/master/peer) -
+    * [peer](https://github.com/monasuite/monad/tree/master/peer) -
       Provides a common base for creating and managing Bitcoin network peers.
-    * [blockchain](https://github.com/wakiyamap/monad/tree/master/blockchain) -
+    * [blockchain](https://github.com/monasuite/monad/tree/master/blockchain) -
       Implements Bitcoin block handling and chain selection rules
-    * [blockchain/fullblocktests](https://github.com/wakiyamap/monad/tree/master/blockchain/fullblocktests) -
+    * [blockchain/fullblocktests](https://github.com/monasuite/monad/tree/master/blockchain/fullblocktests) -
       Provides a set of block tests for testing the consensus validation rules
-    * [txscript](https://github.com/wakiyamap/monad/tree/master/txscript) -
+    * [txscript](https://github.com/monasuite/monad/tree/master/txscript) -
       Implements the Bitcoin transaction scripting language
-    * [btcec](https://github.com/wakiyamap/monad/tree/master/btcec) - Implements
+    * [btcec](https://github.com/monasuite/monad/tree/master/btcec) - Implements
       support for the elliptic curve cryptographic functions needed for the
       Bitcoin scripts
-    * [database](https://github.com/wakiyamap/monad/tree/master/database) -
+    * [database](https://github.com/monasuite/monad/tree/master/database) -
       Provides a database interface for the Bitcoin block chain
-    * [mempool](https://github.com/wakiyamap/monad/tree/master/mempool) -
+    * [mempool](https://github.com/monasuite/monad/tree/master/mempool) -
       Package mempool provides a policy-enforced pool of unmined bitcoin
       transactions.
     * [monautil](https://github.com/wakiyamap/monautil) - Provides Bitcoin-specific
       convenience functions and types
-    * [chainhash](https://github.com/wakiyamap/monad/tree/master/chaincfg/chainhash) -
+    * [chainhash](https://github.com/monasuite/monad/tree/master/chaincfg/chainhash) -
       Provides a generic hash type and associated functions that allows the
       specific hash algorithm to be abstracted.
-    * [connmgr](https://github.com/wakiyamap/monad/tree/master/connmgr) -
+    * [connmgr](https://github.com/monasuite/monad/tree/master/connmgr) -
       Package connmgr implements a generic Bitcoin network connection manager.

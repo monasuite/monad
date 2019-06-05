@@ -11,7 +11,7 @@ The functions are only exported while the tests are being run.
 
 package ffldb
 
-import "github.com/wakiyamap/monad/database"
+import "github.com/monasuite/monad/database"
 
 // TstRunWithMaxBlockFileSize runs the passed function with the maximum allowed
 // file size for the database set to the provided value.  The value will be set

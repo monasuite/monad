@@ -9,8 +9,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/wakiyamap/monad/btcjson"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/btcjson"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/wakiyamap/monautil"
 )
 

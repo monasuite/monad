@@ -5,9 +5,9 @@
 package main
 
 import (
-	"github.com/wakiyamap/monad/btcec"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/checkpoint"
+	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/checkpoint"
 )
 
 const (

@@ -13,10 +13,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/chaincfg"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/integration/rpctest"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/integration/rpctest"
 )
 
 const (

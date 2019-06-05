@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // addrIndexBucket provides a mock address index database bucket by implementing

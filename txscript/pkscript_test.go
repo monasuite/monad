@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/wire"
 )
 
 // TestParsePkScript ensures that the supported script types can be parsed

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/bitgoin/lyra2rev2"
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 
 // MaxBlockHeaderPayload is the maximum number of bytes a block header can be.

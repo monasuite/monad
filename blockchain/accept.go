@@ -7,7 +7,7 @@ package blockchain
 import (
 	"fmt"
 
-	"github.com/wakiyamap/monad/database"
+	"github.com/monasuite/monad/database"
 	"github.com/wakiyamap/monautil"
 )
 

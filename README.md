@@ -1,7 +1,7 @@
 monad
 ====
 
-[![Build Status](https://travis-ci.org/wakiyamap/monad.png?branch=master)](https://travis-ci.org/wakiyamap/monad)
+[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)](https://travis-ci.org/monasuite/monad)
 
 monad is an alternative full node bitcoin implementation written in Go (golang).
 
@@ -39,7 +39,7 @@ which are both under active development.
 
 #### Windows - MSI Available
 
-https://github.com/wakiyamap/monad/releases
+https://github.com/monasuite/monad/releases
 
 #### Linux/BSD/MacOSX/POSIX - Build from Source
 
@@ -61,7 +61,7 @@ recommended that `GOPATH` is set to a directory in your home directory such as
 - Run the following commands to obtain monad, all dependencies, and install it:
 
 ```bash
-$ cd $GOPATH/src/github.com/wakiyamap/monad
+$ cd $GOPATH/src/github.com/monasuite/monad
 $ GO111MODULE=on go install -v . ./cmd/...
 ```
 
@@ -80,7 +80,7 @@ Install a newer MSI
 - Run the following commands to update monad, all dependencies, and install it:
 
 ```bash
-$ cd $GOPATH/src/github.com/wakiyamap/monad
+$ cd $GOPATH/src/github.com/monasuite/monad
 $ git pull
 $ GO111MODULE=on go install -v . ./cmd/...
 ```
@@ -109,12 +109,12 @@ $ ./monad
 
 ## Issue Tracker
 
-The [integrated github issue tracker](https://github.com/wakiyamap/monad/issues)
+The [integrated github issue tracker](https://github.com/monasuite/monad/issues)
 is used for this project.
 
 ## Documentation
 
-The documentation is a work-in-progress.  It is located in the [docs](https://github.com/wakiyamap/monad/tree/master/docs) folder.
+The documentation is a work-in-progress.  It is located in the [docs](https://github.com/monasuite/monad/tree/master/docs) folder.
 
 ## GPG Verification Key
 

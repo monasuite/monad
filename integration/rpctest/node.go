@@ -14,7 +14,7 @@ import (
 	"runtime"
 	"time"
 
-	rpc "github.com/wakiyamap/monad/rpcclient"
+	rpc "github.com/monasuite/monad/rpcclient"
 	"github.com/wakiyamap/monautil"
 )
 

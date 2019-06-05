@@ -7,8 +7,8 @@ package chaincfg
 import (
 	"time"
 
-	"github.com/wakiyamap/monad/chaincfg/chainhash"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/wire"
 )
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for

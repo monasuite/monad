@@ -8,8 +8,8 @@ import (
 	"fmt"
 
 	"github.com/btcsuite/btclog"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/wire"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/wire"
 )
 
 var log = btclog.Disabled

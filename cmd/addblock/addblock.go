@@ -10,10 +10,10 @@ import (
 	"runtime"
 
 	"github.com/btcsuite/btclog"
-	"github.com/wakiyamap/monad/blockchain"
-	"github.com/wakiyamap/monad/blockchain/indexers"
-	"github.com/wakiyamap/monad/database"
-	"github.com/wakiyamap/monad/limits"
+	"github.com/monasuite/monad/blockchain"
+	"github.com/monasuite/monad/blockchain/indexers"
+	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/limits"
 )
 
 const (

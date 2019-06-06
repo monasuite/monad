@@ -12,7 +12,7 @@ import (
 
 	"github.com/monasuite/monad/rpcclient"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 func main() {

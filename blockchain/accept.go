@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/monasuite/monad/database"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // maybeAcceptBlock potentially accepts a block into the block chain and, if

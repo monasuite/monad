@@ -12,7 +12,7 @@ import (
 
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // txValidateItem holds a transaction along with which input to validate.

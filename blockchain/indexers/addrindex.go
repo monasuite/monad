@@ -15,7 +15,7 @@ import (
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 const (

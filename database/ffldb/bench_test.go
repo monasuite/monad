@@ -11,7 +11,7 @@ import (
 
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/database"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // BenchmarkBlockHeader benchmarks how long it takes to load the mainnet genesis

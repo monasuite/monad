@@ -14,7 +14,7 @@ import (
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/database"
 	_ "github.com/monasuite/monad/database/ffldb"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // This example demonstrates how to create a new chain instance and use

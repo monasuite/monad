@@ -13,7 +13,7 @@ import (
 
 	"github.com/monasuite/monad/blockchain"
 	"github.com/monasuite/monad/database"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 var (

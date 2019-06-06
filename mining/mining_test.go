@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // TestTxFeePrioHeap ensures the priority queue for transaction fees and

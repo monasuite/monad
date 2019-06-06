@@ -19,7 +19,7 @@ import (
 	"github.com/monasuite/monad/mempool"
 	peerpkg "github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 const (

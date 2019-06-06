@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // BenchmarkIsCoinBase performs a simple benchmark against the IsCoinBase

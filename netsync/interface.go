@@ -11,7 +11,7 @@ import (
 	"github.com/monasuite/monad/mempool"
 	"github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // PeerNotifier exposes methods to notify peers of status changes to

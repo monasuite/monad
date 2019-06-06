@@ -12,7 +12,7 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/monasuite/monad/rpcclient"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 func main() {

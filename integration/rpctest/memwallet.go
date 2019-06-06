@@ -17,8 +17,8 @@ import (
 	"github.com/monasuite/monad/rpcclient"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
-	"github.com/wakiyamap/monautil/hdkeychain"
+	"github.com/monasuite/monautil"
+	"github.com/monasuite/monautil/hdkeychain"
 )
 
 var (

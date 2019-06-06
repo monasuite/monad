@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 	"github.com/monasuite/monad/chaincfg"
 )
 

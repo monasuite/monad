@@ -15,7 +15,7 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 	"github.com/monasuite/monad/btcjson"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 const (

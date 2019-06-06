@@ -12,7 +12,7 @@ import (
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // SigHashType enumerates the available signature hashing types that the

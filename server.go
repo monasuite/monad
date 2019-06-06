@@ -38,8 +38,8 @@ import (
 	"github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
-	"github.com/wakiyamap/monautil/bloom"
+	"github.com/monasuite/monautil"
+	"github.com/monasuite/monautil/bloom"
 )
 
 const (

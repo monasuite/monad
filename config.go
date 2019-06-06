@@ -30,7 +30,7 @@ import (
 	_ "github.com/monasuite/monad/database/ffldb"
 	"github.com/monasuite/monad/mempool"
 	"github.com/monasuite/monad/peer"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 const (

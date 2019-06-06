@@ -287,7 +287,7 @@ information.
     * [mempool](https://github.com/monasuite/monad/tree/master/mempool) -
       Package mempool provides a policy-enforced pool of unmined bitcoin
       transactions.
-    * [monautil](https://github.com/wakiyamap/monautil) - Provides Bitcoin-specific
+    * [monautil](https://github.com/monasuite/monautil) - Provides Bitcoin-specific
       convenience functions and types
     * [chainhash](https://github.com/monasuite/monad/tree/master/chaincfg/chainhash) -
       Provides a generic hash type and associated functions that allows the

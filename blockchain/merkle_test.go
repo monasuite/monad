@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // TestMerkle tests the BuildMerkleTreeStore API.

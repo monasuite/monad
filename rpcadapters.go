@@ -13,7 +13,7 @@ import (
 	"github.com/monasuite/monad/netsync"
 	"github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // rpcPeer provides a peer for use with the RPC server and implements the

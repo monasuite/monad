@@ -20,7 +20,7 @@ import (
 	"github.com/monasuite/monad/mining"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 const (

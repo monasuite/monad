@@ -11,7 +11,7 @@ import (
 	"github.com/monasuite/monad/blockchain"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // newHashFromStr converts the passed big-endian hex string into a

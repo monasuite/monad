@@ -12,7 +12,7 @@ import (
 
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/wire"
-	"github.com/wakiyamap/monautil"
+	"github.com/monasuite/monautil"
 )
 
 // mustParseShortForm parses the passed short form script and returns the

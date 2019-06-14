@@ -3474,19 +3474,44 @@ func handleSendRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan st
 	if err != nil {
 		// When the error is a rule error, it means the transaction was
 		// simply rejected as opposed to something actually going wrong,
-		// so log it as such.  Otherwise, something really did go wrong,
-		// so log it as an actual error.  In both cases, a JSON-RPC
-		// error is returned to the client with the deserialization
-		// error code (to match bitcoind behavior).
-		if _, ok := err.(mempool.RuleError); ok {
-			rpcsLog.Debugf("Rejected transaction %v: %v", tx.Hash(),
-				err)
-		} else {
+		// so log it as such. Otherwise, something really did go wrong,
+		// so log it as an actual error and return.
+		ruleErr, ok := err.(mempool.RuleError)
+		if !ok {
 			rpcsLog.Errorf("Failed to process transaction %v: %v",
 				tx.Hash(), err)
+
+			return nil, &btcjson.RPCError{
+				Code:    btcjson.ErrRPCTxError,
+				Message: "TX rejected: " + err.Error(),
+			}
 		}
+
+		rpcsLog.Debugf("Rejected transaction %v: %v", tx.Hash(), err)
+
+		// We'll then map the rule error to the appropriate RPC error,
+		// matching bitcoind's behavior.
+		code := btcjson.ErrRPCTxError
+		if txRuleErr, ok := ruleErr.Err.(mempool.TxRuleError); ok {
+			errDesc := txRuleErr.Description
+			switch {
+			case strings.Contains(
+				strings.ToLower(errDesc), "orphan transaction",
+			):
+				code = btcjson.ErrRPCTxError
+
+			case strings.Contains(
+				strings.ToLower(errDesc), "transaction already exists",
+			):
+				code = btcjson.ErrRPCTxAlreadyInChain
+
+			default:
+				code = btcjson.ErrRPCTxRejected
+			}
+		}
+
 		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCDeserialization,
+			Code:    code,
 			Message: "TX rejected: " + err.Error(),
 		}
 	}

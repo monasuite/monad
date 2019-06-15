@@ -241,7 +241,7 @@ var MainNetParams = Params{
 	DNSSeeds: []DNSSeed{
 		{"monacoin.org", false},
 		{"dnsseed.monacoin.org", false},
-		{"dnsseed.tamami-foundation.org", true},
+		{"dnsseed.tamami-foundation.org", false},
 	},
 
 	// Chain parameters

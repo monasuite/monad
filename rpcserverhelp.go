@@ -207,6 +207,7 @@ var helpDescsEnUS = map[string]string{
 	"txrawresult-blocktime":     "Block time in seconds since the 1 Jan 1970 GMT",
 	"txrawresult-size":          "The size of the transaction in bytes",
 	"txrawresult-vsize":         "The virtual size of the transaction in bytes",
+	"txrawresult-weight":        "The transaction's weight (between vsize*4-3 and vsize*4)",
 	"txrawresult-hash":          "The wtxid of the transaction",
 
 	// SearchRawTransactionsResult help.
@@ -223,6 +224,7 @@ var helpDescsEnUS = map[string]string{
 	"searchrawtransactionsresult-blocktime":     "Block time in seconds since the 1 Jan 1970 GMT",
 	"searchrawtransactionsresult-size":          "The size of the transaction in bytes",
 	"searchrawtransactionsresult-vsize":         "The virtual size of the transaction in bytes",
+	"searchrawtransactionsresult-weight":        "The transaction's weight (between vsize*4-3 and vsize*4)",
 
 	// CheckpointCmd help.
 	"checkpoint--synopsis": "Manage user's checkpoint.",
@@ -504,6 +506,7 @@ var helpDescsEnUS = map[string]string{
 	"getrawmempoolverboseresult-currentpriority":  "Current priority",
 	"getrawmempoolverboseresult-depends":          "Unconfirmed transactions used as inputs for this transaction",
 	"getrawmempoolverboseresult-vsize":            "The virtual size of a transaction",
+	"getrawmempoolverboseresult-weight":           "The transaction's weight (between vsize*4-3 and vsize*4)",
 
 	// GetRawMempoolCmd help.
 	"getrawmempool--synopsis":   "Returns information about all of the transactions currently in the memory pool.",

@@ -13,3 +13,5 @@ require (
 	github.com/wakiyamap/monad v0.0.0-20190506050331-00ef2fc6ccc4 // indirect
 	golang.org/x/crypto v0.0.0-20190103213133-ff983b9c42bc
 )
+
+go 1.12

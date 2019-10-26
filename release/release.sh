@@ -21,7 +21,7 @@ fi
 go mod vendor
 tar -cvzf vendor.tar.gz vendor
 
-PACKAGE=btcd
+PACKAGE=monad
 MAINDIR=$PACKAGE-$TAG
 mkdir -p $MAINDIR
 
@@ -37,7 +37,7 @@ cd $MAINDIR
 
 # If BTCDBUILDSYS is set the default list is ignored. Useful to release
 # for a subset of systems/architectures.
-SYS=${BTCDBUILDSYS:-"
+SYS=${MONADBUILDSYS:-"
         darwin-386
         darwin-amd64
         dragonfly-amd64
@@ -72,7 +72,7 @@ SYS=${BTCDBUILDSYS:-"
 
 # Use the first element of $GOPATH in the case where GOPATH is a list
 # (something that is totally allowed).
-PKG="github.com/btcsuite/btcd"
+PKG="github.com/monasuite/monad"
 COMMIT=$(git describe --abbrev=40 --dirty)
 
 for i in $SYS; do
@@ -92,8 +92,8 @@ for i in $SYS; do
     cd $PACKAGE-$i-$TAG
 
     echo "Building:" $OS $ARCH $ARM
-    env CGO_ENABLED=0 GOOS=$OS GOARCH=$ARCH GOARM=$ARM go build -v -trimpath -ldflags="-s -w -buildid=" github.com/btcsuite/btcd
-    env CGO_ENABLED=0 GOOS=$OS GOARCH=$ARCH GOARM=$ARM go build -v -trimpath -ldflags="-s -w -buildid=" github.com/btcsuite/btcd/cmd/btcctl
+    env CGO_ENABLED=0 GOOS=$OS GOARCH=$ARCH GOARM=$ARM go build -v -trimpath -ldflags="-s -w -buildid=" github.com/monasuite/monad
+    env CGO_ENABLED=0 GOOS=$OS GOARCH=$ARCH GOARM=$ARM go build -v -trimpath -ldflags="-s -w -buildid=" github.com/monasuite/monad/cmd/monactl
     cd ..
 
     if [[ $OS = "windows" ]]; then

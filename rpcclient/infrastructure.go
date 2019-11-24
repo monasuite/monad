@@ -116,8 +116,8 @@ const (
 	// 0.19.0.
 	BitcoindPost19
 
-	// Btcd represents a catch-all btcd version.
-	Btcd
+	// Monad represents a catch-all Monad version.
+	Monad
 )
 
 // Client represents a Bitcoin RPC client which allows easy access to the
@@ -1362,12 +1362,12 @@ func (c *Client) Connect(tries int) error {
 }
 
 const (
-	// bitcoind19Str is the string representation of bitcoind v0.19.0.
-	bitcoind19Str = "0.19.0"
+	// bitcoind19Str is the string representation of bitcoind v0.19.0. TODO monacoin is OK?
+	bitcoind19Str = "9.99.9"
 
 	// bitcoindVersionPrefix specifies the prefix included in every bitcoind
 	// version exposed through GetNetworkInfo.
-	bitcoindVersionPrefix = "/Satoshi:"
+	bitcoindVersionPrefix = "/MonacoinCore:"
 
 	// bitcoindVersionSuffix specifies the suffix included in every bitcoind
 	// version exposed through GetNetworkInfo.
@@ -1403,14 +1403,14 @@ func (c *Client) BackendVersion() (BackendVersion, error) {
 
 	// We'll start by calling GetInfo. This method doesn't exist for
 	// bitcoind nodes as of v0.16.0, so we'll assume the client is connected
-	// to a btcd backend if it does exist.
+	// to a monad backend if it does exist.
 	info, err := c.GetInfo()
 
 	switch err := err.(type) {
-	// Parse the btcd version and cache it.
+	// Parse the monad version and cache it.
 	case nil:
-		log.Debugf("Detected btcd version: %v", info.Version)
-		version := Btcd
+		log.Debugf("Detected monad version: %v", info.Version)
+		version := Monad
 		c.backendVersion = &version
 		return *c.backendVersion, nil
 
@@ -1418,12 +1418,12 @@ func (c *Client) BackendVersion() (BackendVersion, error) {
 	// we actually ran into an error.
 	case *btcjson.RPCError:
 		if err.Code != btcjson.ErrRPCMethodNotFound.Code {
-			return 0, fmt.Errorf("unable to detect btcd version: "+
+			return 0, fmt.Errorf("unable to detect monad version: "+
 				"%v", err)
 		}
 
 	default:
-		return 0, fmt.Errorf("unable to detect btcd version: %v", err)
+		return 0, fmt.Errorf("unable to detect monad version: %v", err)
 	}
 
 	// Since the GetInfo method was not found, we assume the client is
@@ -1431,11 +1431,11 @@ func (c *Client) BackendVersion() (BackendVersion, error) {
 	// GetNetworkInfo.
 	networkInfo, err := c.GetNetworkInfo()
 	if err != nil {
-		return 0, fmt.Errorf("unable to detect bitcoind version: %v", err)
+		return 0, fmt.Errorf("unable to detect monacoind version: %v", err)
 	}
 
 	// Parse the bitcoind version and cache it.
-	log.Debugf("Detected bitcoind version: %v", networkInfo.SubVersion)
+	log.Debugf("Detected monacoind version: %v", networkInfo.SubVersion)
 	version := parseBitcoindVersion(networkInfo.SubVersion)
 	c.backendVersion = &version
 

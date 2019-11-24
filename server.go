@@ -285,6 +285,7 @@ type serverPeer struct {
 	sentAddrs      bool
 	isWhitelisted  bool
 	filter         *bloom.Filter
+	addressesMtx   sync.RWMutex
 	knownAddresses map[string]struct{}
 	banScore       connmgr.DynamicBanScore
 	quit           chan struct{}
@@ -317,14 +318,18 @@ func (sp *serverPeer) newestBlock() (*chainhash.Hash, int32, error) {
 // addKnownAddresses adds the given addresses to the set of known addresses to
 // the peer to prevent sending duplicate addresses.
 func (sp *serverPeer) addKnownAddresses(addresses []*wire.NetAddress) {
+	sp.addressesMtx.Lock()
 	for _, na := range addresses {
 		sp.knownAddresses[addrmgr.NetAddressKey(na)] = struct{}{}
 	}
+	sp.addressesMtx.Unlock()
 }
 
 // addressKnown true if the given address is already known to the peer.
 func (sp *serverPeer) addressKnown(na *wire.NetAddress) bool {
+	sp.addressesMtx.RLock()
 	_, exists := sp.knownAddresses[addrmgr.NetAddressKey(na)]
+	sp.addressesMtx.RUnlock()
 	return exists
 }
 
@@ -2120,7 +2125,7 @@ func (s *server) peerDoneHandler(sp *serverPeer) {
 	s.donePeers <- sp
 
 	// Only tell sync manager we are gone if we ever told it we existed.
-	if sp.VersionKnown() {
+	if sp.VerAckReceived() {
 		s.syncManager.DonePeer(sp.Peer)
 
 		// Evict any remaining orphans that were sent by the peer.

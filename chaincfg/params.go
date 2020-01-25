@@ -449,9 +449,7 @@ var TestNet4Params = Params{
 	Net:         wire.TestNet4,
 	DefaultPort: "19403",
 	DNSSeeds: []DNSSeed{
-		{"testnet-dnsseed.monacoin.org", true},
-		{"electrumx1.testnet.monacoin.nl", true},
-		{"electrumx1.testnet.monacoin.ninja", true},
+		{"testnet-dnsseed.monacoin.org", false},
 	},
 
 	// Chain parameters

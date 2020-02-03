@@ -242,6 +242,8 @@ var MainNetParams = Params{
 		{"monacoin.org", false},
 		{"dnsseed.monacoin.org", false},
 		{"dnsseed.tamami-foundation.org", false},
+		{"mona.seed.fujishan.jp", false},
+
 	},
 
 	// Chain parameters

@@ -243,7 +243,6 @@ var MainNetParams = Params{
 		{"dnsseed.monacoin.org", false},
 		{"dnsseed.tamami-foundation.org", false},
 		{"mona.seed.fujishan.jp", false},
-
 	},
 
 	// Chain parameters
@@ -278,6 +277,8 @@ var MainNetParams = Params{
 		{444000, newHashFromStr("3ed05516cdce4db93b135189592c7e2b37d768f99a1819a1d2ea3a8e5b8439a8")},
 		{904000, newHashFromStr("353f5b7f9440e1d830bd1c265c69fb0e7c7988e343b2202a704406d04a8cd02e")},
 		{1045000, newHashFromStr("562593372b8cee7d2eac325ef8874532d93cc031a75a00cec0086d2d943f40dc")},
+		{1400000, newHashFromStr("8ef2c68691e4ed415c5e151af03db73c9a9da371d67cc4336d3f25581734ea76")},
+		{1800000, newHashFromStr("de6b4dfd60cc2666a1a2865d27649dcd0b2f2857b33aa4f300cfd633488ccfa2")},
 	},
 
 	// Consensus rule change deployments.
@@ -481,6 +482,7 @@ var TestNet4Params = Params{
 		{58700, newHashFromStr("668f0cfaca30134792208fd77ffb9f7405aec52b25d75ce5df032342d7b5c216")},
 		{80000, newHashFromStr("4666cafb5b29e23acc991a9850ad4f21969695e52794f782fcb18eddc6cc0033")},
 		{115000, newHashFromStr("8bd40f1c82cd0572b9e5e5eab29262acbb237597c487903fc53a3d5c07edda1a")},
+		{400000, newHashFromStr("4e70d42a0092589b1fc689a0f29886305df50f265349e607d436684a9a06fd1e")},
 	},
 
 	// Consensus rule change deployments.

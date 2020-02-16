@@ -9,7 +9,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/bitgoin/lyra2rev2"
+	"github.com/wakiyamap/lyra2rev2"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 

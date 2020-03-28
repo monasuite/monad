@@ -22,22 +22,22 @@ var (
 	// the overhead of creating it multiple times.
 	bigOne = big.NewInt(1)
 
-	// mainPowLimit is the highest proof of work value a Bitcoin block can
-	// have for the main network.  It is the value 2^224 - 1.
-	//mainPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 224), bigOne)
-	mainPowLimit, _ = new(big.Int).SetString("0x0fffff000000000000000000000000000000000000000000000000000000", 0)
+	// mainPowLimit is the highest proof of work value a Monacoin block can
+	// have for the main network.  It is the value 2^236 - 1.
+	//mainPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 236), bigOne)
+	mainPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 236), bigOne)
 
-	// regressionPowLimit is the highest proof of work value a Bitcoin block
+	// regressionPowLimit is the highest proof of work value a Monacoin block
 	// can have for the regression test network.  It is the value 2^255 - 1.
 	regressionPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 255), bigOne)
 
-	// testNet4PowLimit is the highest proof of work value a Bitcoin block
-	// can have for the test network (version 3).  It is the value
-	// 2^224 - 1.
-	//testNet4PowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 224), bigOne)
-	testNet4PowLimit, _ = new(big.Int).SetString("0x0ffffff00000000000000000000000000000000000000000000000000000", 0)
+	// testNet4PowLimit is the highest proof of work value a Monacoin block
+	// can have for the test network (version 4).  It is the value
+	// 2^236 - 1.
+	//testNet4PowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 236), bigOne)
+	testNet4PowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 236), bigOne)
 
-	// simNetPowLimit is the highest proof of work value a Bitcoin block
+	// simNetPowLimit is the highest proof of work value a Monacoin block
 	// can have for the simulation test network.  It is the value 2^255 - 1.
 	simNetPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 255), bigOne)
 )
@@ -249,7 +249,7 @@ var MainNetParams = Params{
 	GenesisBlock:             &genesisBlock,
 	GenesisHash:              &genesisHash,
 	PowLimit:                 mainPowLimit,
-	PowLimitBits:             0x1e0ffff0,
+	PowLimitBits:             0x1e0fffff,
 	BIP0034Height:            0,
 	BIP0065Height:            977759,
 	BIP0066Height:            977759,
@@ -258,7 +258,7 @@ var MainNetParams = Params{
 	TargetTimespan:           time.Second * 95040, // 1.1 weeks
 	TargetTimePerBlock:       time.Second * 90,    // 90 seconds
 	RetargetAdjustmentFactor: 4,                   // 25% less, 400% more
-	ReduceMinDifficulty:      true,
+	ReduceMinDifficulty:      false,
 	MinDiffReductionTime:     0,
 	GenerateSupported:        false,
 
@@ -459,7 +459,7 @@ var TestNet4Params = Params{
 	GenesisBlock:             &testNet4GenesisBlock,
 	GenesisHash:              &testNet4GenesisHash,
 	PowLimit:                 testNet4PowLimit,
-	PowLimitBits:             0x1e0fffff, // TODO
+	PowLimitBits:             0x1e0fffff,
 	BIP0034Height:            0,
 	BIP0065Height:            -1,
 	BIP0066Height:            -1,

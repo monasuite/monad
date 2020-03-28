@@ -33,3 +33,11 @@ The following config file would configure monad to only listen on localhost for 
 listen=127.0.0.1:9401
 listen=[::1]:9401
 ```
+
+In addition, if you are starting btcd with TLS and want to make it
+available via a hostname, then you will need to generate the TLS
+certificates for that host. For example,
+
+```
+gencerts --host=myhostname.example.com --directory=/home/me/.btcd/
+```

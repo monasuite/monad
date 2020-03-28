@@ -24,9 +24,44 @@ type GetBlockHeaderVerboseResult struct {
 	NextHash      string  `json:"nextblockhash,omitempty"`
 }
 
+// GetBlockStatsResult models the data from the getblockstats command.
+type GetBlockStatsResult struct {
+	AverageFee         int64   `json:"avgfee"`
+	AverageFeeRate     int64   `json:"avgfeerate"`
+	AverageTxSize      int64   `json:"avgtxsize"`
+	FeeratePercentiles []int64 `json:"feerate_percentiles"`
+	Hash               string  `json:"blockhash"`
+	Height             int64   `json:"height"`
+	Ins                int64   `json:"ins"`
+	MaxFee             int64   `json:"maxfee"`
+	MaxFeeRate         int64   `json:"maxfeerate"`
+	MaxTxSize          int64   `json:"maxtxsize"`
+	MedianFee          int64   `json:"medianfee"`
+	MedianTime         int64   `json:"mediantime"`
+	MedianTxSize       int64   `json:"mediantxsize"`
+	MinFee             int64   `json:"minfee"`
+	MinFeeRate         int64   `json:"minfeerate"`
+	MinTxSize          int64   `json:"mintxsize"`
+	Outs               int64   `json:"outs"`
+	SegWitTotalSize    int64   `json:"swtotal_size"`
+	SegWitTotalWeight  int64   `json:"swtotal_weight"`
+	SegWitTxs          int64   `json:"swtxs"`
+	Subsidy            int64   `json:"subsidy"`
+	Time               int64   `json:"time"`
+	TotalOut           int64   `json:"total_out"`
+	TotalSize          int64   `json:"total_size"`
+	TotalWeight        int64   `json:"total_weight"`
+	Txs                int64   `json:"txs"`
+	UTXOIncrease       int64   `json:"utxo_increase"`
+	UTXOSizeIncrease   int64   `json:"utxo_size_inc"`
+}
+
 // GetBlockVerboseResult models the data from the getblock command when the
-// verbose flag is set.  When the verbose flag is not set, getblock returns a
-// hex-encoded string.
+// verbose flag is set to 1.  When the verbose flag is set to 0, getblock returns a
+// hex-encoded string. When the verbose flag is set to 1, getblock returns an object
+// whose tx field is an array of transaction hashes. When the verbose flag is set to 2,
+// getblock returns an object whose tx field is an array of raw transactions.
+// Use GetBlockVerboseTxResult to unmarshal data received from passing verbose=2 to getblock.
 type GetBlockVerboseResult struct {
 	Hash          string        `json:"hash"`
 	Confirmations int64         `json:"confirmations"`
@@ -38,7 +73,32 @@ type GetBlockVerboseResult struct {
 	VersionHex    string        `json:"versionHex"`
 	MerkleRoot    string        `json:"merkleroot"`
 	Tx            []string      `json:"tx,omitempty"`
-	RawTx         []TxRawResult `json:"rawtx,omitempty"`
+	RawTx         []TxRawResult `json:"rawtx,omitempty"` // Note: this field is always empty when verbose != 2.
+	Time          int64         `json:"time"`
+	Nonce         uint32        `json:"nonce"`
+	Bits          string        `json:"bits"`
+	Difficulty    float64       `json:"difficulty"`
+	PreviousHash  string        `json:"previousblockhash"`
+	NextHash      string        `json:"nextblockhash,omitempty"`
+}
+
+// GetBlockVerboseTxResult models the data from the getblock command when the
+// verbose flag is set to 2.  When the verbose flag is set to 0, getblock returns a
+// hex-encoded string. When the verbose flag is set to 1, getblock returns an object
+// whose tx field is an array of transaction hashes. When the verbose flag is set to 2,
+// getblock returns an object whose tx field is an array of raw transactions.
+// Use GetBlockVerboseResult to unmarshal data received from passing verbose=1 to getblock.
+type GetBlockVerboseTxResult struct {
+	Hash          string        `json:"hash"`
+	Confirmations int64         `json:"confirmations"`
+	StrippedSize  int32         `json:"strippedsize"`
+	Size          int32         `json:"size"`
+	Weight        int32         `json:"weight"`
+	Height        int64         `json:"height"`
+	Version       int32         `json:"version"`
+	VersionHex    string        `json:"versionHex"`
+	MerkleRoot    string        `json:"merkleroot"`
+	Tx            []TxRawResult `json:"tx,omitempty"`
 	Time          int64         `json:"time"`
 	Nonce         uint32        `json:"nonce"`
 	Bits          string        `json:"bits"`
@@ -223,23 +283,35 @@ type GetBlockTemplateResult struct {
 	Rules []string `json:"rules,omitempty"`
 }
 
+// GetMempoolEntryResult models the data returned from the getmempoolentry's
+// fee field
+
+type MempoolFees struct {
+	Base       float64 `json:"base"`
+	Modified   float64 `json:"base"`
+	Ancestor   float64 `json:"ancestor"`
+	Descendant float64 `json:"descendant"`
+}
+
 // GetMempoolEntryResult models the data returned from the getmempoolentry
 // command.
 type GetMempoolEntryResult struct {
-	Size             int32    `json:"size"`
-	Fee              float64  `json:"fee"`
-	ModifiedFee      float64  `json:"modifiedfee"`
-	Time             int64    `json:"time"`
-	Height           int64    `json:"height"`
-	StartingPriority float64  `json:"startingpriority"`
-	CurrentPriority  float64  `json:"currentpriority"`
-	DescendantCount  int64    `json:"descendantcount"`
-	DescendantSize   int64    `json:"descendantsize"`
-	DescendantFees   float64  `json:"descendantfees"`
-	AncestorCount    int64    `json:"ancestorcount"`
-	AncestorSize     int64    `json:"ancestorsize"`
-	AncestorFees     float64  `json:"ancestorfees"`
-	Depends          []string `json:"depends"`
+	VSize           int32       `json:"vsize"`
+	Size            int32       `json:"size"`
+	Weight          int64       `json:"weight"`
+	Fee             float64     `json:"fee"`
+	ModifiedFee     float64     `json:"modifiedfee"`
+	Time            int64       `json:"time"`
+	Height          int64       `json:"height"`
+	DescendantCount int64       `json:"descendantcount"`
+	DescendantSize  int64       `json:"descendantsize"`
+	DescendantFees  float64     `json:"descendantfees"`
+	AncestorCount   int64       `json:"ancestorcount"`
+	AncestorSize    int64       `json:"ancestorsize"`
+	AncestorFees    float64     `json:"ancestorfees"`
+	WTxId           string      `json:"wtxid"`
+	Fees            MempoolFees `json:"fees"`
+	Depends         []string    `json:"depends"`
 }
 
 // GetMempoolInfoResult models the data returned from the getmempoolinfo
@@ -600,4 +672,12 @@ type TxRawDecodeResult struct {
 type ValidateAddressChainResult struct {
 	IsValid bool   `json:"isvalid"`
 	Address string `json:"address,omitempty"`
+}
+
+// EstimateSmartFeeResult models the data returned buy the chain server
+// estimatesmartfee command
+type EstimateSmartFeeResult struct {
+	FeeRate *float64 `json:"feerate,omitempty"`
+	Errors  []string `json:"errors,omitempty"`
+	Blocks  int64    `json:"blocks"`
 }

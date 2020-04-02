@@ -331,10 +331,7 @@ func checkProofOfWork(header *wire.BlockHeader, powLimit *big.Int, flags Behavio
 			return err
 		}
 		hashNum := HashToBig(hash)
-		// Regression and simnet are not checked blockhash's rule.
-		// Because monad use Lyra2re2's powhash.
-		checkPowLimit, _ := new(big.Int).SetString("0x0ffffff00000000000000000000000000000000000000000000000000000", 0)
-		if hashNum.Cmp(target) > 0 && powLimit == checkPowLimit {
+		if hashNum.Cmp(target) > 0 {
 			str := fmt.Sprintf("block hash of %064x is higher than "+
 				"expected max of %064x", hashNum, target)
 			return ruleError(ErrHighHash, str)

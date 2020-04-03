@@ -1305,8 +1305,8 @@ func New(config *ConnConfig, ntfnHandlers *NotificationHandlers) (*Client, error
 		fallthrough
 	case chaincfg.MainNetParams.Name:
 		client.chainParams = &chaincfg.MainNetParams
-	case chaincfg.TestNet3Params.Name:
-		client.chainParams = &chaincfg.TestNet3Params
+	case chaincfg.TestNet4Params.Name:
+		client.chainParams = &chaincfg.TestNet4Params
 	case chaincfg.RegressionNetParams.Name:
 		client.chainParams = &chaincfg.RegressionNetParams
 	case chaincfg.SimNetParams.Name:

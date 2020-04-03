@@ -38,7 +38,7 @@ func testGetBestBlock(r *rpctest.Harness, t *testing.T) {
 	// Hash should be the same as the newly submitted block.
 	if !bytes.Equal(bestHash[:], generatedBlockHashes[0][:]) {
 		t.Fatalf("Block hashes do not match. Returned hash %v, wanted "+
-			"hash %v", bestHash, generatedBlockHashes[0][:])
+			"hash %v", bestHash, generatedBlockHashes[0])
 	}
 
 	// Block height should now reflect newest height.

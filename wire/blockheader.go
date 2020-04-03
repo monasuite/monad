@@ -9,6 +9,8 @@ import (
 	"io"
 	"time"
 
+	"golang.org/x/crypto/scrypt"
+
 	"github.com/wakiyamap/lyra2rev2"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 )
@@ -59,19 +61,22 @@ func (h *BlockHeader) BlockHash() chainhash.Hash {
 
 // PowHash returns the monacoin lyra2re2 hash of this block header. This value is
 // used to check the PoW on blocks advertised on the network. TODO monacoin is ok?
-func (h *BlockHeader) PowHash() (*chainhash.Hash, error) {
+func (h *BlockHeader) PowHash(bool_lyra2rev2 bool) (chainhash.Hash) {
 	var powHash chainhash.Hash
 
 	buf := bytes.NewBuffer(make([]byte, 0, MaxBlockHeaderPayload))
 	_ = writeBlockHeader(buf, 0, h)
 
-	lyraHash, err := lyra2rev2.Sum(buf.Bytes())
-	if err != nil {
-		return nil, err
+	var resultHash []byte
+	if bool_lyra2rev2 {
+		resultHash, _ = lyra2rev2.Sum(buf.Bytes())
+	} else {
+		resultHash, _ = scrypt.Key(buf.Bytes(), buf.Bytes(), 1024, 1, 1, 32)
 	}
-	copy(powHash[:], lyraHash)
 
-	return &powHash, nil
+	copy(powHash[:], resultHash)
+
+	return powHash
 }
 
 // BtcDecode decodes r using the bitcoin protocol encoding into the receiver.

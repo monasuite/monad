@@ -205,7 +205,7 @@ func (m *CPUMiner) submitBlock(block *monautil.Block) bool {
 // stale block such as a new block showing up or periodically when there are
 // new transactions and enough time has elapsed without finding a solution.
 func (m *CPUMiner) solveBlock(msgBlock *wire.MsgBlock, blockHeight int32,
-	ticker *time.Ticker, quit chan struct{}) bool {
+	ticker *time.Ticker, bool_lyra2rev2 bool, quit chan struct{}) bool {
 
 	// Choose a random extra nonce offset for this block template and
 	// worker.
@@ -274,7 +274,7 @@ func (m *CPUMiner) solveBlock(msgBlock *wire.MsgBlock, blockHeight int32,
 			// increment the number of hashes completed for each
 			// attempt accordingly.
 			header.Nonce = i
-			hash := header.BlockHash()
+			hash := header.PowHash(bool_lyra2rev2)
 			hashesCompleted += 2
 
 			// The block is solved when the new block hash is less
@@ -350,11 +350,13 @@ out:
 			continue
 		}
 
+		var bool_lyra2rev2 bool = curHeight+1 >= m.cfg.ChainParams.Lyra2re2DGWv3Height
+
 		// Attempt to solve the block.  The function will exit early
 		// with false when conditions that trigger a stale block, so
 		// a new block template can be generated.  When the return is
 		// true a solution was found, so submit the solved block.
-		if m.solveBlock(template.Block, curHeight+1, ticker, quit) {
+		if m.solveBlock(template.Block, curHeight+1, ticker, bool_lyra2rev2, quit) {
 			block := monautil.NewBlock(template.Block)
 			m.submitBlock(block)
 		}
@@ -604,11 +606,13 @@ func (m *CPUMiner) GenerateNBlocks(n uint32) ([]*chainhash.Hash, error) {
 			continue
 		}
 
+		var bool_lyra2rev2 bool = curHeight+1 >= m.cfg.ChainParams.Lyra2re2DGWv3Height
+
 		// Attempt to solve the block.  The function will exit early
 		// with false when conditions that trigger a stale block, so
 		// a new block template can be generated.  When the return is
 		// true a solution was found, so submit the solved block.
-		if m.solveBlock(template.Block, curHeight+1, ticker, nil) {
+		if m.solveBlock(template.Block, curHeight+1, ticker, bool_lyra2rev2, nil) {
 			block := monautil.NewBlock(template.Block)
 			m.submitBlock(block)
 			blockHashes[i] = block.Hash()

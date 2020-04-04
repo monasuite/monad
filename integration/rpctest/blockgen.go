@@ -23,7 +23,7 @@ import (
 // to a value less than the target difficulty. When a successful solution is
 // found true is returned and the nonce field of the passed header is updated
 // with the solution. False is returned if no solution exists.
-func solveBlock(header *wire.BlockHeader, targetDifficulty *big.Int) bool {
+func solveBlock(header *wire.BlockHeader, targetDifficulty *big.Int, bool_lyra2rev2 bool) bool {
 	// sbResult is used by the solver goroutines to send results.
 	type sbResult struct {
 		found bool
@@ -43,7 +43,7 @@ func solveBlock(header *wire.BlockHeader, targetDifficulty *big.Int) bool {
 				return
 			default:
 				hdr.Nonce = i
-				hash := hdr.BlockHash()
+				hash := hdr.PowHash(bool_lyra2rev2)
 				if blockchain.HashToBig(&hash).Cmp(targetDifficulty) <= 0 {
 					select {
 					case results <- sbResult{true, i}:
@@ -196,7 +196,9 @@ func CreateBlock(prevBlock *monautil.Block, inclusionTxs []*monautil.Tx,
 		}
 	}
 
-	found := solveBlock(&block.Header, net.PowLimit)
+	var bool_lyra2rev2 bool = blockHeight >= net.Lyra2re2DGWv3Height
+
+	found := solveBlock(&block.Header, net.PowLimit, bool_lyra2rev2)
 	if !found {
 		return nil, errors.New("Unable to solve block")
 	}

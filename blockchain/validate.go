@@ -326,8 +326,8 @@ func checkProofOfWork(header *wire.BlockHeader, powLimit *big.Int, flags Behavio
 	// to avoid proof of work checks is set.
 	if flags&BFNoPoWCheck != BFNoPoWCheck {
 		// The block hash must be less than the claimed target.
-                // BFNoPoWCheck is true , so it use lyra2re2 caluculating.
-                // Scrypt is used by pow, but not by validate.
+		// BFNoPoWCheck is true , so it use lyra2re2 caluculating.
+		// Scrypt is used by pow, but not by validate.
 		hash := header.PowHash(true)
 		hashNum := HashToBig(&hash)
 		if hashNum.Cmp(target) > 0 {

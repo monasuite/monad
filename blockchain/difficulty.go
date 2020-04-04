@@ -224,6 +224,11 @@ func (b *BlockChain) calcNextRequiredDifficulty(lastNode *blockNode, newBlockTim
 		return b.chainParams.PowLimitBits, nil
 	}
 
+	// regtest and simnet return PowLimitBits
+	if b.chainParams.Name == "regtest" || b.chainParams.Name == "simnet" {
+		return b.chainParams.PowLimitBits, nil
+	}
+
 	if b.chainParams.Lyra2re2DGWv3Height + 24 > lastNode.height {
 		return b.chainParams.PowLimitBits, nil
 	}

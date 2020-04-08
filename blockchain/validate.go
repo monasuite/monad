@@ -702,77 +702,83 @@ func (b *BlockChain) checkBlockHeaderContext(header *wire.BlockHeader, prevNode 
 
 	// Use usercheckpointdb to check checkpoint
 	uc := checkpoint.GetUserCheckpointDbInstance()
-	byteHash, err := uc.Ucdb.Get([]byte(fmt.Sprintf("%020d", blockHeight)), nil)
-	if err == nil {
-		cpHash, err := chainhash.NewHashFromStr(string(byteHash))
-		if err != nil {
-			return err
-		}
-		if *cpHash != blockHash {
-			str := fmt.Sprintf("block at height %d does not match "+
-				"checkpoint hash", blockHeight)
-			return ruleError(ErrBadCheckpoint, str)
-		}
-	} else {
-		iter := uc.Ucdb.NewIterator(nil, nil)
-		iter.Last()
-		for iter.Valid() {
-			cpHash, err := chainhash.NewHashFromStr(string(iter.Value()))
+	if uc == nil {
+		byteHash, err := uc.Ucdb.Get([]byte(fmt.Sprintf("%020d", blockHeight)), nil)
+		if err == nil {
+			cpHash, err := chainhash.NewHashFromStr(string(byteHash))
 			if err != nil {
 				return err
 			}
-			node := b.index.LookupNode(cpHash)
-			if node == nil || !b.bestChain.Contains(node) {
-				iter.Prev()
-				continue
+			if *cpHash != blockHash {
+				str := fmt.Sprintf("block at height %d does not match "+
+					"checkpoint hash", blockHeight)
+				return ruleError(ErrBadCheckpoint, str)
 			}
+		} else if fmt.Sprintf("%s",err) == "leveldb: not found" {
+			iter := uc.Ucdb.NewIterator(nil, nil)
+			iter.Last()
+			for iter.Valid() {
+				cpHash, err := chainhash.NewHashFromStr(string(iter.Value()))
+				if err != nil {
+					return err
+				}
+				node := b.index.LookupNode(cpHash)
+				if node == nil || !b.bestChain.Contains(node) {
+					iter.Prev()
+					continue
+				}
 
-			if node != nil && blockHeight < node.height {
-				str := fmt.Sprintf("block at height %d forks the main chain "+
-					"before the previous checkpoint at height %d",
-					blockHeight, checkpointNode.height)
-				return ruleError(ErrForkTooOld, str)
-			} else {
-				break
+				if node != nil && blockHeight < node.height {
+					str := fmt.Sprintf("block at height %d forks the main chain "+
+						"before the previous checkpoint at height %d",
+						blockHeight, checkpointNode.height)
+					return ruleError(ErrForkTooOld, str)
+				} else {
+					break
+				}
 			}
+		} else {
 		}
 	}
 
 	// Use volatilecheckpointdb to check checkpoint
 	vc := checkpoint.GetVolatileCheckpointDbInstance()
-	byteHash, err = vc.Vcdb.Get([]byte(fmt.Sprintf("%020d", blockHeight)), nil)
-	if err == nil {
-		cpHash, err := chainhash.NewHashFromStr(string(byteHash))
-		if err != nil {
-			return err
-		}
-		if *cpHash != blockHash {
-			str := fmt.Sprintf("block at height %d does not match "+
-				"checkpoint hash", blockHeight)
-			return ruleError(ErrBadCheckpoint, str)
-		}
-	} else {
-		iter := vc.Vcdb.NewIterator(nil, nil)
-		iter.Last()
-		for iter.Valid() {
-			cpHash, err := chainhash.NewHashFromStr(string(iter.Value()))
+	if vc == nil {
+		byteHash, err := vc.Vcdb.Get([]byte(fmt.Sprintf("%020d", blockHeight)), nil)
+		if err == nil {
+			cpHash, err := chainhash.NewHashFromStr(string(byteHash))
 			if err != nil {
 				return err
 			}
-			node := b.index.LookupNode(cpHash)
-			if node == nil || !b.bestChain.Contains(node) {
-				iter.Prev()
-				continue
+			if *cpHash != blockHash {
+				str := fmt.Sprintf("block at height %d does not match "+
+					"checkpoint hash", blockHeight)
+				return ruleError(ErrBadCheckpoint, str)
 			}
+		} else if fmt.Sprintf("%s",err) == "leveldb: not found" {
+			iter := vc.Vcdb.NewIterator(nil, nil)
+			iter.Last()
+			for iter.Valid() {
+				cpHash, err := chainhash.NewHashFromStr(string(iter.Value()))
+				if err != nil {
+					return err
+				}
+				node := b.index.LookupNode(cpHash)
+				if node == nil || !b.bestChain.Contains(node) {
+					iter.Prev()
+					continue
+				}
 
-			if node != nil && blockHeight < node.height {
-				str := fmt.Sprintf("block at height %d forks the main chain "+
-					"before the previous checkpoint at height %d",
-					blockHeight, checkpointNode.height)
-				return ruleError(ErrForkTooOld, str)
-			} else {
-				break
+				if node != nil && blockHeight < node.height {
+					str := fmt.Sprintf("block at height %d forks the main chain "+
+						"before the previous checkpoint at height %d",
+						blockHeight, checkpointNode.height)
+					return ruleError(ErrForkTooOld, str)
+				} else {
+					break
+				}
 			}
+		} else {
 		}
 	}
 

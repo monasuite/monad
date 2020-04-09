@@ -109,7 +109,7 @@ var regTestGenesisBlock = wire.MsgBlock{
 	Header: wire.BlockHeader{
 		Version:    1,
 		PrevBlock:  chainhash.Hash{},         // 0000000000000000000000000000000000000000000000000000000000000000
-		MerkleRoot: regTestGenesisMerkleRoot, // 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
+		MerkleRoot: regTestGenesisMerkleRoot, // 35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6
 		Timestamp:  time.Unix(0x4d49e5da, 0), // 2011-02-02 23:16:42 +0000 UTC
 		Bits:       0x207fffff,               // 545259519 [7fffff0000000000000000000000000000000000000000000000000000000000]
 		Nonce:      0,
@@ -137,7 +137,7 @@ var testNet4GenesisBlock = wire.MsgBlock{
 	Header: wire.BlockHeader{
 		Version:    1,
 		PrevBlock:  chainhash.Hash{},          // 0000000000000000000000000000000000000000000000000000000000000000
-		MerkleRoot: testNet4GenesisMerkleRoot, // 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
+		MerkleRoot: testNet4GenesisMerkleRoot, // 35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6
 		Timestamp:  time.Unix(0x58bf2dec, 0),  // 2011-02-02 23:16:42 +0000 UTC
 		Bits:       0x1e0ffff0,                // 504365040
 		Nonce:      0x0020646c,                // 414098458
@@ -170,7 +170,7 @@ var simNetGenesisBlock = wire.MsgBlock{
 	Header: wire.BlockHeader{
 		Version:    1,
 		PrevBlock:  chainhash.Hash{},         // 0000000000000000000000000000000000000000000000000000000000000000
-		MerkleRoot: simNetGenesisMerkleRoot,  // 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
+		MerkleRoot: simNetGenesisMerkleRoot,  // 35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6
 		Timestamp:  time.Unix(1401292357, 0), // 2014-05-28 15:52:37 +0000 UTC
 		Bits:       0x207fffff,               // 545259519 [7fffff0000000000000000000000000000000000000000000000000000000000]
 		Nonce:      2,

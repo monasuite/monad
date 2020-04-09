@@ -321,7 +321,7 @@ func calcMerkleRoot(txns []*wire.MsgTx) chainhash.Hash {
 // NOTE: This function will never solve blocks with a nonce of 0.  This is done
 // so the 'nextBlock' function can properly detect when a nonce was modified by
 // a munge function.
-func solveBlock(header *wire.BlockHeader) bool {
+func solveBlock(header *wire.BlockHeader, bool_lyra2rev2 bool) bool {
 	// sbResult is used by the solver goroutines to send results.
 	type sbResult struct {
 		found bool
@@ -342,7 +342,7 @@ func solveBlock(header *wire.BlockHeader) bool {
 				return
 			default:
 				hdr.Nonce = i
-				hash := hdr.BlockHash()
+				hash := hdr.PowHash(bool_lyra2rev2)
 				if blockchain.HashToBig(&hash).Cmp(
 					targetDifficulty) <= 0 {
 
@@ -531,9 +531,11 @@ func (g *testGenerator) nextBlock(blockName string, spend *spendableOut, mungers
 		block.Header.MerkleRoot = calcMerkleRoot(block.Transactions)
 	}
 
+	var bool_lyra2rev2 bool = nextHeight >= g.params.Lyra2re2DGWv3Height
+
 	// Only solve the block if the nonce wasn't manually changed by a munge
 	// function.
-	if block.Header.Nonce == curNonce && !solveBlock(&block.Header) {
+	if block.Header.Nonce == curNonce && !solveBlock(&block.Header, bool_lyra2rev2) {
 		panic(fmt.Sprintf("Unable to solve block at height %d",
 			nextHeight))
 	}

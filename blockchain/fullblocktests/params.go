@@ -53,7 +53,7 @@ var (
 		Header: wire.BlockHeader{
 			Version:    1,
 			PrevBlock:  *newHashFromStr("0000000000000000000000000000000000000000000000000000000000000000"),
-			MerkleRoot: *newHashFromStr("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
+			MerkleRoot: *newHashFromStr("35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6"),
 			Timestamp:  time.Unix(1296688602, 0), // 2011-02-02 23:16:42 +0000 UTC
 			Bits:       0x207fffff,               // 545259519 [7fffff0000000000000000000000000000000000000000000000000000000000]
 			Nonce:      2,
@@ -132,4 +132,7 @@ var regressionNetParams = &chaincfg.Params{
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 1,
+
+	// Lyra2re2&DGWv3's HF height. Used to calculate Pow.
+	Lyra2re2DGWv3Height: 60,
 }

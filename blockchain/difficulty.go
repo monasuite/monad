@@ -229,6 +229,12 @@ func (b *BlockChain) calcNextRequiredDifficulty(lastNode *blockNode, newBlockTim
 		return b.chainParams.PowLimitBits, nil
 	}
 
+
+	// ltc target for test (Implementation is troublesome) TODO monacoin is OK?
+	if 1056 > lastNode.height {
+		return b.chainParams.PowLimitBits, nil
+	}
+
 	if b.chainParams.Lyra2re2DGWv3Height + 24 > lastNode.height {
 		return b.chainParams.PowLimitBits, nil
 	}

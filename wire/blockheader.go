@@ -65,7 +65,7 @@ func (h *BlockHeader) PowHash(bool_lyra2rev2 bool) (chainhash.Hash) {
 	var powHash chainhash.Hash
 
 	buf := bytes.NewBuffer(make([]byte, 0, MaxBlockHeaderPayload))
-	_ = writePowHeader(buf, 0, h)
+	_ = writeBlockHeader(buf, 0, h)
 
 	var resultHash []byte
 	if bool_lyra2rev2 {

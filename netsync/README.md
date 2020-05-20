@@ -1,7 +1,7 @@
 netsync
 =======
 
-[![Build Status](http://img.shields.io/travis/btcsuite/monad.svg)](https://travis-ci.org/btcsuite/monad)
+[![Build Status](http://img.shields.io/travis/monasuite/monad.svg)](https://travis-ci.org/monasuite/monad)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/monad/netsync)
 
@@ -17,7 +17,7 @@ longest chain the sync peer is aware of.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/monad/netsync
+$ go get -u github.com/monasuite/monad/netsync
 ```
 
 ## License

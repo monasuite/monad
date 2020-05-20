@@ -1,7 +1,9 @@
 monad
 ====
 
-[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)](https://travis-ci.org/monasuite/monad)
+[![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
+[![ISC License](https://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/monasuite/monad)
 
 monad is an alternative full node bitcoin implementation written in Go (golang).
 

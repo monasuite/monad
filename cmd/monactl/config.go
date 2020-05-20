@@ -15,6 +15,7 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 	"github.com/monasuite/monad/btcjson"
+	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monautil"
 )
 
@@ -92,41 +93,50 @@ func listCommands() {
 //
 // See loadConfig for details on the configuration load process.
 type config struct {
-	ShowVersion   bool   `short:"V" long:"version" description:"Display version information and exit"`
-	ListCommands  bool   `short:"l" long:"listcommands" description:"List all of the supported commands and exit"`
-	ConfigFile    string `short:"C" long:"configfile" description:"Path to configuration file"`
-	RPCUser       string `short:"u" long:"rpcuser" description:"RPC username"`
-	RPCPassword   string `short:"P" long:"rpcpass" default-mask:"-" description:"RPC password"`
-	RPCServer     string `short:"s" long:"rpcserver" description:"RPC server to connect to"`
-	RPCCert       string `short:"c" long:"rpccert" description:"RPC server certificate chain for validation"`
-	NoTLS         bool   `long:"notls" description:"Disable TLS"`
-	Proxy         string `long:"proxy" description:"Connect via SOCKS5 proxy (eg. 127.0.0.1:9050)"`
-	ProxyUser     string `long:"proxyuser" description:"Username for proxy server"`
-	ProxyPass     string `long:"proxypass" default-mask:"-" description:"Password for proxy server"`
-	TestNet4      bool   `long:"testnet" description:"Connect to testnet"`
-	SimNet        bool   `long:"simnet" description:"Connect to the simulation test network"`
-	TLSSkipVerify bool   `long:"skipverify" description:"Do not verify tls certificates (not recommended!)"`
-	Wallet        bool   `long:"wallet" description:"Connect to wallet"`
+	ConfigFile     string `short:"C" long:"configfile" description:"Path to configuration file"`
+	ListCommands   bool   `short:"l" long:"listcommands" description:"List all of the supported commands and exit"`
+	NoTLS          bool   `long:"notls" description:"Disable TLS"`
+	Proxy          string `long:"proxy" description:"Connect via SOCKS5 proxy (eg. 127.0.0.1:9050)"`
+	ProxyPass      string `long:"proxypass" default-mask:"-" description:"Password for proxy server"`
+	ProxyUser      string `long:"proxyuser" description:"Username for proxy server"`
+	RegressionTest bool   `long:"regtest" description:"Connect to the regression test network"`
+	RPCCert        string `short:"c" long:"rpccert" description:"RPC server certificate chain for validation"`
+	RPCPassword    string `short:"P" long:"rpcpass" default-mask:"-" description:"RPC password"`
+	RPCServer      string `short:"s" long:"rpcserver" description:"RPC server to connect to"`
+	RPCUser        string `short:"u" long:"rpcuser" description:"RPC username"`
+	SimNet         bool   `long:"simnet" description:"Connect to the simulation test network"`
+	TLSSkipVerify  bool   `long:"skipverify" description:"Do not verify tls certificates (not recommended!)"`
+	TestNet4       bool   `long:"testnet" description:"Connect to testnet"`
+	ShowVersion    bool   `short:"V" long:"version" description:"Display version information and exit"`
+	Wallet         bool   `long:"wallet" description:"Connect to wallet"`
 }
 
 // normalizeAddress returns addr with the passed default port appended if
 // there is not already a port specified.
-func normalizeAddress(addr string, useTestNet4, useSimNet, useWallet bool) string {
+func normalizeAddress(addr string, chain *chaincfg.Params, useWallet bool) (string, error) {
 	_, _, err := net.SplitHostPort(addr)
 	if err != nil {
 		var defaultPort string
-		switch {
-		case useTestNet4:
+		switch chain {
+		case &chaincfg.TestNet4Params:
 			if useWallet {
 				defaultPort = "19402"
 			} else {
 				defaultPort = "19400"
 			}
-		case useSimNet:
+		case &chaincfg.SimNetParams:
 			if useWallet {
 				defaultPort = "18554"
 			} else {
 				defaultPort = "18556"
+			}
+		case &chaincfg.RegressionNetParams:
+			if useWallet {
+				// TODO: add port once regtest is supported in btcwallet
+				paramErr := fmt.Errorf("cannot use -wallet with -regtest, btcwallet not yet compatible with regtest")
+				return "", paramErr
+			} else {
+				defaultPort = "18334"
 			}
 		default:
 			if useWallet {
@@ -136,9 +146,9 @@ func normalizeAddress(addr string, useTestNet4, useSimNet, useWallet bool) strin
 			}
 		}
 
-		return net.JoinHostPort(addr, defaultPort)
+		return net.JoinHostPort(addr, defaultPort), nil
 	}
-	return addr
+	return addr, nil
 }
 
 // cleanAndExpandPath expands environement variables and leading ~ in the
@@ -246,17 +256,27 @@ func loadConfig() (*config, []string, error) {
 		return nil, nil, err
 	}
 
+	// default network is mainnet
+	network := &chaincfg.MainNetParams
+
 	// Multiple networks can't be selected simultaneously.
 	numNets := 0
 	if cfg.TestNet4 {
 		numNets++
+		network = &chaincfg.TestNet4Params
 	}
 	if cfg.SimNet {
 		numNets++
+		network = &chaincfg.SimNetParams
 	}
+	if cfg.RegressionTest {
+		numNets++
+		network = &chaincfg.RegressionNetParams
+	}
+
 	if numNets > 1 {
-		str := "%s: The testnet and simnet params can't be used " +
-			"together -- choose one of the two"
+		str := "%s: Multiple network params can't be used " +
+			"together -- choose one"
 		err := fmt.Errorf(str, "loadConfig")
 		fmt.Fprintln(os.Stderr, err)
 		return nil, nil, err
@@ -273,8 +293,10 @@ func loadConfig() (*config, []string, error) {
 
 	// Add default port to RPC server based on --testnet and --wallet flags
 	// if needed.
-	cfg.RPCServer = normalizeAddress(cfg.RPCServer, cfg.TestNet4,
-		cfg.SimNet, cfg.Wallet)
+	cfg.RPCServer, err = normalizeAddress(cfg.RPCServer, network, cfg.Wallet)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	return &cfg, remainingArgs, nil
 }

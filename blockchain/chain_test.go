@@ -62,7 +62,7 @@ func TestHaveBlock(t *testing.T) {
 	}
 
 	// Insert an orphan block.
-	_, isOrphan, err := chain.ProcessBlock(monautil.NewBlock(&Block100000),
+	_, isOrphan, err := chain.ProcessBlock(monautil.NewBlock(&Block1000000),
 		BFNone)
 	if err != nil {
 		t.Errorf("Unable to process block: %v", err)

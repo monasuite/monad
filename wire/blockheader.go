@@ -65,7 +65,7 @@ func (h *BlockHeader) PowHash(bool_lyra2rev2 bool) (chainhash.Hash) {
 	var powHash chainhash.Hash
 
 	buf := bytes.NewBuffer(make([]byte, 0, MaxBlockHeaderPayload))
-	_ = writeBlockHeader(buf, 0, h)
+	_ = writePowHeader(buf, 0, h)
 
 	var resultHash []byte
 	if bool_lyra2rev2 {
@@ -147,5 +147,11 @@ func readBlockHeader(r io.Reader, pver uint32, bh *BlockHeader) error {
 func writeBlockHeader(w io.Writer, pver uint32, bh *BlockHeader) error {
 	sec := uint32(bh.Timestamp.Unix())
 	return writeElements(w, bh.Version, &bh.PrevBlock, &bh.MerkleRoot,
+		sec, bh.Bits, bh.Nonce)
+}
+
+func writePowHeader(w io.Writer, pver uint32, bh *BlockHeader) error {
+	sec := uint32(bh.Timestamp.Unix())
+	return writePowHeaderElements(w, bh.Version, &bh.PrevBlock, &bh.MerkleRoot,
 		sec, bh.Bits, bh.Nonce)
 }

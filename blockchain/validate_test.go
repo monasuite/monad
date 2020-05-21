@@ -238,7 +238,7 @@ func TestCheckSerializedHeight(t *testing.T) {
 // test Block operations.
 var Block1000000 = wire.MsgBlock{
 	Header: wire.BlockHeader{
-		Version: 2,
+		Version: 536870912,
 		PrevBlock: chainhash.Hash([32]byte{ // Make go vet happy.
 			0x09, 0x11, 0xdf, 0x29, 0x27, 0x4b, 0x6c, 0x4d,
 			0x9f, 0x16, 0xc9, 0x2b, 0xeb, 0x05, 0x66, 0xa1,

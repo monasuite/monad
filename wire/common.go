@@ -472,59 +472,6 @@ func writeElements(w io.Writer, elements ...interface{}) error {
 	return nil
 }
 
-// writePowHeader writes the little endian representation of element to w.
-func writePowHeaderElement(w io.Writer, element interface{}) error {
-	// Attempt to write the element based on the concrete type via fast
-	// type assertions first.
-	switch e := element.(type) {
-	//version TODO monacoin is OK? It's too bad code.
-	case int32:
-		err := binarySerializer.PutUint16(w, littleEndian, uint16(0x00))
-		if err != nil {
-			return err
-		}
-		err = binarySerializer.PutUint8(w, uint8(0x00))
-		if err != nil {
-			return err
-		}
-		err = binarySerializer.PutUint8(w, uint8(e*16))
-		if err != nil {
-			return err
-		}
-		return nil
-
-	case uint32:
-		err := binarySerializer.PutUint32(w, littleEndian, e)
-		if err != nil {
-			return err
-		}
-		return nil
-
-	case *chainhash.Hash:
-		_, err := w.Write(e[:])
-		if err != nil {
-			return err
-		}
-		return nil
-	}
-
-	// Fall back to the slower binary.Write if a fast path was not available
-	// above.
-	return binary.Write(w, littleEndian, element)
-}
-
-// writePowHeaderElements writes multiple items to w.  It is equivalent to multiple
-// calls to writePowHeaderElement.
-func writePowHeaderElements(w io.Writer, elements ...interface{}) error {
-	for _, element := range elements {
-		err := writePowHeaderElement(w, element)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 // ReadVarInt reads a variable length integer from r and returns it as a uint64.
 func ReadVarInt(r io.Reader, pver uint32) (uint64, error) {
 	discriminant, err := binarySerializer.Uint8(r)

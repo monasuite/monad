@@ -149,9 +149,3 @@ func writeBlockHeader(w io.Writer, pver uint32, bh *BlockHeader) error {
 	return writeElements(w, bh.Version, &bh.PrevBlock, &bh.MerkleRoot,
 		sec, bh.Bits, bh.Nonce)
 }
-
-func writePowHeader(w io.Writer, pver uint32, bh *BlockHeader) error {
-	sec := uint32(bh.Timestamp.Unix())
-	return writePowHeaderElements(w, bh.Version, &bh.PrevBlock, &bh.MerkleRoot,
-		sec, bh.Bits, bh.Nonce)
-}

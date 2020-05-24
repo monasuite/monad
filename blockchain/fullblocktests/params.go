@@ -56,7 +56,7 @@ var (
 			MerkleRoot: *newHashFromStr("35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6"),
 			Timestamp:  time.Unix(1296688602, 0), // 2011-02-02 23:16:42 +0000 UTC
 			Bits:       0x207fffff,               // 545259519 [7fffff0000000000000000000000000000000000000000000000000000000000]
-			Nonce:      2,
+			Nonce:      1,
 		},
 		Transactions: []*wire.MsgTx{{
 			Version: 1,
@@ -65,20 +65,20 @@ var (
 					Hash:  chainhash.Hash{},
 					Index: 0xffffffff,
 				},
-				SignatureScript: fromHex("04ffff001d010445" +
-					"5468652054696d65732030332f4a616e2f" +
-					"32303039204368616e63656c6c6f72206f" +
-					"6e206272696e6b206f66207365636f6e64" +
-					"206261696c6f757420666f72206261686b73"),
+				SignatureScript: fromHex("04ffff001d01044c" +
+					"564465632e20333174682032303133204a" +
+					"6170616e2c205468652077696e6e696e67" +
+					"206e756d62657273206f66207468652032" +
+					"30313320596561722d456e64204a756d62" +
+					"6f204c6f74746572793a32332d313330393136"),
 				Sequence: 0xffffffff,
 			}},
 			TxOut: []*wire.TxOut{{
 				Value: 0,
-				PkScript: fromHex("4104678afdb0fe5548271967f1" +
-					"a67130b7105cd6a828e03909a67962e0ea1f" +
-					"61deb649f6bc3f4cef38c4f35504e51ec138" +
-					"c4f35504e51ec112de5c384df7ba0b8d578a" +
-					"4c702b6bf11d5fac"),
+				PkScript: fromHex("ad5023690c80f3a49c8f13f8d4" +
+					"5b8c857fbcbc8bc4a8e4d3eb4b10f4d4604f" +
+					"a08dce601aaf0f470216fe1b51850b4acf21" +
+					"b179c45070ac7b03a9ac"),
 			}},
 			LockTime: 0,
 		}},
@@ -99,7 +99,7 @@ var regressionNetParams = &chaincfg.Params{
 
 	// Chain parameters
 	GenesisBlock:             &regTestGenesisBlock,
-	GenesisHash:              newHashFromStr("5bec7567af40504e0994db3b573c186fffcc4edefe096ff2e58d00523bd7e8a6"),
+	GenesisHash:              newHashFromStr("7543a69d7c2fcdb29a5ebec2fc064c074a35253b6f3072c8a749473aa590a29c"),
 	PowLimit:                 regressionPowLimit,
 	PowLimitBits:             0x207fffff,
 	CoinbaseMaturity:         100,
@@ -117,8 +117,19 @@ var regressionNetParams = &chaincfg.Params{
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints: nil,
 
+	// Consensus rule change deployments.
+	//
+	// The miner confirmation window is defined as:
+	//   target proof of work timespan / target proof of work spacing
+	RuleChangeActivationThreshold: 108, // 75%  of MinerConfirmationWindow
+	MinerConfirmationWindow:       144,
+
 	// Mempool parameters
 	RelayNonStdTxs: true,
+
+	// Human-readable part for Bech32 encoded segwit addresses, as defined in
+	// BIP 173.
+	Bech32HRPSegwit: "rmona", // always tmona for test net
 
 	// Address encoding magics
 	PubKeyHashAddrID: 0x6f, // starts with m or n
@@ -132,6 +143,10 @@ var regressionNetParams = &chaincfg.Params{
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 1,
+
+	// vAlertPubKey is used checkpoint's deliverty
+	AlertPubMainKey: []byte{},
+	AlertPubSubKey:  []byte{},
 
 	// Lyra2re2&DGWv3's HF height. Used to calculate Pow.
 	Lyra2re2DGWv3Height: 60,

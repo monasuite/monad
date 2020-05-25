@@ -170,18 +170,18 @@ func IsFinalizedTransaction(tx *monautil.Tx, blockHeight int32, blockTime time.T
 // isBIP0030Node returns whether or not the passed node represents one of the
 // two blocks that violate the BIP0030 rule which prevents transactions from
 // overwriting old ones.
-func isBIP0030Node(node *blockNode) bool {
-	//if node.height == 91842 && node.hash.IsEqual(block91842Hash) {
-	//	return true
-	//}
-
-	//if node.height == 91880 && node.hash.IsEqual(block91880Hash) {
-	//	return true
-	//}
-
-	//return false
-	return true
-}
+//func isBIP0030Node(node *blockNode) bool {
+//	//if node.height == 91842 && node.hash.IsEqual(block91842Hash) {
+//	//	return true
+//	//}
+//
+//	//if node.height == 91880 && node.hash.IsEqual(block91880Hash) {
+//	//	return true
+//	//}
+//
+//	//return false
+//	return true
+//}
 
 // CalcBlockSubsidy returns the subsidy amount a block at the provided height
 // should have. This is mainly used for determining how much the coinbase for
@@ -657,7 +657,7 @@ func (b *BlockChain) checkBlockHeaderContext(header *wire.BlockHeader, prevNode 
 			return err
 		}
 		blockDifficulty := header.Bits
-		if blockDifficulty != expectedDifficulty && b.chainParams.PowLimitBits != expectedDifficulty {
+		if blockDifficulty != expectedDifficulty {
 			str := "block difficulty of %d is not the expected value of %d"
 			str = fmt.Sprintf(str, blockDifficulty, expectedDifficulty)
 			return ruleError(ErrUnexpectedDifficulty, str)
@@ -915,36 +915,36 @@ func (b *BlockChain) checkBlockContext(block *monautil.Block, prevNode *blockNod
 // http://r6.ca/blog/20120206T005236Z.html.
 //
 // This function MUST be called with the chain state lock held (for reads).
-func (b *BlockChain) checkBIP0030(node *blockNode, block *monautil.Block, view *UtxoViewpoint) error {
-	// Fetch utxos for all of the transaction ouputs in this block.
-	// Typically, there will not be any utxos for any of the outputs.
-	fetchSet := make(map[wire.OutPoint]struct{})
-	for _, tx := range block.Transactions() {
-		prevOut := wire.OutPoint{Hash: *tx.Hash()}
-		for txOutIdx := range tx.MsgTx().TxOut {
-			prevOut.Index = uint32(txOutIdx)
-			fetchSet[prevOut] = struct{}{}
-		}
-	}
-	err := view.fetchUtxos(b.db, fetchSet)
-	if err != nil {
-		return err
-	}
-
-	// Duplicate transactions are only allowed if the previous transaction
-	// is fully spent.
-	for outpoint := range fetchSet {
-		utxo := view.LookupEntry(outpoint)
-		if utxo != nil && !utxo.IsSpent() {
-			str := fmt.Sprintf("tried to overwrite transaction %v "+
-				"at block height %d that is not fully spent",
-				outpoint.Hash, utxo.BlockHeight())
-			return ruleError(ErrOverwriteTx, str)
-		}
-	}
-
-	return nil
-}
+//func (b *BlockChain) checkBIP0030(node *blockNode, block *monautil.Block, view *UtxoViewpoint) error {
+//	// Fetch utxos for all of the transaction ouputs in this block.
+//	// Typically, there will not be any utxos for any of the outputs.
+//	fetchSet := make(map[wire.OutPoint]struct{})
+//	for _, tx := range block.Transactions() {
+//		prevOut := wire.OutPoint{Hash: *tx.Hash()}
+//		for txOutIdx := range tx.MsgTx().TxOut {
+//			prevOut.Index = uint32(txOutIdx)
+//			fetchSet[prevOut] = struct{}{}
+//		}
+//	}
+//	err := view.fetchUtxos(b.db, fetchSet)
+//	if err != nil {
+//		return err
+//	}
+//
+//	// Duplicate transactions are only allowed if the previous transaction
+//	// is fully spent.
+//	for outpoint := range fetchSet {
+//		utxo := view.LookupEntry(outpoint)
+//		if utxo != nil && !utxo.IsSpent() {
+//			str := fmt.Sprintf("tried to overwrite transaction %v "+
+//				"at block height %d that is not fully spent",
+//				outpoint.Hash, utxo.BlockHeight())
+//			return ruleError(ErrOverwriteTx, str)
+//		}
+//	}
+//
+//	return nil
+//}
 
 // CheckTransactionInputs performs a series of checks on the inputs to a
 // transaction to ensure they are valid.  An example of some of the checks
@@ -1110,12 +1110,12 @@ func (b *BlockChain) checkConnectBlock(node *blockNode, block *monautil.Block, v
 	// BIP0034 is not yet active.  This is a useful optimization because the
 	// BIP0030 check is expensive since it involves a ton of cache misses in
 	// the utxoset.
-	if !isBIP0030Node(node) && (node.height < b.chainParams.BIP0034Height) {
-		err := b.checkBIP0030(node, block, view)
-		if err != nil {
-			return err
-		}
-	}
+	//if !isBIP0030Node(node) && (node.height < b.chainParams.BIP0034Height) {
+	//	err := b.checkBIP0030(node, block, view)
+	//	if err != nil {
+	//		return err
+	//	}
+	//}
 
 	// Load all of the utxos referenced by the inputs for all transactions
 	// in the block don't already exist in the utxo view from the database.

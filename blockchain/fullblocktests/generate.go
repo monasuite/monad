@@ -1441,14 +1441,14 @@ func Generate(includeLargeReorg bool) (tests [][]TestInstance, err error) {
 	// because the block is solved after the function returns and this test
 	// requires an unsolved block.
 	{
-		origHash := b46.BlockHash()
+		origHash := b46.Header.PowHash(true)
 		for {
 			// Keep incrementing the nonce until the hash treated as
 			// a uint256 is higher than the limit.
 			b46.Header.Nonce++
-			blockHash := b46.BlockHash()
+			blockHash := b46.Header.PowHash(true)
 			hashNum := blockchain.HashToBig(&blockHash)
-			if hashNum.Cmp(g.params.PowLimit) >= 0 {
+			if hashNum.Cmp(g.params.PowLimit) > 0 {
 				break
 			}
 		}
@@ -1498,7 +1498,7 @@ func Generate(includeLargeReorg bool) (tests [][]TestInstance, err error) {
 	// because the block is solved after the function returns and this test
 	// involves an unsolvable block.
 	{
-		origHash := b49a.BlockHash()
+		origHash := b49a.Header.PowHash(true)
 		b49a.Header.Bits = 0x01810000 // -1 in compact form.
 		g.updateBlockState("b49a", origHash, "b49a", b49a)
 	}
@@ -1718,13 +1718,13 @@ func Generate(includeLargeReorg bool) (tests [][]TestInstance, err error) {
 	//
 	//   ... -> b60(17)
 	//                 \-> b61(18)
-	g.nextBlock("b61", outs[18], func(b *wire.MsgBlock) {
-		// Duplicate the coinbase of the parent block to force the
-		// condition.
-		parent := g.blocks[b.Header.PrevBlock]
-		b.Transactions[0] = parent.Transactions[0]
-	})
-	rejected(blockchain.ErrOverwriteTx)
+	//g.nextBlock("b61", outs[18], func(b *wire.MsgBlock) {
+	//	// Duplicate the coinbase of the parent block to force the
+	//	// condition.
+	//	parent := g.blocks[b.Header.PrevBlock]
+	//	b.Transactions[0] = parent.Transactions[0]
+	//})
+	//rejected(blockchain.ErrOverwriteTx)
 
 	// ---------------------------------------------------------------------
 	// Blocks with non-final transaction tests.

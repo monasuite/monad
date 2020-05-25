@@ -148,6 +148,6 @@ var regressionNetParams = &chaincfg.Params{
 	AlertPubMainKey: []byte{},
 	AlertPubSubKey:  []byte{},
 
-	// Lyra2re2&DGWv3's HF height. Used to calculate Pow.
-	Lyra2re2DGWv3Height: 60,
+	// Lyra2re2&DGWv3's HF height. Used to calculate Pow. 0 to speed up the height for testing.
+	Lyra2re2DGWv3Height: 0,
 }

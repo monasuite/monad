@@ -48,7 +48,7 @@ func TestHaveBlock(t *testing.T) {
 	// maturity to 1.
 	chain.TstSetCoinbaseMaturity(1)
 
-	for i := 1; i < len(blocks); i++ {
+	for i := 1; i < 5; i++ {
 		_, isOrphan, err := chain.ProcessBlock(blocks[i], BFNone)
 		if err != nil {
 			t.Errorf("ProcessBlock fail on block %v: %v\n", i, err)
@@ -82,10 +82,10 @@ func TestHaveBlock(t *testing.T) {
 		{hash: chaincfg.MainNetParams.GenesisHash.String(), want: true},
 
 		// Block 3a should be present (on a side chain).
-		{hash: "00000000474284d20067a4d33f6a02284e6ef70764a3a26d6a5b9df52ef663dd", want: true},
+		{hash: "0643b5d4baee4a686a9ca7a7ae5bffa14da9e6cbb4a984e105e712cda936e8ba", want: true},
 
-		// Block 100000 should be present (as an orphan).
-		{hash: "000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506", want: true},
+		// Block 1000000 should be present (as an orphan).
+		{hash: "bd23a42750a4eef9a44b8e182d9240126c154482f5113c7c208e5f5099bedc9a", want: true},
 
 		// Random hashes should not be available.
 		{hash: "123", want: false},

@@ -1,11 +1,9 @@
 btcec
 =====
 
-[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)]
-(https://travis-ci.org/btcsuite/btcec) [![ISC License]
-(http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://godoc.org/github.com/monasuite/monad/btcec?status.png)]
-(http://godoc.org/github.com/monasuite/monad/btcec)
+[![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monad/btcec)
 
 Package btcec implements elliptic curve cryptography needed for working with
 Bitcoin (secp256k1 only for now). It is designed so that it may be used with the

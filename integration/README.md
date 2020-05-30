@@ -1,9 +1,8 @@
 integration
 ===========
 
-[![Build Status](http://img.shields.io/travis/monasuite/monad.svg)]
-(https://travis-ci.org/monasuite/monad) [![ISC License]
-(http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 
 This contains integration tests which make use of the
 [rpctest](https://github.com/monasuite/monad/tree/master/rpctest) package to

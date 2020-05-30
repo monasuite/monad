@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/crypto/scrypt"
 
-	"github.com/wakiyamap/lyra2rev2"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/wakiyamap/lyra2rev2"
 )
 
 // MaxBlockHeaderPayload is the maximum number of bytes a block header can be.
@@ -61,7 +61,7 @@ func (h *BlockHeader) BlockHash() chainhash.Hash {
 
 // PowHash returns the monacoin lyra2re2 hash of this block header. This value is
 // used to check the PoW on blocks advertised on the network. TODO monacoin is ok?
-func (h *BlockHeader) PowHash(bool_lyra2rev2 bool) (chainhash.Hash) {
+func (h *BlockHeader) PowHash(bool_lyra2rev2 bool) chainhash.Hash {
 	var powHash chainhash.Hash
 
 	buf := bytes.NewBuffer(make([]byte, 0, MaxBlockHeaderPayload))

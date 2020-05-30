@@ -3675,7 +3675,7 @@ func verifyChain(s *rpcServer, level, depth int32) error {
 			// PoW hardfork from 450000blocks(mainnet).
 			// But for convenience of calculation,
 			// check is starting from 450000.
-			if s.cfg.ChainParams.Lyra2re2DGWv3Height + 25 > height {
+			if s.cfg.ChainParams.Lyra2re2DGWv3Height+25 > height {
 				rpcsLog.Errorf("Can't verify still Lyra2re2's height")
 				return err
 			}

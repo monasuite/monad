@@ -170,7 +170,7 @@ func (b *BlockChain) ProcessBlock(block *monautil.Block, flags BehaviorFlags) (b
 	// PoW hardfork from 450000blocks(mainnet).
 	// But for convenience of calculation, check is starting from 450000.
 	tip := b.bestChain.Tip()
-	if b.chainParams.Lyra2re2DGWv3Height + 24 < tip.height {
+	if b.chainParams.Lyra2re2DGWv3Height+24 < tip.height {
 		err := checkBlockSanity(block, b.chainParams.PowLimit, b.timeSource, flags)
 		if err != nil {
 			return false, false, err

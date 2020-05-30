@@ -1271,7 +1271,6 @@ out:
 					continue
 				}
 
-				continue
 				log.Debugf("Peer %s appears to be stalled or "+
 					"misbehaving, %s timeout -- "+
 					"disconnecting", p, command)

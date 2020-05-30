@@ -230,12 +230,12 @@ func (b *BlockChain) calcNextRequiredDifficulty(lastNode *blockNode, newBlockTim
 	}
 
 	// I'm writing this for the test, but I don't use it. When in mainnet , still 1056.
-	if lastNode.height + 1 < b.blocksPerRetarget {
+	if lastNode.height+1 < b.blocksPerRetarget {
 		return lastNode.bits, nil
 	}
 
 	// ltc target for test (Implementation is troublesome) TODO monacoin is OK?
-	if b.chainParams.Lyra2re2DGWv3Height + 24 > lastNode.height {
+	if b.chainParams.Lyra2re2DGWv3Height+24 > lastNode.height {
 		return b.chainParams.PowLimitBits, nil
 	}
 

@@ -714,7 +714,7 @@ func (b *BlockChain) checkBlockHeaderContext(header *wire.BlockHeader, prevNode 
 					"checkpoint hash", blockHeight)
 				return ruleError(ErrBadCheckpoint, str)
 			}
-		} else if fmt.Sprintf("%s",err) == "leveldb: not found" {
+		} else if fmt.Sprintf("%s", err) == "leveldb: not found" {
 			iter := uc.Ucdb.NewIterator(nil, nil)
 			iter.Last()
 			for iter.Valid() {
@@ -755,7 +755,7 @@ func (b *BlockChain) checkBlockHeaderContext(header *wire.BlockHeader, prevNode 
 					"checkpoint hash", blockHeight)
 				return ruleError(ErrBadCheckpoint, str)
 			}
-		} else if fmt.Sprintf("%s",err) == "leveldb: not found" {
+		} else if fmt.Sprintf("%s", err) == "leveldb: not found" {
 			iter := vc.Vcdb.NewIterator(nil, nil)
 			iter.Last()
 			for iter.Valid() {

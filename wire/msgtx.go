@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"math/big"
 	"strconv"
 
 	"github.com/monasuite/monad/chaincfg/chainhash"
@@ -259,7 +260,7 @@ func (t TxWitness) SerializeSize() int {
 
 // TxOut defines a bitcoin transaction output.
 type TxOut struct {
-	Value    int64
+	Value    big.Int
 	PkScript []byte
 }
 
@@ -273,7 +274,7 @@ func (t *TxOut) SerializeSize() int {
 
 // NewTxOut returns a new bitcoin transaction output with the provided
 // transaction value and public key script.
-func NewTxOut(value int64, pkScript []byte) *TxOut {
+func NewTxOut(value big.Int, pkScript []byte) *TxOut {
 	return &TxOut{
 		Value:    value,
 		PkScript: pkScript,
@@ -1002,7 +1003,7 @@ func readTxOut(r io.Reader, pver uint32, version int32, to *TxOut) error {
 // NOTE: This function is exported in order to allow txscript to compute the
 // new sighashes for witness transactions (BIP0143).
 func WriteTxOut(w io.Writer, pver uint32, version int32, to *TxOut) error {
-	err := binarySerializer.PutUint64(w, littleEndian, uint64(to.Value))
+	err := binarySerializer.PutUint64(w, littleEndian, to.Value.Uint64())
 	if err != nil {
 		return err
 	}

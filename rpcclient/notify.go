@@ -17,6 +17,7 @@ import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 var (
@@ -739,7 +740,7 @@ func parseTxAcceptedNtfnParams(params []json.RawMessage) (*chainhash.Hash,
 	}
 
 	// Bounds check amount.
-	amt, err := monautil.NewAmount(famt)
+	amt, err := monautil.NewAmount(decimal.NewFromFloat(famt))
 	if err != nil {
 		return nil, 0, err
 	}
@@ -822,7 +823,7 @@ func parseAccountBalanceNtfnParams(params []json.RawMessage) (account string,
 	}
 
 	// Bounds check amount.
-	bal, err := monautil.NewAmount(fbal)
+	bal, err := monautil.NewAmount(decimal.NewFromFloat(fbal))
 	if err != nil {
 		return "", 0, false, err
 	}

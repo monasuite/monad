@@ -13,6 +13,7 @@ import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 // *****************************
@@ -1397,7 +1398,7 @@ func (r FutureListAccountsResult) Receive() (map[string]monautil.Amount, error) 
 
 	accountsMap := make(map[string]monautil.Amount)
 	for k, v := range accounts {
-		amount, err := monautil.NewAmount(v)
+		amount, err := monautil.NewAmount(decimal.NewFromFloat(v))
 		if err != nil {
 			return nil, err
 		}
@@ -1464,7 +1465,7 @@ func (r FutureGetBalanceResult) Receive() (monautil.Amount, error) {
 		return 0, err
 	}
 
-	amount, err := monautil.NewAmount(balance)
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(balance))
 	if err != nil {
 		return 0, err
 	}
@@ -1497,7 +1498,7 @@ func (r FutureGetBalanceParseResult) Receive() (monautil.Amount, error) {
 	if err != nil {
 		return 0, err
 	}
-	amount, err := monautil.NewAmount(balance)
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(balance))
 	if err != nil {
 		return 0, err
 	}
@@ -1567,7 +1568,7 @@ func (r FutureGetReceivedByAccountResult) Receive() (monautil.Amount, error) {
 		return 0, err
 	}
 
-	amount, err := monautil.NewAmount(balance)
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(balance))
 	if err != nil {
 		return 0, err
 	}
@@ -1632,7 +1633,7 @@ func (r FutureGetUnconfirmedBalanceResult) Receive() (monautil.Amount, error) {
 		return 0, err
 	}
 
-	amount, err := monautil.NewAmount(balance)
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(balance))
 	if err != nil {
 		return 0, err
 	}
@@ -1676,7 +1677,7 @@ func (r FutureGetReceivedByAddressResult) Receive() (monautil.Amount, error) {
 		return 0, err
 	}
 
-	amount, err := monautil.NewAmount(balance)
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(balance))
 	if err != nil {
 		return 0, err
 	}

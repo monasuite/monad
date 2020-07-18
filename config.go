@@ -31,6 +31,7 @@ import (
 	"github.com/monasuite/monad/mempool"
 	"github.com/monasuite/monad/peer"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -759,7 +760,7 @@ func loadConfig() (*config, []string, error) {
 	}
 
 	// Validate the the minrelaytxfee.
-	cfg.minRelayTxFee, err = monautil.NewAmount(cfg.MinRelayTxFee)
+	cfg.minRelayTxFee, err = monautil.NewAmount(decimal.NewFromFloat(cfg.MinRelayTxFee))
 	if err != nil {
 		str := "%s: invalid minrelaytxfee: %v"
 		err := fmt.Errorf(str, funcName, err)

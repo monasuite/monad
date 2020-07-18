@@ -6,6 +6,7 @@ package mempool
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 	"time"
 
@@ -269,6 +270,8 @@ func TestDust(t *testing.T) {
 	}
 	for _, test := range tests {
 		res := isDust(&test.txOut, test.relayFee)
+		fmt.Println(res)
+		fmt.Println(test.isDust)
 		if res != test.isDust {
 			t.Fatalf("Dust test '%s' failed: want %v got %v",
 				test.name, test.isDust, res)

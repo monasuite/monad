@@ -43,6 +43,7 @@ import (
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 // API version constants
@@ -602,7 +603,7 @@ func handleCreateRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan 
 		}
 
 		// Convert the amount to satoshi.
-		satoshi, err := monautil.NewAmount(amount)
+		satoshi, err := monautil.NewAmount(decimal.NewFromFloat(amount))
 		if err != nil {
 			context := "Failed to convert amount"
 			return nil, internalRPCError(err.Error(), context)

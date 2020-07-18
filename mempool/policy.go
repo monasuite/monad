@@ -12,6 +12,7 @@ import (
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -265,7 +266,11 @@ func isDust(txOut *wire.TxOut, minRelayTxFee monautil.Amount) bool {
 	//
 	// The following is equivalent to (value/totalSize) * (1/3) * 1000
 	// without needing to do floating point math.
-	return txOut.Value*1000/(3*int64(totalSize)) < int64(minRelayTxFee)
+	// TODO This is fuxxing code. Monacoin is OK? int64 overflow......
+	left := decimal.NewFromInt(txOut.Value).Mul(decimal.NewFromInt(1000))
+	right := decimal.NewFromInt(int64(totalSize)).Mul(decimal.NewFromInt(3))
+	//return txOut.Value*1000/(3*int64(totalSize)) < int64(minRelayTxFee)
+	return left.Div(right).IntPart() < int64(minRelayTxFee)
 }
 
 // checkTransactionStandard performs a series of checks on a transaction to

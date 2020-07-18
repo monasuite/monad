@@ -18,6 +18,7 @@ import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 // scriptTestName returns a descriptive test name for the given reference script
@@ -373,7 +374,7 @@ func testScripts(t *testing.T, tests [][]interface{}, useSigCache bool) {
 				continue
 			}
 
-			inputAmt, err = monautil.NewAmount(witnessData[len(witnessData)-1].(float64))
+			inputAmt, err = monautil.NewAmount(decimal.NewFromFloat(witnessData[len(witnessData)-1].(float64)))
 			if err != nil {
 				t.Errorf("%s: can't parse input amt: %v",
 					name, err)

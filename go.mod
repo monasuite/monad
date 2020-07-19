@@ -9,7 +9,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monautil v1.0.2
+	github.com/monasuite/monautil v1.1.0
 	github.com/shopspring/decimal v1.2.0
 	github.com/wakiyamap/lyra2rev2 v0.1.2
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37

@@ -52,6 +52,8 @@ github.com/monasuite/monautil v0.0.0-20190606162653-90b266792864 h1:pMKZU4hTeLss
 github.com/monasuite/monautil v0.0.0-20190606162653-90b266792864/go.mod h1:kIVSL9QpyEYOh60Z7DIAAIhzOd9pHpRbMA3rOqVXOwc=
 github.com/monasuite/monautil v1.0.2 h1:lDEAgecY4QBpNP6/qZpDb6RaIsbxxCWoohg0Xc5kfUE=
 github.com/monasuite/monautil v1.0.2/go.mod h1:yQwTTNPBDW7ohztctinZ+oZRTB968tVpaDFR/+8h69E=
+github.com/monasuite/monautil v1.1.0 h1:LSnduPcag9hdqqOFch4oATY2SenC2OVMfMUMly/eOCU=
+github.com/monasuite/monautil v1.1.0/go.mod h1:b5tmGuaSp+AMFptTgNUuYWwct+WTaS+lSh2yUkQQQvw=
 github.com/monasuite/monautil/psbt v1.0.1/go.mod h1:7WRjsuiM52783pB5V68DM+A5EUFGQEPGZy7wd70Xay4=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.7.0 h1:WSHQ+IS43OoUrWtD1/bbclrwK8TTH5hzp+umCiuxHgs=

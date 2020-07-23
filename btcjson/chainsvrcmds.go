@@ -8,6 +8,7 @@
 package btcjson
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 
@@ -115,14 +116,50 @@ func NewDumpVolatileCheckpointCmd() *DumpVolatileCheckpointCmd {
 // NewCreateRawTransactionCmd returns a new instance which can be used to issue
 // a createrawtransaction JSON-RPC command.
 //
-// Amounts are in BTC.
+// Amounts are in BTC. Passing in nil and the empty slice as inputs is equivalent,
+// both gets interpreted as the empty slice.
 func NewCreateRawTransactionCmd(inputs []TransactionInput, amounts map[string]float64,
 	lockTime *int64) *CreateRawTransactionCmd {
-
+	// to make sure we're serializing this to the empty list and not null, we
+	// explicitly initialize the list
+	if inputs == nil {
+		inputs = []TransactionInput{}
+	}
 	return &CreateRawTransactionCmd{
 		Inputs:   inputs,
 		Amounts:  amounts,
 		LockTime: lockTime,
+	}
+}
+
+// FundRawTransactionOpts are the different options that can be passed to rawtransaction
+type FundRawTransactionOpts struct {
+	ChangeAddress          *string               `json:"changeAddress,omitempty"`
+	ChangePosition         *int                  `json:"changePosition,omitempty"`
+	ChangeType             *string               `json:"change_type,omitempty"`
+	IncludeWatching        *bool                 `json:"includeWatching,omitempty"`
+	LockUnspents           *bool                 `json:"lockUnspents,omitempty"`
+	FeeRate                *float64              `json:"feeRate,omitempty"` // BTC/kB
+	SubtractFeeFromOutputs []int                 `json:"subtractFeeFromOutputs,omitempty"`
+	Replaceable            *bool                 `json:"replaceable,omitempty"`
+	ConfTarget             *int                  `json:"conf_target,omitempty"`
+	EstimateMode           *EstimateSmartFeeMode `json:"estimate_mode,omitempty"`
+}
+
+// FundRawTransactionCmd defines the fundrawtransaction JSON-RPC command
+type FundRawTransactionCmd struct {
+	HexTx     string
+	Options   FundRawTransactionOpts
+	IsWitness *bool
+}
+
+// NewFundRawTransactionCmd returns a new instance which can be used to issue
+// a fundrawtransaction JSON-RPC command
+func NewFundRawTransactionCmd(serializedTx []byte, opts FundRawTransactionOpts, isWitness *bool) *FundRawTransactionCmd {
+	return &FundRawTransactionCmd{
+		HexTx:     hex.EncodeToString(serializedTx),
+		Options:   opts,
+		IsWitness: isWitness,
 	}
 }
 
@@ -413,6 +450,24 @@ type GetChainTipsCmd struct{}
 // getchaintips JSON-RPC command.
 func NewGetChainTipsCmd() *GetChainTipsCmd {
 	return &GetChainTipsCmd{}
+}
+
+// GetChainTxStatsCmd defines the getchaintxstats JSON-RPC command.
+type GetChainTxStatsCmd struct {
+	NBlocks   *int32
+	BlockHash *string
+}
+
+// NewGetChainTxStatsCmd returns a new instance which can be used to issue a
+// getchaintxstats JSON-RPC command.
+//
+// The parameters which are pointers indicate they are optional.  Passing nil
+// for optional parameters will use the default value.
+func NewGetChainTxStatsCmd(nBlocks *int32, blockHash *string) *GetChainTxStatsCmd {
+	return &GetChainTxStatsCmd{
+		NBlocks:   nBlocks,
+		BlockHash: blockHash,
+	}
 }
 
 // GetConnectionCountCmd defines the getconnectioncount JSON-RPC command.
@@ -918,6 +973,7 @@ func init() {
 	MustRegisterCmd("checkpoint", (*CheckpointCmd)(nil), flags)
 	MustRegisterCmd("dumpcheckpoint", (*DumpCheckpointCmd)(nil), flags)
 	MustRegisterCmd("dumpvolatilecheckpoint", (*DumpVolatileCheckpointCmd)(nil), flags)
+	MustRegisterCmd("fundrawtransaction", (*FundRawTransactionCmd)(nil), flags)
 	MustRegisterCmd("decoderawtransaction", (*DecodeRawTransactionCmd)(nil), flags)
 	MustRegisterCmd("decodescript", (*DecodeScriptCmd)(nil), flags)
 	MustRegisterCmd("getaddednodeinfo", (*GetAddedNodeInfoCmd)(nil), flags)
@@ -932,6 +988,7 @@ func init() {
 	MustRegisterCmd("getcfilter", (*GetCFilterCmd)(nil), flags)
 	MustRegisterCmd("getcfilterheader", (*GetCFilterHeaderCmd)(nil), flags)
 	MustRegisterCmd("getchaintips", (*GetChainTipsCmd)(nil), flags)
+	MustRegisterCmd("getchaintxstats", (*GetChainTxStatsCmd)(nil), flags)
 	MustRegisterCmd("getconnectioncount", (*GetConnectionCountCmd)(nil), flags)
 	MustRegisterCmd("getdifficulty", (*GetDifficultyCmd)(nil), flags)
 	MustRegisterCmd("getgenerate", (*GetGenerateCmd)(nil), flags)

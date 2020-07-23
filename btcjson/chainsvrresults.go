@@ -4,7 +4,15 @@
 
 package btcjson
 
-import "encoding/json"
+import (
+	"bytes"
+	"encoding/hex"
+	"encoding/json"
+
+	"github.com/monasuite/monad/wire"
+	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
+)
 
 // GetBlockHeaderVerboseResult models the data from the getblockheader command when
 // the verbose flag is set.  When the verbose flag is not set, getblockheader
@@ -105,6 +113,18 @@ type GetBlockVerboseTxResult struct {
 	Difficulty    float64       `json:"difficulty"`
 	PreviousHash  string        `json:"previousblockhash"`
 	NextHash      string        `json:"nextblockhash,omitempty"`
+}
+
+// GetChainTxStatsResult models the data from the getchaintxstats command.
+type GetChainTxStatsResult struct {
+	Time                   int64   `json:"time"`
+	TxCount                int64   `json:"txcount"`
+	WindowFinalBlockHash   string  `json:"window_final_block_hash"`
+	WindowFinalBlockHeight int32   `json:"window_final_block_height"`
+	WindowBlockCount       int32   `json:"window_block_count"`
+	WindowTxCount          int32   `json:"window_tx_count"`
+	WindowInterval         int32   `json:"window_interval"`
+	TxRate                 float64 `json:"txrate"`
 }
 
 // CreateMultiSigResult models the data returned from the createmultisig
@@ -680,4 +700,51 @@ type EstimateSmartFeeResult struct {
 	FeeRate *float64 `json:"feerate,omitempty"`
 	Errors  []string `json:"errors,omitempty"`
 	Blocks  int64    `json:"blocks"`
+}
+
+var _ json.Unmarshaler = &FundRawTransactionResult{}
+
+type rawFundRawTransactionResult struct {
+	Transaction    string  `json:"hex"`
+	Fee            float64 `json:"fee"`
+	ChangePosition int     `json:"changepos"`
+}
+
+// FundRawTransactionResult is the result of the fundrawtransaction JSON-RPC call
+type FundRawTransactionResult struct {
+	Transaction    *wire.MsgTx
+	Fee            monautil.Amount
+	ChangePosition int // the position of the added change output, or -1
+}
+
+// UnmarshalJSON unmarshals the result of the fundrawtransaction JSON-RPC call
+func (f *FundRawTransactionResult) UnmarshalJSON(data []byte) error {
+	var rawRes rawFundRawTransactionResult
+	if err := json.Unmarshal(data, &rawRes); err != nil {
+		return err
+	}
+
+	txBytes, err := hex.DecodeString(rawRes.Transaction)
+	if err != nil {
+		return err
+	}
+
+	var msgTx wire.MsgTx
+	witnessErr := msgTx.Deserialize(bytes.NewReader(txBytes))
+	if witnessErr != nil {
+		legacyErr := msgTx.DeserializeNoWitness(bytes.NewReader(txBytes))
+		if legacyErr != nil {
+			return legacyErr
+		}
+	}
+
+	fee, err := monautil.NewAmount(decimal.NewFromFloat(rawRes.Fee))
+	if err != nil {
+		return err
+	}
+
+	f.Transaction = &msgTx
+	f.Fee = fee
+	f.ChangePosition = rawRes.ChangePosition
+	return nil
 }

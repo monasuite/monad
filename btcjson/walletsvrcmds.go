@@ -7,6 +7,8 @@
 
 package btcjson
 
+import "github.com/shopspring/decimal"
+
 // AddMultisigAddressCmd defines the addmutisigaddress JSON-RPC command.
 type AddMultisigAddressCmd struct {
 	NRequired int
@@ -483,8 +485,8 @@ func NewLockUnspentCmd(unlock bool, transactions []TransactionInput) *LockUnspen
 type MoveCmd struct {
 	FromAccount string
 	ToAccount   string
-	Amount      float64 // In BTC
-	MinConf     *int    `jsonrpcdefault:"1"`
+	Amount      decimal.Decimal // In BTC
+	MinConf     *int            `jsonrpcdefault:"1"`
 	Comment     *string
 }
 
@@ -493,7 +495,7 @@ type MoveCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewMoveCmd(fromAccount, toAccount string, amount float64, minConf *int, comment *string) *MoveCmd {
+func NewMoveCmd(fromAccount, toAccount string, amount decimal.Decimal, minConf *int, comment *string) *MoveCmd {
 	return &MoveCmd{
 		FromAccount: fromAccount,
 		ToAccount:   toAccount,
@@ -507,8 +509,8 @@ func NewMoveCmd(fromAccount, toAccount string, amount float64, minConf *int, com
 type SendFromCmd struct {
 	FromAccount string
 	ToAddress   string
-	Amount      float64 // In BTC
-	MinConf     *int    `jsonrpcdefault:"1"`
+	Amount      decimal.Decimal // In BTC
+	MinConf     *int            `jsonrpcdefault:"1"`
 	Comment     *string
 	CommentTo   *string
 }
@@ -518,7 +520,7 @@ type SendFromCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewSendFromCmd(fromAccount, toAddress string, amount float64, minConf *int, comment, commentTo *string) *SendFromCmd {
+func NewSendFromCmd(fromAccount, toAddress string, amount decimal.Decimal, minConf *int, comment, commentTo *string) *SendFromCmd {
 	return &SendFromCmd{
 		FromAccount: fromAccount,
 		ToAddress:   toAddress,
@@ -532,8 +534,8 @@ func NewSendFromCmd(fromAccount, toAddress string, amount float64, minConf *int,
 // SendManyCmd defines the sendmany JSON-RPC command.
 type SendManyCmd struct {
 	FromAccount string
-	Amounts     map[string]float64 `jsonrpcusage:"{\"address\":amount,...}"` // In BTC
-	MinConf     *int               `jsonrpcdefault:"1"`
+	Amounts     map[string]decimal.Decimal `jsonrpcusage:"{\"address\":amount,...}"` // In BTC
+	MinConf     *int                       `jsonrpcdefault:"1"`
 	Comment     *string
 }
 
@@ -542,7 +544,7 @@ type SendManyCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewSendManyCmd(fromAccount string, amounts map[string]float64, minConf *int, comment *string) *SendManyCmd {
+func NewSendManyCmd(fromAccount string, amounts map[string]decimal.Decimal, minConf *int, comment *string) *SendManyCmd {
 	return &SendManyCmd{
 		FromAccount: fromAccount,
 		Amounts:     amounts,
@@ -554,7 +556,7 @@ func NewSendManyCmd(fromAccount string, amounts map[string]float64, minConf *int
 // SendToAddressCmd defines the sendtoaddress JSON-RPC command.
 type SendToAddressCmd struct {
 	Address   string
-	Amount    float64
+	Amount    decimal.Decimal
 	Comment   *string
 	CommentTo *string
 }
@@ -564,7 +566,7 @@ type SendToAddressCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewSendToAddressCmd(address string, amount float64, comment, commentTo *string) *SendToAddressCmd {
+func NewSendToAddressCmd(address string, amount decimal.Decimal, comment, commentTo *string) *SendToAddressCmd {
 	return &SendToAddressCmd{
 		Address:   address,
 		Amount:    amount,
@@ -590,12 +592,12 @@ func NewSetAccountCmd(address, account string) *SetAccountCmd {
 
 // SetTxFeeCmd defines the settxfee JSON-RPC command.
 type SetTxFeeCmd struct {
-	Amount float64 // In BTC
+	Amount decimal.Decimal // In BTC
 }
 
 // NewSetTxFeeCmd returns a new instance which can be used to issue a settxfee
 // JSON-RPC command.
-func NewSetTxFeeCmd(amount float64) *SetTxFeeCmd {
+func NewSetTxFeeCmd(amount decimal.Decimal) *SetTxFeeCmd {
 	return &SetTxFeeCmd{
 		Amount: amount,
 	}

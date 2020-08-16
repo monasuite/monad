@@ -12,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/btcjson"
+	"github.com/shopspring/decimal"
 )
 
 // TestWalletSvrCmds tests all of the wallet server commands marshal and
@@ -872,16 +873,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "move",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("move", "from", "to", 0.5)
+				return btcjson.NewCmd("move", "from", "to", decimal.NewFromFloat(0.5))
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewMoveCmd("from", "to", 0.5, nil, nil)
+				return btcjson.NewMoveCmd("from", "to", decimal.NewFromFloat(0.5), nil, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to",0.5],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to","0.5"],"id":1}`,
 			unmarshalled: &btcjson.MoveCmd{
 				FromAccount: "from",
 				ToAccount:   "to",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(1),
 				Comment:     nil,
 			},
@@ -889,16 +890,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "move optional1",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("move", "from", "to", 0.5, 6)
+				return btcjson.NewCmd("move", "from", "to", decimal.NewFromFloat(0.5), 6)
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewMoveCmd("from", "to", 0.5, btcjson.Int(6), nil)
+				return btcjson.NewMoveCmd("from", "to", decimal.NewFromFloat(0.5), btcjson.Int(6), nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to",0.5,6],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to","0.5",6],"id":1}`,
 			unmarshalled: &btcjson.MoveCmd{
 				FromAccount: "from",
 				ToAccount:   "to",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(6),
 				Comment:     nil,
 			},
@@ -906,16 +907,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "move optional2",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("move", "from", "to", 0.5, 6, "comment")
+				return btcjson.NewCmd("move", "from", "to", decimal.NewFromFloat(0.5), 6, "comment")
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewMoveCmd("from", "to", 0.5, btcjson.Int(6), btcjson.String("comment"))
+				return btcjson.NewMoveCmd("from", "to", decimal.NewFromFloat(0.5), btcjson.Int(6), btcjson.String("comment"))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to",0.5,6,"comment"],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"move","params":["from","to","0.5",6,"comment"],"id":1}`,
 			unmarshalled: &btcjson.MoveCmd{
 				FromAccount: "from",
 				ToAccount:   "to",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(6),
 				Comment:     btcjson.String("comment"),
 			},
@@ -923,16 +924,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendfrom",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendfrom", "from", "1Address", 0.5)
+				return btcjson.NewCmd("sendfrom", "from", "1Address", decimal.NewFromFloat(0.5))
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendFromCmd("from", "1Address", 0.5, nil, nil, nil)
+				return btcjson.NewSendFromCmd("from", "1Address", decimal.NewFromFloat(0.5), nil, nil, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address",0.5],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address","0.5"],"id":1}`,
 			unmarshalled: &btcjson.SendFromCmd{
 				FromAccount: "from",
 				ToAddress:   "1Address",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(1),
 				Comment:     nil,
 				CommentTo:   nil,
@@ -941,16 +942,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendfrom optional1",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendfrom", "from", "1Address", 0.5, 6)
+				return btcjson.NewCmd("sendfrom", "from", "1Address", decimal.NewFromFloat(0.5), 6)
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendFromCmd("from", "1Address", 0.5, btcjson.Int(6), nil, nil)
+				return btcjson.NewSendFromCmd("from", "1Address", decimal.NewFromFloat(0.5), btcjson.Int(6), nil, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address",0.5,6],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address","0.5",6],"id":1}`,
 			unmarshalled: &btcjson.SendFromCmd{
 				FromAccount: "from",
 				ToAddress:   "1Address",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(6),
 				Comment:     nil,
 				CommentTo:   nil,
@@ -959,17 +960,17 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendfrom optional2",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendfrom", "from", "1Address", 0.5, 6, "comment")
+				return btcjson.NewCmd("sendfrom", "from", "1Address", decimal.NewFromFloat(0.5), 6, "comment")
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendFromCmd("from", "1Address", 0.5, btcjson.Int(6),
+				return btcjson.NewSendFromCmd("from", "1Address", decimal.NewFromFloat(0.5), btcjson.Int(6),
 					btcjson.String("comment"), nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address",0.5,6,"comment"],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address","0.5",6,"comment"],"id":1}`,
 			unmarshalled: &btcjson.SendFromCmd{
 				FromAccount: "from",
 				ToAddress:   "1Address",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(6),
 				Comment:     btcjson.String("comment"),
 				CommentTo:   nil,
@@ -978,17 +979,17 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendfrom optional3",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendfrom", "from", "1Address", 0.5, 6, "comment", "commentto")
+				return btcjson.NewCmd("sendfrom", "from", "1Address", decimal.NewFromFloat(0.5), 6, "comment", "commentto")
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendFromCmd("from", "1Address", 0.5, btcjson.Int(6),
+				return btcjson.NewSendFromCmd("from", "1Address", decimal.NewFromFloat(0.5), btcjson.Int(6),
 					btcjson.String("comment"), btcjson.String("commentto"))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address",0.5,6,"comment","commentto"],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendfrom","params":["from","1Address","0.5",6,"comment","commentto"],"id":1}`,
 			unmarshalled: &btcjson.SendFromCmd{
 				FromAccount: "from",
 				ToAddress:   "1Address",
-				Amount:      0.5,
+				Amount:      decimal.NewFromFloat(0.5),
 				MinConf:     btcjson.Int(6),
 				Comment:     btcjson.String("comment"),
 				CommentTo:   btcjson.String("commentto"),
@@ -1000,13 +1001,13 @@ func TestWalletSvrCmds(t *testing.T) {
 				return btcjson.NewCmd("sendmany", "from", `{"1Address":0.5}`)
 			},
 			staticCmd: func() interface{} {
-				amounts := map[string]float64{"1Address": 0.5}
+				amounts := map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)}
 				return btcjson.NewSendManyCmd("from", amounts, nil, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":0.5}],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":"0.5"}],"id":1}`,
 			unmarshalled: &btcjson.SendManyCmd{
 				FromAccount: "from",
-				Amounts:     map[string]float64{"1Address": 0.5},
+				Amounts:     map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)},
 				MinConf:     btcjson.Int(1),
 				Comment:     nil,
 			},
@@ -1017,13 +1018,13 @@ func TestWalletSvrCmds(t *testing.T) {
 				return btcjson.NewCmd("sendmany", "from", `{"1Address":0.5}`, 6)
 			},
 			staticCmd: func() interface{} {
-				amounts := map[string]float64{"1Address": 0.5}
+				amounts := map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)}
 				return btcjson.NewSendManyCmd("from", amounts, btcjson.Int(6), nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":0.5},6],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":"0.5"},6],"id":1}`,
 			unmarshalled: &btcjson.SendManyCmd{
 				FromAccount: "from",
-				Amounts:     map[string]float64{"1Address": 0.5},
+				Amounts:     map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)},
 				MinConf:     btcjson.Int(6),
 				Comment:     nil,
 			},
@@ -1034,13 +1035,13 @@ func TestWalletSvrCmds(t *testing.T) {
 				return btcjson.NewCmd("sendmany", "from", `{"1Address":0.5}`, 6, "comment")
 			},
 			staticCmd: func() interface{} {
-				amounts := map[string]float64{"1Address": 0.5}
+				amounts := map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)}
 				return btcjson.NewSendManyCmd("from", amounts, btcjson.Int(6), btcjson.String("comment"))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":0.5},6,"comment"],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendmany","params":["from",{"1Address":"0.5"},6,"comment"],"id":1}`,
 			unmarshalled: &btcjson.SendManyCmd{
 				FromAccount: "from",
-				Amounts:     map[string]float64{"1Address": 0.5},
+				Amounts:     map[string]decimal.Decimal{"1Address": decimal.NewFromFloat(0.5)},
 				MinConf:     btcjson.Int(6),
 				Comment:     btcjson.String("comment"),
 			},
@@ -1048,15 +1049,15 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendtoaddress",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendtoaddress", "1Address", 0.5)
+				return btcjson.NewCmd("sendtoaddress", "1Address", decimal.NewFromFloat(0.5))
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendToAddressCmd("1Address", 0.5, nil, nil)
+				return btcjson.NewSendToAddressCmd("1Address", decimal.NewFromFloat(0.5), nil, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendtoaddress","params":["1Address",0.5],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendtoaddress","params":["1Address","0.5"],"id":1}`,
 			unmarshalled: &btcjson.SendToAddressCmd{
 				Address:   "1Address",
-				Amount:    0.5,
+				Amount:    decimal.NewFromFloat(0.5),
 				Comment:   nil,
 				CommentTo: nil,
 			},
@@ -1064,16 +1065,16 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "sendtoaddress optional1",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("sendtoaddress", "1Address", 0.5, "comment", "commentto")
+				return btcjson.NewCmd("sendtoaddress", "1Address", decimal.NewFromFloat(0.5), "comment", "commentto")
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSendToAddressCmd("1Address", 0.5, btcjson.String("comment"),
+				return btcjson.NewSendToAddressCmd("1Address", decimal.NewFromFloat(0.5), btcjson.String("comment"),
 					btcjson.String("commentto"))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"sendtoaddress","params":["1Address",0.5,"comment","commentto"],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"sendtoaddress","params":["1Address","0.5","comment","commentto"],"id":1}`,
 			unmarshalled: &btcjson.SendToAddressCmd{
 				Address:   "1Address",
-				Amount:    0.5,
+				Amount:    decimal.NewFromFloat(0.5),
 				Comment:   btcjson.String("comment"),
 				CommentTo: btcjson.String("commentto"),
 			},
@@ -1095,14 +1096,14 @@ func TestWalletSvrCmds(t *testing.T) {
 		{
 			name: "settxfee",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("settxfee", 0.0001)
+				return btcjson.NewCmd("settxfee", decimal.NewFromFloat(0.0001))
 			},
 			staticCmd: func() interface{} {
-				return btcjson.NewSetTxFeeCmd(0.0001)
+				return btcjson.NewSetTxFeeCmd(decimal.NewFromFloat(0.0001))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"settxfee","params":[0.0001],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"settxfee","params":["0.0001"],"id":1}`,
 			unmarshalled: &btcjson.SetTxFeeCmd{
-				Amount: 0.0001,
+				Amount: decimal.NewFromFloat(0.0001),
 			},
 		},
 		{

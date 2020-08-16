@@ -14,6 +14,7 @@ import (
 
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/wire"
+	"github.com/shopspring/decimal"
 )
 
 // TestChainSvrCmds tests all of the chain server commands marshal and unmarshal
@@ -52,28 +53,28 @@ func TestChainSvrCmds(t *testing.T) {
 				txInputs := []btcjson.TransactionInput{
 					{Txid: "123", Vout: 1},
 				}
-				amounts := map[string]float64{"456": .0123}
+				amounts := map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)}
 				return btcjson.NewCreateRawTransactionCmd(txInputs, amounts, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[{"txid":"123","vout":1}],{"456":0.0123}],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[{"txid":"123","vout":1}],{"456":"0.0123"}],"id":1}`,
 			unmarshalled: &btcjson.CreateRawTransactionCmd{
 				Inputs:  []btcjson.TransactionInput{{Txid: "123", Vout: 1}},
-				Amounts: map[string]float64{"456": .0123},
+				Amounts: map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)},
 			},
 		},
 		{
 			name: "createrawtransaction - no inputs",
 			newCmd: func() (interface{}, error) {
-				return btcjson.NewCmd("createrawtransaction", `[]`, `{"456":0.0123}`)
+				return btcjson.NewCmd("createrawtransaction", `[]`, `{"456":"0.0123"}`)
 			},
 			staticCmd: func() interface{} {
-				amounts := map[string]float64{"456": .0123}
+				amounts := map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)}
 				return btcjson.NewCreateRawTransactionCmd(nil, amounts, nil)
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[],{"456":0.0123}],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[],{"456":"0.0123"}],"id":1}`,
 			unmarshalled: &btcjson.CreateRawTransactionCmd{
 				Inputs:  []btcjson.TransactionInput{},
-				Amounts: map[string]float64{"456": .0123},
+				Amounts: map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)},
 			},
 		},
 		{
@@ -86,13 +87,13 @@ func TestChainSvrCmds(t *testing.T) {
 				txInputs := []btcjson.TransactionInput{
 					{Txid: "123", Vout: 1},
 				}
-				amounts := map[string]float64{"456": .0123}
+				amounts := map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)}
 				return btcjson.NewCreateRawTransactionCmd(txInputs, amounts, btcjson.Int64(12312333333))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[{"txid":"123","vout":1}],{"456":0.0123},12312333333],"id":1}`,
+			marshalled: `{"jsonrpc":"1.0","method":"createrawtransaction","params":[[{"txid":"123","vout":1}],{"456":"0.0123"},12312333333],"id":1}`,
 			unmarshalled: &btcjson.CreateRawTransactionCmd{
 				Inputs:   []btcjson.TransactionInput{{Txid: "123", Vout: 1}},
-				Amounts:  map[string]float64{"456": .0123},
+				Amounts:  map[string]decimal.Decimal{"456": decimal.NewFromFloat(.0123)},
 				LockTime: btcjson.Int64(12312333333),
 			},
 		},

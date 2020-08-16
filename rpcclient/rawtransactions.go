@@ -13,6 +13,7 @@ import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -293,9 +294,9 @@ func (r FutureCreateRawTransactionResult) Receive() (*wire.MsgTx, error) {
 func (c *Client) CreateRawTransactionAsync(inputs []btcjson.TransactionInput,
 	amounts map[monautil.Address]monautil.Amount, lockTime *int64) FutureCreateRawTransactionResult {
 
-	convertedAmts := make(map[string]float64, len(amounts))
+	convertedAmts := make(map[string]decimal.Decimal, len(amounts))
 	for addr, amount := range amounts {
-		convertedAmts[addr.String()] = amount.ToBTC()
+		convertedAmts[addr.String()] = amount.ToDecimalBTC()
 	}
 	cmd := btcjson.NewCreateRawTransactionCmd(inputs, convertedAmts, lockTime)
 	return c.sendCmd(cmd)

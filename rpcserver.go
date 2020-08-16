@@ -559,7 +559,8 @@ func handleCreateRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan 
 	params := s.cfg.ChainParams
 	for encodedAddr, amount := range c.Amounts {
 		// Ensure amount is in the valid range for monetary amounts.
-		if amount <= 0 || amount > monautil.MaxSatoshi {
+		if amount.Cmp(decimal.NewFromFloat(0)) != 1 ||
+			amount.Mul(decimal.NewFromInt(monautil.SatoshiPerBitcoin)).Cmp(decimal.NewFromInt(monautil.MaxSatoshi)) == 1 {
 			return nil, &btcjson.RPCError{
 				Code:    btcjson.ErrRPCType,
 				Message: "Invalid amount",
@@ -603,7 +604,7 @@ func handleCreateRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan 
 		}
 
 		// Convert the amount to satoshi.
-		satoshi, err := monautil.NewAmount(decimal.NewFromFloat(amount))
+		satoshi, err := monautil.NewAmount(amount)
 		if err != nil {
 			context := "Failed to convert amount"
 			return nil, internalRPCError(err.Error(), context)

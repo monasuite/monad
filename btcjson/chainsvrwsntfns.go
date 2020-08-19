@@ -8,6 +8,8 @@
 
 package btcjson
 
+import "github.com/shopspring/decimal"
+
 const (
 	// BlockConnectedNtfnMethod is the legacy, deprecated method used for
 	// notifications from the chain server that a block has been connected.
@@ -248,12 +250,12 @@ func NewRescanProgressNtfn(hash string, height int32, time int64) *RescanProgres
 // TxAcceptedNtfn defines the txaccepted JSON-RPC notification.
 type TxAcceptedNtfn struct {
 	TxID   string
-	Amount float64
+	Amount decimal.Decimal
 }
 
 // NewTxAcceptedNtfn returns a new instance which can be used to issue a
 // txaccepted JSON-RPC notification.
-func NewTxAcceptedNtfn(txHash string, amount float64) *TxAcceptedNtfn {
+func NewTxAcceptedNtfn(txHash string, amount decimal.Decimal) *TxAcceptedNtfn {
 	return &TxAcceptedNtfn{
 		TxID:   txHash,
 		Amount: amount,

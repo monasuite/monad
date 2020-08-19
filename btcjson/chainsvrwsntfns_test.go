@@ -13,6 +13,7 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/btcjson"
+	"github.com/shopspring/decimal"
 )
 
 // TestChainSvrWsNtfns tests all of the chain server websocket-specific
@@ -171,15 +172,15 @@ func TestChainSvrWsNtfns(t *testing.T) {
 		{
 			name: "txaccepted",
 			newNtfn: func() (interface{}, error) {
-				return btcjson.NewCmd("txaccepted", "123", 1.5)
+				return btcjson.NewCmd("txaccepted", "123", decimal.NewFromFloat(1.5))
 			},
 			staticNtfn: func() interface{} {
-				return btcjson.NewTxAcceptedNtfn("123", 1.5)
+				return btcjson.NewTxAcceptedNtfn("123", decimal.NewFromFloat(1.5))
 			},
-			marshalled: `{"jsonrpc":"1.0","method":"txaccepted","params":["123",1.5],"id":null}`,
+			marshalled: `{"jsonrpc":"1.0","method":"txaccepted","params":["123","1.5"],"id":null}`,
 			unmarshalled: &btcjson.TxAcceptedNtfn{
 				TxID:   "123",
-				Amount: 1.5,
+				Amount: decimal.NewFromFloat(1.5),
 			},
 		},
 		{

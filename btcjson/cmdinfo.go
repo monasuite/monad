@@ -163,6 +163,9 @@ func fieldUsage(structField reflect.StructField, defaultVal *reflect.Value) stri
 		return subArrayUsage(fieldType, fieldName)
 
 	case reflect.Struct:
+		if fieldType.String() == "decimal.Decimal" {
+			break
+		}
 		return subStructUsage(fieldType)
 	}
 

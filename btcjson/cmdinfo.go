@@ -72,6 +72,8 @@ func subStructUsage(structType reflect.Type) string {
 		fieldValue := fieldName
 		fieldKind := rtf.Type.Kind()
 		switch {
+		case fieldKind.String() == "decimal.Decimal":
+			fieldValue = "n.nnn"
 		case isNumeric(fieldKind):
 			if fieldKind == reflect.Float32 || fieldKind == reflect.Float64 {
 				fieldValue = "n.nnn"
@@ -150,6 +152,9 @@ func fieldUsage(structField reflect.StructField, defaultVal *reflect.Value) stri
 
 	// Handle certain types uniquely to provide nicer usage.
 	fieldName := strings.ToLower(structField.Name)
+	if fieldType.String() == "decimal.Decimal" {
+		return fieldName
+	}
 	switch fieldType.Kind() {
 	case reflect.String:
 		if defaultVal != nil {
@@ -163,9 +168,6 @@ func fieldUsage(structField reflect.StructField, defaultVal *reflect.Value) stri
 		return subArrayUsage(fieldType, fieldName)
 
 	case reflect.Struct:
-		if fieldType.String() == "decimal.Decimal" {
-			break
-		}
 		return subStructUsage(fieldType)
 	}
 

@@ -48,6 +48,9 @@ type descLookupFunc func(string) string
 // associated with the provided Go type.
 func reflectTypeToJSONType(xT descLookupFunc, rt reflect.Type) string {
 	kind := rt.Kind()
+	if rt.String() == "decimal.Decimal" {
+		return xT("json-type-numeric")
+	}
 	if isNumeric(kind) {
 		return xT("json-type-numeric")
 	}
@@ -146,6 +149,9 @@ func reflectTypeToJSONExample(xT descLookupFunc, rt reflect.Type, indentLevel in
 		rt = rt.Elem()
 	}
 	kind := rt.Kind()
+	if kind.String() == "decimal.Decimal" {
+		return []string{"n.nnn"}, false
+	}
 	if isNumeric(kind) {
 		if kind == reflect.Float32 || kind == reflect.Float64 {
 			return []string{"n.nnn"}, false
@@ -332,7 +338,6 @@ func argHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Value
 	if numFields == 0 {
 		return ""
 	}
-
 	// Generate the help for each argument in the command.  Several
 	// simplifying assumptions are made here because the RegisterCmd
 	// function has already rigorously enforced the layout.
@@ -343,13 +348,11 @@ func argHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Value
 		if defVal, ok := defaults[i]; ok {
 			defaultVal = &defVal
 		}
-
 		fieldName := strings.ToLower(rtf.Name)
 		helpText := fmt.Sprintf("%d.\t%s\t(%s)\t%s", i+1, fieldName,
 			argTypeHelp(xT, rtf, defaultVal),
 			xT(method+"-"+fieldName))
 		args = append(args, helpText)
-
 		// For types which require a JSON object, or an array of JSON
 		// objects, generate the full syntax for the argument.
 		fieldType := rtf.Type
@@ -359,9 +362,11 @@ func argHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Value
 		kind := fieldType.Kind()
 		switch kind {
 		case reflect.Struct:
-			fieldDescKey := fmt.Sprintf("%s-%s", method, fieldName)
-			resultText := resultTypeHelp(xT, fieldType, fieldDescKey)
-			args = append(args, resultText)
+			if fieldType.String() != "decimal.Decimal" {
+				fieldDescKey := fmt.Sprintf("%s-%s", method, fieldName)
+				resultText := resultTypeHelp(xT, fieldType, fieldDescKey)
+				args = append(args, resultText)
+			}
 
 		case reflect.Map:
 			fieldDescKey := fmt.Sprintf("%s-%s", method, fieldName)
@@ -406,7 +411,6 @@ func methodHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Va
 		help += fmt.Sprintf("\n%s:\n%s\n", xT("help-arguments"),
 			xT("help-arguments-none"))
 	}
-
 	// Generate the help text for each result type.
 	resultTexts := make([]string, 0, len(resultTypes))
 	for i := range resultTypes {
@@ -444,6 +448,9 @@ func methodHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Va
 // acceptable types for results.
 func isValidResultType(kind reflect.Kind) bool {
 	if isNumeric(kind) {
+		return true
+	}
+	if kind.String() == "decimal.Decimal" {
 		return true
 	}
 

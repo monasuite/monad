@@ -10,8 +10,6 @@ import (
 	"reflect"
 	"strings"
 	"text/tabwriter"
-
-	"os"
 )
 
 // baseHelpDescs house the various help labels, types, and example values used

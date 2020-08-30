@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/btcjson"
+	"github.com/shopspring/decimal"
 )
 
 // TestHelpers tests the various helper functions which create pointers to
@@ -98,6 +99,16 @@ func TestHelpers(t *testing.T) {
 			},
 			expected: func() interface{} {
 				val := "abc"
+				return &val
+			}(),
+		},
+		{
+			name: "decimal",
+			f: func() interface{} {
+				return btcjson.Decimal(decimal.NewFromFloat(0.0001))
+			},
+			expected: func() interface{} {
+				val := decimal.NewFromFloat(0.0001)
 				return &val
 			}(),
 		},

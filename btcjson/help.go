@@ -10,6 +10,8 @@ import (
 	"reflect"
 	"strings"
 	"text/tabwriter"
+
+	"os"
 )
 
 // baseHelpDescs house the various help labels, types, and example values used
@@ -148,10 +150,10 @@ func reflectTypeToJSONExample(xT descLookupFunc, rt reflect.Type, indentLevel in
 	if rt.Kind() == reflect.Ptr {
 		rt = rt.Elem()
 	}
-	kind := rt.Kind()
-	if kind.String() == "decimal.Decimal" {
+	if rt.String() == "decimal.Decimal" {
 		return []string{"n.nnn"}, false
 	}
+	kind := rt.Kind()
 	if isNumeric(kind) {
 		if kind == reflect.Float32 || kind == reflect.Float64 {
 			return []string{"n.nnn"}, false
@@ -411,6 +413,7 @@ func methodHelp(xT descLookupFunc, rtp reflect.Type, defaults map[int]reflect.Va
 		help += fmt.Sprintf("\n%s:\n%s\n", xT("help-arguments"),
 			xT("help-arguments-none"))
 	}
+
 	// Generate the help text for each result type.
 	resultTexts := make([]string, 0, len(resultTypes))
 	for i := range resultTypes {
@@ -557,7 +560,6 @@ func GenerateHelp(method string, descs map[string]string, resultTypes ...interfa
 		missingKey = key
 		return key
 	}
-
 	// Generate and return the help for the method.
 	help := methodHelp(xT, rtp, info.defaults, method, resultTypes)
 	if missingKey != "" {

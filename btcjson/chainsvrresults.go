@@ -405,15 +405,15 @@ type GetPeerInfoResult struct {
 // command when the verbose flag is set.  When the verbose flag is not set,
 // getrawmempool returns an array of transaction hashes.
 type GetRawMempoolVerboseResult struct {
-	Size             int32    `json:"size"`
-	Vsize            int32    `json:"vsize"`
-	Weight           int32    `json:"weight"`
-	Fee              float64  `json:"fee"`
-	Time             int64    `json:"time"`
-	Height           int64    `json:"height"`
-	StartingPriority float64  `json:"startingpriority"`
-	CurrentPriority  float64  `json:"currentpriority"`
-	Depends          []string `json:"depends"`
+	Size             int32           `json:"size"`
+	Vsize            int32           `json:"vsize"`
+	Weight           int32           `json:"weight"`
+	Fee              decimal.Decimal `json:"fee"`
+	Time             int64           `json:"time"`
+	Height           int64           `json:"height"`
+	StartingPriority float64         `json:"startingpriority"`
+	CurrentPriority  float64         `json:"currentpriority"`
+	Depends          []string        `json:"depends"`
 }
 
 // ScriptPubKeyResult models the scriptPubKey data of a tx script.  It is
@@ -430,7 +430,7 @@ type ScriptPubKeyResult struct {
 type GetTxOutResult struct {
 	BestBlock     string             `json:"bestblock"`
 	Confirmations int64              `json:"confirmations"`
-	Value         float64            `json:"value"`
+	Value         decimal.Decimal    `json:"value"`
 	ScriptPubKey  ScriptPubKeyResult `json:"scriptPubKey"`
 	Coinbase      bool               `json:"coinbase"`
 }
@@ -521,8 +521,8 @@ func (v *Vin) MarshalJSON() ([]byte, error) {
 
 // PrevOut represents previous output for an input Vin.
 type PrevOut struct {
-	Addresses []string `json:"addresses,omitempty"`
-	Value     float64  `json:"value"`
+	Addresses []string        `json:"addresses,omitempty"`
+	Value     decimal.Decimal `json:"value"`
 }
 
 // VinPrevOut is like Vin except it includes PrevOut.  It is used by searchrawtransaction
@@ -598,7 +598,7 @@ func (v *VinPrevOut) MarshalJSON() ([]byte, error) {
 // Vout models parts of the tx data.  It is defined separately since both
 // getrawtransaction and decoderawtransaction use the same structure.
 type Vout struct {
-	Value        float64            `json:"value"`
+	Value        decimal.Decimal    `json:"value"`
 	N            uint32             `json:"n"`
 	ScriptPubKey ScriptPubKeyResult `json:"scriptPubKey"`
 }
@@ -629,16 +629,16 @@ type GetWorkResult struct {
 
 // InfoChainResult models the data returned by the chain server getinfo command.
 type InfoChainResult struct {
-	Version         int32   `json:"version"`
-	ProtocolVersion int32   `json:"protocolversion"`
-	Blocks          int32   `json:"blocks"`
-	TimeOffset      int64   `json:"timeoffset"`
-	Connections     int32   `json:"connections"`
-	Proxy           string  `json:"proxy"`
-	Difficulty      float64 `json:"difficulty"`
-	TestNet         bool    `json:"testnet"`
-	RelayFee        float64 `json:"relayfee"`
-	Errors          string  `json:"errors"`
+	Version         int32           `json:"version"`
+	ProtocolVersion int32           `json:"protocolversion"`
+	Blocks          int32           `json:"blocks"`
+	TimeOffset      int64           `json:"timeoffset"`
+	Connections     int32           `json:"connections"`
+	Proxy           string          `json:"proxy"`
+	Difficulty      float64         `json:"difficulty"`
+	TestNet         bool            `json:"testnet"`
+	RelayFee        decimal.Decimal `json:"relayfee"`
+	Errors          string          `json:"errors"`
 }
 
 // TxRawResult models the data from the getrawtransaction command.

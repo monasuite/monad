@@ -742,8 +742,9 @@ func createVoutList(mtx *wire.MsgTx, chainParams *chaincfg.Params, filterAddrMap
 		}
 
 		var vout btcjson.Vout
+		var tempVoutValue = monautil.Amount(v.Value)
 		vout.N = uint32(i)
-		vout.Value = monautil.Amount(v.Value).ToBTC()
+		vout.Value = tempVoutValue.ToDecimalBTC()
 		vout.ScriptPubKey.Addresses = encodedAddrs
 		vout.ScriptPubKey.Asm = disbuf
 		vout.ScriptPubKey.Hex = hex.EncodeToString(v.PkScript)
@@ -2456,6 +2457,7 @@ func handleGetHeaders(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) 
 // that are not related to wallet functionality.
 func handleGetInfo(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
 	best := s.cfg.Chain.BestSnapshot()
+	tempRelayFee := cfg.minRelayTxFee
 	ret := &btcjson.InfoChainResult{
 		Version:         int32(1000000*appMajor + 10000*appMinor + 100*appPatch),
 		ProtocolVersion: int32(maxProtocolVersion),
@@ -2465,7 +2467,7 @@ func handleGetInfo(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (in
 		Proxy:           cfg.Proxy,
 		Difficulty:      getDifficultyRatio(best.Bits, s.cfg.ChainParams),
 		TestNet:         cfg.TestNet4,
-		RelayFee:        cfg.minRelayTxFee.ToBTC(),
+		RelayFee:        tempRelayFee.ToDecimalBTC(),
 	}
 
 	return ret, nil
@@ -2897,10 +2899,11 @@ func handleGetTxOut(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (i
 		addresses[i] = addr.EncodeAddress()
 	}
 
+	tempValue := monautil.Amount(value)
 	txOutReply := &btcjson.GetTxOutResult{
 		BestBlock:     bestBlockHash,
 		Confirmations: int64(confirmations),
-		Value:         monautil.Amount(value).ToBTC(),
+		Value:         tempValue.ToDecimalBTC(),
 		ScriptPubKey: btcjson.ScriptPubKeyResult{
 			Asm:       disbuf,
 			Hex:       hex.EncodeToString(pkScript),
@@ -3155,9 +3158,10 @@ func createVinListPrevOut(s *rpcServer, mtx *wire.MsgTx, chainParams *chaincfg.P
 		// requested.
 		if vinExtra {
 			vinListEntry := &vinList[len(vinList)-1]
+			tempValue := monautil.Amount(originTxOut.Value)
 			vinListEntry.PrevOut = &btcjson.PrevOut{
 				Addresses: encodedAddrs,
-				Value:     monautil.Amount(originTxOut.Value).ToBTC(),
+				Value:     tempValue.ToDecimalBTC(),
 			}
 		}
 	}

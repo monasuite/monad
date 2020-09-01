@@ -5,7 +5,7 @@ monad
 [![ISC License](https://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monad)
 
-monad is an alternative full node bitcoin implementation written in Go (golang).
+monad is an alternative full node monacoin implementation written in Go (golang).
 
 This project is currently under active development and is in a Beta state.  It
 is extremely stable and has been in production use since October 2013.
@@ -24,9 +24,9 @@ ensures all individual transactions admitted to the pool follow the rules
 required by the block chain and also includes more strict checks which filter
 transactions based on miner requirements ("standard" transactions).
 
-One key difference between monad and Bitcoin Core is that monad does *NOT* include
+One key difference between monad and Monacoin Core is that monad does *NOT* include
 wallet functionality and this was a very intentional design decision.  See the
-blog entry [here](https://blog.conformal.com/monad-not-your-moms-bitcoin-daemon)
+blog entry [here](https://web.archive.org/web/20171125143919/https://blog.conformal.com/btcd-not-your-moms-bitcoin-daemon)
 for more details.  This means you can't actually make or receive payments
 directly with monad.  That functionality is provided by the
 [btcwallet](https://github.com/btcsuite/btcwallet) and
@@ -102,12 +102,6 @@ Launch monad from your Start menu.
 ```bash
 $ ./monad
 ```
-
-## IRC
-
-- irc.freenode.net
-- channel #monad
-- [webchat](https://webchat.freenode.net/?channels=monad)
 
 ## Issue Tracker
 

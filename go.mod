@@ -11,6 +11,8 @@ require (
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
 	github.com/monasuite/monautil v1.1.2
+	github.com/onsi/ginkgo v1.7.0 // indirect
+	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/shopspring/decimal v1.2.0
 	github.com/wakiyamap/lyra2rev2 v0.1.2
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37

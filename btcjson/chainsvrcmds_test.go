@@ -380,6 +380,28 @@ func TestChainSvrCmds(t *testing.T) {
 			unmarshalled: &btcjson.GetBlockCountCmd{},
 		},
 		{
+			name: "getblockfilter",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getblockfilter", "0000afaf")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetBlockFilterCmd("0000afaf", nil)
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"getblockfilter","params":["0000afaf"],"id":1}`,
+			unmarshalled: &btcjson.GetBlockFilterCmd{"0000afaf", nil},
+		},
+		{
+			name: "getblockfilter optional filtertype",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getblockfilter", "0000afaf", "basic")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetBlockFilterCmd("0000afaf", btcjson.NewFilterTypeName(btcjson.FilterTypeBasic))
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"getblockfilter","params":["0000afaf","basic"],"id":1}`,
+			unmarshalled: &btcjson.GetBlockFilterCmd{"0000afaf", btcjson.NewFilterTypeName(btcjson.FilterTypeBasic)},
+		},
+		{
 			name: "getblockhash",
 			newCmd: func() (interface{}, error) {
 				return btcjson.NewCmd("getblockhash", 123)
@@ -1210,6 +1232,20 @@ func TestChainSvrCmds(t *testing.T) {
 			},
 		},
 		{
+			name: "signmessagewithprivkey",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("signmessagewithprivkey", "5Hue", "Hey")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewSignMessageWithPrivKey("5Hue", "Hey")
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"signmessagewithprivkey","params":["5Hue","Hey"],"id":1}`,
+			unmarshalled: &btcjson.SignMessageWithPrivKeyCmd{
+				PrivKey: "5Hue",
+				Message: "Hey",
+			},
+		},
+		{
 			name: "stop",
 			newCmd: func() (interface{}, error) {
 				return btcjson.NewCmd("stop")
@@ -1346,6 +1382,17 @@ func TestChainSvrCmds(t *testing.T) {
 			unmarshalled: &btcjson.VerifyTxOutProofCmd{
 				Proof: "test",
 			},
+		},
+		{
+			name: "getdescriptorinfo",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getdescriptorinfo", "123")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetDescriptorInfoCmd("123")
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"getdescriptorinfo","params":["123"],"id":1}`,
+			unmarshalled: &btcjson.GetDescriptorInfoCmd{Descriptor: "123"},
 		},
 	}
 

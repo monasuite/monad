@@ -253,6 +253,33 @@ func NewGetBlockCountCmd() *GetBlockCountCmd {
 	return &GetBlockCountCmd{}
 }
 
+// FilterTypeName defines the type used in the getblockfilter JSON-RPC command for the
+// filter type field.
+type FilterTypeName string
+
+const (
+	// FilterTypeBasic is the basic filter type defined in BIP0158.
+	FilterTypeBasic FilterTypeName = "basic"
+)
+
+// GetBlockFilterCmd defines the getblockfilter JSON-RPC command.
+type GetBlockFilterCmd struct {
+	BlockHash  string          // The hash of the block
+	FilterType *FilterTypeName // The type name of the filter, default=basic
+}
+
+// NewGetBlockFilterCmd returns a new instance which can be used to issue a
+// getblockfilter JSON-RPC command.
+//
+// The parameters which are pointers indicate they are optional.  Passing nil
+// for optional parameters will use the default value.
+func NewGetBlockFilterCmd(blockHash string, filterType *FilterTypeName) *GetBlockFilterCmd {
+	return &GetBlockFilterCmd{
+		BlockHash:  blockHash,
+		FilterType: filterType,
+	}
+}
+
 // GetBlockHashCmd defines the getblockhash JSON-RPC command.
 type GetBlockHashCmd struct {
 	Index int64
@@ -832,6 +859,24 @@ func NewSetGenerateCmd(generate bool, genProcLimit *int) *SetGenerateCmd {
 	}
 }
 
+// SignMessageWithPrivKeyCmd defines the signmessagewithprivkey JSON-RPC command.
+type SignMessageWithPrivKeyCmd struct {
+	PrivKey string // base 58 Wallet Import format private key
+	Message string // Message to sign
+}
+
+// NewSignMessageWithPrivKey returns a new instance which can be used to issue a
+// signmessagewithprivkey JSON-RPC command.
+//
+// The first parameter is a private key in base 58 Wallet Import format.
+// The second parameter is the message to sign.
+func NewSignMessageWithPrivKey(privKey, message string) *SignMessageWithPrivKeyCmd {
+	return &SignMessageWithPrivKeyCmd{
+		PrivKey: privKey,
+		Message: message,
+	}
+}
+
 // StopCmd defines the stop JSON-RPC command.
 type StopCmd struct{}
 
@@ -965,6 +1010,19 @@ func NewVolatileCheckpointCmd(subCmd VolatileCheckpointSubCmd, hash *string, ind
 	}
 }
 
+// GetDescriptorInfoCmd defines the getdescriptorinfo JSON-RPC command.
+type GetDescriptorInfoCmd struct {
+	Descriptor string
+}
+
+// NewGetDescriptorInfoCmd returns a new instance which can be used to issue a
+// getdescriptorinfo JSON-RPC command.
+func NewGetDescriptorInfoCmd(descriptor string) *GetDescriptorInfoCmd {
+	return &GetDescriptorInfoCmd{
+		Descriptor: descriptor,
+	}
+}
+
 func init() {
 	// No special flags for commands in this file.
 	flags := UsageFlag(0)
@@ -982,6 +1040,7 @@ func init() {
 	MustRegisterCmd("getblock", (*GetBlockCmd)(nil), flags)
 	MustRegisterCmd("getblockchaininfo", (*GetBlockChainInfoCmd)(nil), flags)
 	MustRegisterCmd("getblockcount", (*GetBlockCountCmd)(nil), flags)
+	MustRegisterCmd("getblockfilter", (*GetBlockFilterCmd)(nil), flags)
 	MustRegisterCmd("getblockhash", (*GetBlockHashCmd)(nil), flags)
 	MustRegisterCmd("getblockheader", (*GetBlockHeaderCmd)(nil), flags)
 	MustRegisterCmd("getblockstats", (*GetBlockStatsCmd)(nil), flags)
@@ -1016,6 +1075,7 @@ func init() {
 	MustRegisterCmd("searchrawtransactions", (*SearchRawTransactionsCmd)(nil), flags)
 	MustRegisterCmd("sendrawtransaction", (*SendRawTransactionCmd)(nil), flags)
 	MustRegisterCmd("setgenerate", (*SetGenerateCmd)(nil), flags)
+	MustRegisterCmd("signmessagewithprivkey", (*SignMessageWithPrivKeyCmd)(nil), flags)
 	MustRegisterCmd("stop", (*StopCmd)(nil), flags)
 	MustRegisterCmd("submitblock", (*SubmitBlockCmd)(nil), flags)
 	MustRegisterCmd("uptime", (*UptimeCmd)(nil), flags)
@@ -1024,4 +1084,5 @@ func init() {
 	MustRegisterCmd("verifymessage", (*VerifyMessageCmd)(nil), flags)
 	MustRegisterCmd("verifytxoutproof", (*VerifyTxOutProofCmd)(nil), flags)
 	MustRegisterCmd("volatilecheckpoint", (*VolatileCheckpointCmd)(nil), flags)
+	MustRegisterCmd("getdescriptorinfo", (*GetDescriptorInfoCmd)(nil), flags)
 }

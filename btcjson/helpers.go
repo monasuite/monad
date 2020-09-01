@@ -78,10 +78,18 @@ func String(v string) *string {
 	return p
 }
 
-// Decimal is a helper routine that allocates a new string value to store v and
+// Decimal is a helper routine that allocates a new decimal.Decimal value to store v and
 // returns a pointer to it.  This is useful when assigning optional parameters.
 func Decimal(v decimal.Decimal) *decimal.Decimal {
 	p := new(decimal.Decimal)
+	*p = v
+	return p
+}
+
+// NewFilterTypeName is a helper routine that allocates a new FilterTypeName value to store v and
+// returns a pointer to it.  This is useful when assigning optional parameters.
+func NewFilterTypeName(v FilterTypeName) *FilterTypeName {
+	p := new(FilterTypeName)
 	*p = v
 	return p
 }

@@ -241,6 +241,13 @@ type GetBlockChainInfoResult struct {
 	*UnifiedSoftForks
 }
 
+// GetBlockFilterResult models the data returned from the getblockfilter
+// command.
+type GetBlockFilterResult struct {
+	Filter string `json:"filter"` // the hex-encoded filter data
+	Header string `json:"header"` // the hex-encoded filter header
+}
+
 // GetBlockTemplateResultTx models the transactions field of the
 // getblocktemplate command.
 type GetBlockTemplateResultTx struct {
@@ -689,9 +696,17 @@ type TxRawDecodeResult struct {
 
 // ValidateAddressChainResult models the data returned by the chain server
 // validateaddress command.
+//
+// Compared to the Bitcoin Core version, this struct lacks the scriptPubKey
+// field since it requires wallet access, which is outside the scope of btcd.
+// Ref: https://bitcoincore.org/en/doc/0.20.0/rpc/util/validateaddress/
 type ValidateAddressChainResult struct {
-	IsValid bool   `json:"isvalid"`
-	Address string `json:"address,omitempty"`
+	IsValid        bool    `json:"isvalid"`
+	Address        string  `json:"address,omitempty"`
+	IsScript       *bool   `json:"isscript,omitempty"`
+	IsWitness      *bool   `json:"iswitness,omitempty"`
+	WitnessVersion *int32  `json:"witness_version,omitempty"`
+	WitnessProgram *string `json:"witness_program,omitempty"`
 }
 
 // EstimateSmartFeeResult models the data returned buy the chain server
@@ -747,4 +762,13 @@ func (f *FundRawTransactionResult) UnmarshalJSON(data []byte) error {
 	f.Fee = fee
 	f.ChangePosition = rawRes.ChangePosition
 	return nil
+}
+
+// GetDescriptorInfoResult models the data from the getdescriptorinfo command.
+type GetDescriptorInfoResult struct {
+	Descriptor     string `json:"descriptor"`     // descriptor in canonical form, without private keys
+	Checksum       string `json:"checksum"`       // checksum for the input descriptor
+	IsRange        bool   `json:"isrange"`        // whether the descriptor is ranged
+	IsSolvable     bool   `json:"issolvable"`     // whether the descriptor is solvable
+	HasPrivateKeys bool   `json:"hasprivatekeys"` // whether the descriptor has at least one private key
 }

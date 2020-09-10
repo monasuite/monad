@@ -1512,12 +1512,11 @@ func (mp *TxPool) RawMempoolVerbose() map[string]*btcjson.GetRawMempoolVerboseRe
 				bestHeight+1)
 		}
 
-		tempCalcFee := monautil.Amount(desc.Fee)
 		mpd := &btcjson.GetRawMempoolVerboseResult{
 			Size:             int32(tx.MsgTx().SerializeSize()),
 			Vsize:            int32(GetTxVirtualSize(tx)),
 			Weight:           int32(blockchain.GetTransactionWeight(tx)),
-			Fee:              tempCalcFee.ToDecimalBTC(),
+			Fee:              monautil.Amount(desc.Fee).ToBTC(),
 			Time:             desc.Added.Unix(),
 			Height:           int64(desc.Height),
 			StartingPriority: desc.StartingPriority,

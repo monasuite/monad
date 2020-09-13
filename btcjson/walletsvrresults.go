@@ -4,7 +4,7 @@
 
 package btcjson
 
-import "github.com/shopspring/decimal"
+import "github.com/monasuite/monautil"
 
 // GetTransactionDetailsResult models the details data from the gettransaction command.
 //
@@ -14,7 +14,8 @@ import "github.com/shopspring/decimal"
 type GetTransactionDetailsResult struct {
 	Account           string          `json:"account"`
 	Address           string          `json:"address,omitempty"`
-	Amount            decimal.Decimal `json:"amount"`
+	Amount            float64         `json:"amount"`
+	AmountSatoshi     monautil.Amount `json:"amount"`
 	Category          string          `json:"category"`
 	InvolvesWatchOnly bool            `json:"involveswatchonly,omitempty"`
 	Fee               *float64        `json:"fee,omitempty"`
@@ -23,7 +24,8 @@ type GetTransactionDetailsResult struct {
 
 // GetTransactionResult models the data from the gettransaction command.
 type GetTransactionResult struct {
-	Amount          decimal.Decimal               `json:"amount"`
+	Amount          float64                       `json:"amount"`
+	AmountSatoshi   monautil.Amount               `json:"amount"`
 	Fee             float64                       `json:"fee,omitempty"`
 	Confirmations   int64                         `json:"confirmations"`
 	BlockHash       string                        `json:"blockhash"`
@@ -43,7 +45,8 @@ type InfoWalletResult struct {
 	Version         int32           `json:"version"`
 	ProtocolVersion int32           `json:"protocolversion"`
 	WalletVersion   int32           `json:"walletversion"`
-	Balance         decimal.Decimal `json:"balance"`
+	Balance         float64         `json:"balance"`
+	SatoshiBalance  monautil.Amount `json:"balance"`
 	Blocks          int32           `json:"blocks"`
 	TimeOffset      int64           `json:"timeoffset"`
 	Connections     int32           `json:"connections"`
@@ -63,9 +66,11 @@ type ListTransactionsResult struct {
 	Abandoned         bool            `json:"abandoned"`
 	Account           string          `json:"account"`
 	Address           string          `json:"address,omitempty"`
-	Amount            decimal.Decimal `json:"amount"`
+	Amount            float64         `json:"amount"`
+	AmountSatoshi     monautil.Amount `json:"amount"`
 	BIP125Replaceable string          `json:"bip125-replaceable,omitempty"`
 	BlockHash         string          `json:"blockhash,omitempty"`
+	BlockHeight       *int32          `json:"blockheight,omitempty"`
 	BlockIndex        *int64          `json:"blockindex,omitempty"`
 	BlockTime         int64           `json:"blocktime,omitempty"`
 	Category          string          `json:"category"`
@@ -73,6 +78,7 @@ type ListTransactionsResult struct {
 	Fee               *float64        `json:"fee,omitempty"`
 	Generated         bool            `json:"generated,omitempty"`
 	InvolvesWatchOnly bool            `json:"involveswatchonly,omitempty"`
+	Label             *string         `json:"label,omitempty"`
 	Time              int64           `json:"time"`
 	TimeReceived      int64           `json:"timereceived"`
 	Trusted           bool            `json:"trusted"`
@@ -87,7 +93,8 @@ type ListTransactionsResult struct {
 // command.
 type ListReceivedByAccountResult struct {
 	Account       string          `json:"account"`
-	Amount        decimal.Decimal `json:"amount"`
+	Amount        float64         `json:"amount"`
+	AmountSatoshi monautil.Amount `json:"amount"`
 	Confirmations uint64          `json:"confirmations"`
 }
 
@@ -96,7 +103,8 @@ type ListReceivedByAccountResult struct {
 type ListReceivedByAddressResult struct {
 	Account           string          `json:"account"`
 	Address           string          `json:"address"`
-	Amount            decimal.Decimal `json:"amount"`
+	Amount            float64         `json:"amount"`
+	AmountSatoshi     monautil.Amount `json:"amount"`
 	Confirmations     uint64          `json:"confirmations"`
 	TxIDs             []string        `json:"txids,omitempty"`
 	InvolvesWatchonly bool            `json:"involvesWatchonly,omitempty"`
@@ -116,7 +124,8 @@ type ListUnspentResult struct {
 	Account       string          `json:"account"`
 	ScriptPubKey  string          `json:"scriptPubKey"`
 	RedeemScript  string          `json:"redeemScript,omitempty"`
-	Amount        decimal.Decimal `json:"amount"`
+	Amount        float64         `json:"amount"`
+	AmountSatoshi monautil.Amount `json:"amount"`
 	Confirmations int64           `json:"confirmations"`
 	Spendable     bool            `json:"spendable"`
 }
@@ -164,10 +173,14 @@ type GetBestBlockResult struct {
 
 // BalanceDetailsResult models the details data from the `getbalances` command.
 type BalanceDetailsResult struct {
-	Trusted          decimal.Decimal  `json:"trusted"`
-	UntrustedPending decimal.Decimal  `json:"untrusted_pending"`
-	Immature         decimal.Decimal  `json:"immature"`
-	Used             *decimal.Decimal `json:"used"`
+	Trusted                 float64          `json:"trusted"`
+	UntrustedPending        float64          `json:"untrusted_pending"`
+	Immature                float64          `json:"immature"`
+	Used                    *float64         `json:"used"`
+	SatsohiTrusted          monautil.Amount  `json:"trusted"`
+	SatoshiUntrustedPending monautil.Amount  `json:"untrusted_pending"`
+	SatoshiImmature         monautil.Amount  `json:"immature"`
+	SatoshiUsed             *monautil.Amount `json:"used"`
 }
 
 // GetBalancesResult models the data returned from the getbalances command.

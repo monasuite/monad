@@ -932,7 +932,7 @@ func handleDumpCheckpoint(s *rpcServer, cmd interface{}, closeChan <-chan struct
 			Hash:   string(iter.Value()),
 		}
 		checkpoints = append(checkpoints, checkpoint)
-		if string(*c.Maxnum) <= string(len(checkpoints)) {
+		if *c.Maxnum <= int32(len(checkpoints)) {
 			break
 		}
 		iter.Prev()

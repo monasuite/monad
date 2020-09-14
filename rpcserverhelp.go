@@ -587,6 +587,12 @@ var helpDescsEnUS = map[string]string{
 	"setgenerate-generate":     "Use true to enable generation, false to disable it",
 	"setgenerate-genproclimit": "The number of processors (cores) to limit generation to or -1 for default",
 
+	// SignMessageWithPrivKeyCmd help.
+	"signmessagewithprivkey--synopsis": "Sign a message with the private key of an address",
+	"signmessagewithprivkey-privkey":   "The private key to sign the message with",
+	"signmessagewithprivkey-message":   "The message to create a signature of",
+	"signmessagewithprivkey--result0":  "The signature of the message encoded in base 64",
+
 	// StopCmd help.
 	"stop--synopsis": "Shutdown monad.",
 	"stop--result0":  "The string 'monad stopping.'",
@@ -603,8 +609,12 @@ var helpDescsEnUS = map[string]string{
 	"submitblock--result1":    "The reason the block was rejected",
 
 	// ValidateAddressResult help.
-	"validateaddresschainresult-isvalid": "Whether or not the address is valid",
-	"validateaddresschainresult-address": "The bitcoin address (only when isvalid is true)",
+	"validateaddresschainresult-isvalid":         "Whether or not the address is valid",
+	"validateaddresschainresult-address":         "The bitcoin address (only when isvalid is true)",
+	"validateaddresschainresult-isscript":        "If the key is a script",
+	"validateaddresschainresult-iswitness":       "If the address is a witness address",
+	"validateaddresschainresult-witness_version": "The version number of the witness program",
+	"validateaddresschainresult-witness_program": "The hex value of the witness program",
 
 	// ValidateAddressCmd help.
 	"validateaddress--synopsis": "Verify an address is valid.",
@@ -757,6 +767,7 @@ var rpcResultTypes = map[string][]interface{}{
 	"searchrawtransactions":  {(*string)(nil), (*[]btcjson.SearchRawTransactionsResult)(nil)},
 	"sendrawtransaction":     {(*string)(nil)},
 	"setgenerate":            nil,
+	"signmessagewithprivkey": {(*string)(nil)},
 	"stop":                   {(*string)(nil)},
 	"submitblock":            {nil, (*string)(nil)},
 	"uptime":                 {(*int64)(nil)},

@@ -64,6 +64,7 @@ type ListTransactionsResult struct {
 	Amount            float64  `json:"amount"`
 	BIP125Replaceable string   `json:"bip125-replaceable,omitempty"`
 	BlockHash         string   `json:"blockhash,omitempty"`
+	BlockHeight       *int32   `json:"blockheight,omitempty"`
 	BlockIndex        *int64   `json:"blockindex,omitempty"`
 	BlockTime         int64    `json:"blocktime,omitempty"`
 	Category          string   `json:"category"`
@@ -71,6 +72,7 @@ type ListTransactionsResult struct {
 	Fee               *float64 `json:"fee,omitempty"`
 	Generated         bool     `json:"generated,omitempty"`
 	InvolvesWatchOnly bool     `json:"involveswatchonly,omitempty"`
+	Label             *string  `json:"label,omitempty"`
 	Time              int64    `json:"time"`
 	TimeReceived      int64    `json:"timereceived"`
 	Trusted           bool     `json:"trusted"`
@@ -158,4 +160,29 @@ type ValidateAddressWalletResult struct {
 type GetBestBlockResult struct {
 	Hash   string `json:"hash"`
 	Height int32  `json:"height"`
+}
+
+// BalanceDetailsResult models the details data from the `getbalances` command.
+type BalanceDetailsResult struct {
+	Trusted          float64  `json:"trusted"`
+	UntrustedPending float64  `json:"untrusted_pending"`
+	Immature         float64  `json:"immature"`
+	Used             *float64 `json:"used"`
+}
+
+// GetBalancesResult models the data returned from the getbalances command.
+type GetBalancesResult struct {
+	Mine      BalanceDetailsResult  `json:"mine"`
+	WatchOnly *BalanceDetailsResult `json:"watchonly"`
+}
+
+// ImportMultiResults is a slice that models the result of the importmulti command.
+//
+// Each item in the slice contains the execution result corresponding to the input
+// requests of type btcjson.ImportMultiRequest, passed to the ImportMulti[Async]
+// function.
+type ImportMultiResults []struct {
+	Success  bool      `json:"success"`
+	Error    *RPCError `json:"error,omitempty"`
+	Warnings *[]string `json:"warnings,omitempty"`
 }

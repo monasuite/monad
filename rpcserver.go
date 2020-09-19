@@ -2901,6 +2901,7 @@ func handleGetTxOut(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (i
 		BestBlock:     bestBlockHash,
 		Confirmations: int64(confirmations),
 		Value:         monautil.Amount(value).ToBTC(),
+		Amount:        monautil.Amount(value),
 		ScriptPubKey: btcjson.ScriptPubKeyResult{
 			Asm:       disbuf,
 			Hex:       hex.EncodeToString(pkScript),
@@ -3158,6 +3159,7 @@ func createVinListPrevOut(s *rpcServer, mtx *wire.MsgTx, chainParams *chaincfg.P
 			vinListEntry.PrevOut = &btcjson.PrevOut{
 				Addresses: encodedAddrs,
 				Value:     monautil.Amount(originTxOut.Value).ToBTC(),
+				Amount:    monautil.Amount(originTxOut.Value),
 			}
 		}
 	}

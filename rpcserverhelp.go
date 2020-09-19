@@ -63,6 +63,7 @@ var helpDescsEnUS = map[string]string{
 	// PrevOut help.
 	"prevout-addresses": "previous output addresses",
 	"prevout-value":     "previous output value",
+	"prevout-amount":    "previous output value in satoshi",
 
 	// VinPrevOut help.
 	"vinprevout-coinbase":    "The hex-encoded bytes of the signature script (coinbase txns only)",
@@ -536,6 +537,7 @@ var helpDescsEnUS = map[string]string{
 	"gettxoutresult-bestblock":     "The block hash that contains the transaction output",
 	"gettxoutresult-confirmations": "The number of confirmations",
 	"gettxoutresult-value":         "The transaction amount in BTC",
+	"gettxoutresult-amount":        "The transaction amount in satoshi",
 	"gettxoutresult-scriptPubKey":  "The public key script used to pay coins as a JSON object",
 	"gettxoutresult-version":       "The transaction version",
 	"gettxoutresult-coinbase":      "Whether or not the transaction is a coinbase",

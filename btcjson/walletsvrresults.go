@@ -4,6 +4,8 @@
 
 package btcjson
 
+import "github.com/monasuite/monautil"
+
 // GetTransactionDetailsResult models the details data from the gettransaction command.
 //
 // This models the "short" version of the ListTransactionsResult type, which
@@ -38,22 +40,23 @@ type GetTransactionResult struct {
 // InfoWalletResult models the data returned by the wallet server getinfo
 // command.
 type InfoWalletResult struct {
-	Version         int32   `json:"version"`
-	ProtocolVersion int32   `json:"protocolversion"`
-	WalletVersion   int32   `json:"walletversion"`
-	Balance         float64 `json:"balance"`
-	Blocks          int32   `json:"blocks"`
-	TimeOffset      int64   `json:"timeoffset"`
-	Connections     int32   `json:"connections"`
-	Proxy           string  `json:"proxy"`
-	Difficulty      float64 `json:"difficulty"`
-	TestNet         bool    `json:"testnet"`
-	KeypoolOldest   int64   `json:"keypoololdest"`
-	KeypoolSize     int32   `json:"keypoolsize"`
-	UnlockedUntil   int64   `json:"unlocked_until"`
-	PaytxFee        float64 `json:"paytxfee"`
-	RelayFee        float64 `json:"relayfee"`
-	Errors          string  `json:"errors"`
+	Version         int32           `json:"version"`
+	ProtocolVersion int32           `json:"protocolversion"`
+	WalletVersion   int32           `json:"walletversion"`
+	Balance         float64         `json:"balance"`
+	SatoshiBalance  monautil.Amount `json:"satoshi_balance"`
+	Blocks          int32           `json:"blocks"`
+	TimeOffset      int64           `json:"timeoffset"`
+	Connections     int32           `json:"connections"`
+	Proxy           string          `json:"proxy"`
+	Difficulty      float64         `json:"difficulty"`
+	TestNet         bool            `json:"testnet"`
+	KeypoolOldest   int64           `json:"keypoololdest"`
+	KeypoolSize     int32           `json:"keypoolsize"`
+	UnlockedUntil   int64           `json:"unlocked_until"`
+	PaytxFee        float64         `json:"paytxfee"`
+	RelayFee        float64         `json:"relayfee"`
+	Errors          string          `json:"errors"`
 }
 
 // ListTransactionsResult models the data from the listtransactions command.
@@ -164,10 +167,14 @@ type GetBestBlockResult struct {
 
 // BalanceDetailsResult models the details data from the `getbalances` command.
 type BalanceDetailsResult struct {
-	Trusted          float64  `json:"trusted"`
-	UntrustedPending float64  `json:"untrusted_pending"`
-	Immature         float64  `json:"immature"`
-	Used             *float64 `json:"used"`
+	Trusted                 float64          `json:"trusted"`
+	UntrustedPending        float64          `json:"untrusted_pending"`
+	Immature                float64          `json:"immature"`
+	Used                    *float64         `json:"used"`
+	TrustedSatoshi          monautil.Amount  `json:"trusted_satoshi"`
+	UntrustedPendingSatoshi monautil.Amount  `json:"untrusted_pending_satoshi"`
+	ImmatureSatoshi         monautil.Amount  `json:"immature_satoshi"`
+	UsedSatoshi             *monautil.Amount `json:"used_satoshi"`
 }
 
 // GetBalancesResult models the data returned from the getbalances command.

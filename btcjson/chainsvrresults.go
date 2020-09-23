@@ -251,8 +251,10 @@ type GetBlockFilterResult struct {
 // GetBlockTemplateResultTx models the transactions field of the
 // getblocktemplate command.
 type GetBlockTemplateResultTx struct {
-	Data    string  `json:"data"`
-	Hash    string  `json:"hash"`
+	Data string `json:"data"`
+	Hash string `json:"hash"`
+	// TODO: remove omitempty once implemented in rpcserver
+	TxID    string  `json:"txid,omitempty"`
 	Depends []int64 `json:"depends"`
 	Fee     int64   `json:"fee"`
 	SigOps  int64   `json:"sigops"`
@@ -381,6 +383,16 @@ type GetNetworkInfoResult struct {
 	IncrementalFee  float64                `json:"incrementalfee"`
 	LocalAddresses  []LocalAddressesResult `json:"localaddresses"`
 	Warnings        string                 `json:"warnings"`
+}
+
+// GetNodeAddressesResult models the data returned from the getnodeaddresses
+// command.
+type GetNodeAddressesResult struct {
+	// Timestamp in seconds since epoch (Jan 1 1970 GMT) keeping track of when the node was last seen
+	Time     int64  `json:"time"`
+	Services uint64 `json:"services"` // The services offered
+	Address  string `json:"address"`  // The address of the node
+	Port     uint16 `json:"port"`     // The port of the node
 }
 
 // GetPeerInfoResult models the data returned from the getpeerinfo command.
@@ -772,3 +784,6 @@ type GetDescriptorInfoResult struct {
 	IsSolvable     bool   `json:"issolvable"`     // whether the descriptor is solvable
 	HasPrivateKeys bool   `json:"hasprivatekeys"` // whether the descriptor has at least one private key
 }
+
+// DeriveAddressesResult models the data from the deriveaddresses command.
+type DeriveAddressesResult []string

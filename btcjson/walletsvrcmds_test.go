@@ -1,4 +1,4 @@
-// Copyright (c) 2014 The btcsuite developers
+// Copyright (c) 2014-2020 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -12,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/btcjson"
+	"github.com/monasuite/monautil"
 )
 
 // TestWalletSvrCmds tests all of the wallet server commands marshal and
@@ -206,6 +207,19 @@ func TestWalletSvrCmds(t *testing.T) {
 			marshalled: `{"jsonrpc":"1.0","method":"getaddressesbyaccount","params":["acct"],"id":1}`,
 			unmarshalled: &btcjson.GetAddressesByAccountCmd{
 				Account: "acct",
+			},
+		},
+		{
+			name: "getaddressinfo",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getaddressinfo", "1234")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetAddressInfoCmd("1234")
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"getaddressinfo","params":["1234"],"id":1}`,
+			unmarshalled: &btcjson.GetAddressInfoCmd{
+				Address: "1234",
 			},
 		},
 		{
@@ -705,6 +719,21 @@ func TestWalletSvrCmds(t *testing.T) {
 				BlockHash:           btcjson.String("123"),
 				TargetConfirmations: btcjson.Int(6),
 				IncludeWatchOnly:    btcjson.Bool(true),
+			},
+		},
+		{
+			name: "listsinceblock pad null",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("listsinceblock", "null", 1, false)
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewListSinceBlockCmd(nil, btcjson.Int(1), btcjson.Bool(false))
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"listsinceblock","params":[null,1,false],"id":1}`,
+			unmarshalled: &btcjson.ListSinceBlockCmd{
+				BlockHash:           nil,
+				TargetConfirmations: btcjson.Int(1),
+				IncludeWatchOnly:    btcjson.Bool(false),
 			},
 		},
 		{
@@ -1493,6 +1522,81 @@ func TestWalletSvrCmds(t *testing.T) {
 						Range:      &btcjson.DescriptorRange{Value: []int{1, 7}},
 					},
 				},
+			},
+		},
+		{
+			name: "walletcreatefundedpsbt",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd(
+					"walletcreatefundedpsbt",
+					[]btcjson.PsbtInput{
+						{
+							Txid:     "1234",
+							Vout:     0,
+							Sequence: 0,
+						},
+					},
+					[]btcjson.PsbtOutput{
+						btcjson.NewPsbtOutput("1234", monautil.Amount(1234)),
+						btcjson.NewPsbtDataOutput([]byte{1, 2, 3, 4}),
+					},
+					btcjson.Uint32(1),
+					btcjson.WalletCreateFundedPsbtOpts{},
+					btcjson.Bool(true),
+				)
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewWalletCreateFundedPsbtCmd(
+					[]btcjson.PsbtInput{
+						{
+							Txid:     "1234",
+							Vout:     0,
+							Sequence: 0,
+						},
+					},
+					[]btcjson.PsbtOutput{
+						btcjson.NewPsbtOutput("1234", monautil.Amount(1234)),
+						btcjson.NewPsbtDataOutput([]byte{1, 2, 3, 4}),
+					},
+					btcjson.Uint32(1),
+					&btcjson.WalletCreateFundedPsbtOpts{},
+					btcjson.Bool(true),
+				)
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"walletcreatefundedpsbt","params":[[{"txid":"1234","vout":0,"sequence":0}],[{"1234":0.00001234},{"data":"01020304"}],1,{},true],"id":1}`,
+			unmarshalled: &btcjson.WalletCreateFundedPsbtCmd{
+				Inputs: []btcjson.PsbtInput{
+					{
+						Txid:     "1234",
+						Vout:     0,
+						Sequence: 0,
+					},
+				},
+				Outputs: []btcjson.PsbtOutput{
+					btcjson.NewPsbtOutput("1234", monautil.Amount(1234)),
+					btcjson.NewPsbtDataOutput([]byte{1, 2, 3, 4}),
+				},
+				Locktime:    btcjson.Uint32(1),
+				Options:     &btcjson.WalletCreateFundedPsbtOpts{},
+				Bip32Derivs: btcjson.Bool(true),
+			},
+		},
+		{
+			name: "walletprocesspsbt",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd(
+					"walletprocesspsbt", "1234", btcjson.Bool(true), btcjson.String("ALL"), btcjson.Bool(true))
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewWalletProcessPsbtCmd(
+					"1234", btcjson.Bool(true), btcjson.String("ALL"), btcjson.Bool(true))
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"walletprocesspsbt","params":["1234",true,"ALL",true],"id":1}`,
+			unmarshalled: &btcjson.WalletProcessPsbtCmd{
+				Psbt:        "1234",
+				Sign:        btcjson.Bool(true),
+				SighashType: btcjson.String("ALL"),
+				Bip32Derivs: btcjson.Bool(true),
 			},
 		},
 	}

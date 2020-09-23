@@ -322,6 +322,7 @@ var helpDescsEnUS = map[string]string{
 	"templaterequest-target":       "The desired target for the block template (this parameter is ignored)",
 	"templaterequest-data":         "Hex-encoded block data (only for mode=proposal)",
 	"templaterequest-workid":       "The server provided workid if provided in block template (not applicable)",
+	"templaterequest-rules":        "Specific block rules that are to be enforced e.g. '[\"segwit\"]",
 
 	// GetBlockTemplateResultTx help.
 	"getblocktemplateresulttx-data":    "Hex-encoded transaction data (byte-for-byte)",
@@ -329,6 +330,7 @@ var helpDescsEnUS = map[string]string{
 	"getblocktemplateresulttx-depends": "Other transactions before this one (by 1-based index in the 'transactions'  list) that must be present in the final block if this one is",
 	"getblocktemplateresulttx-fee":     "Difference in value between transaction inputs and outputs (in Satoshi)",
 	"getblocktemplateresulttx-sigops":  "Total number of signature operations as counted for purposes of block limits",
+	"getblocktemplateresulttx-txid":    "The transaction id, can be different from hash.",
 	"getblocktemplateresulttx-weight":  "The weight of the transaction",
 
 	// GetBlockTemplateResultAux help.
@@ -480,6 +482,17 @@ var helpDescsEnUS = map[string]string{
 	"getnettotalsresult-totalbytesrecv": "Total bytes received",
 	"getnettotalsresult-totalbytessent": "Total bytes sent",
 	"getnettotalsresult-timemillis":     "Number of milliseconds since 1 Jan 1970 GMT",
+
+	// GetNodeAddressesResult help.
+	"getnodeaddressesresult-time":     "Timestamp in seconds since epoch (Jan 1 1970 GMT) keeping track of when the node was last seen",
+	"getnodeaddressesresult-services": "The services offered",
+	"getnodeaddressesresult-address":  "The address of the node",
+	"getnodeaddressesresult-port":     "The port of the node",
+
+	// GetNodeAddressesCmd help.
+	"getnodeaddresses--synopsis": "Return known addresses which can potentially be used to find new nodes in the network",
+	"getnodeaddresses-count":     "How many addresses to return. Limited to the smaller of 2500 or 23% of all known addresses",
+	"getnodeaddresses--result0":  "List of node addresses",
 
 	// GetPeerInfoResult help.
 	"getpeerinforesult-id":             "A unique node ID",
@@ -758,6 +771,7 @@ var rpcResultTypes = map[string][]interface{}{
 	"getmininginfo":          {(*btcjson.GetMiningInfoResult)(nil)},
 	"getnettotals":           {(*btcjson.GetNetTotalsResult)(nil)},
 	"getnetworkhashps":       {(*int64)(nil)},
+	"getnodeaddresses":       {(*[]btcjson.GetNodeAddressesResult)(nil)},
 	"getpeerinfo":            {(*[]btcjson.GetPeerInfoResult)(nil)},
 	"getrawmempool":          {(*[]string)(nil), (*btcjson.GetRawMempoolVerboseResult)(nil)},
 	"getrawtransaction":      {(*string)(nil), (*btcjson.TxRawResult)(nil)},

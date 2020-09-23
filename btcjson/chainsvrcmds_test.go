@@ -171,7 +171,7 @@ func TestChainSvrCmds(t *testing.T) {
 				}
 				changeAddress := "bcrt1qeeuctq9wutlcl5zatge7rjgx0k45228cxez655"
 				change := 1
-				changeType := "legacy"
+				changeType := btcjson.ChangeTypeLegacy
 				watching := true
 				lockUnspents := true
 				feeRate := 0.7
@@ -195,7 +195,7 @@ func TestChainSvrCmds(t *testing.T) {
 			unmarshalled: func() interface{} {
 				changeAddress := "bcrt1qeeuctq9wutlcl5zatge7rjgx0k45228cxez655"
 				change := 1
-				changeType := "legacy"
+				changeType := btcjson.ChangeTypeLegacy
 				watching := true
 				lockUnspents := true
 				feeRate := 0.7
@@ -263,6 +263,51 @@ func TestChainSvrCmds(t *testing.T) {
 			},
 			marshalled:   `{"jsonrpc":"1.0","method":"decodescript","params":["00"],"id":1}`,
 			unmarshalled: &btcjson.DecodeScriptCmd{HexScript: "00"},
+		},
+		{
+			name: "deriveaddresses no range",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("deriveaddresses", "00")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewDeriveAddressesCmd("00", nil)
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"deriveaddresses","params":["00"],"id":1}`,
+			unmarshalled: &btcjson.DeriveAddressesCmd{Descriptor: "00"},
+		},
+		{
+			name: "deriveaddresses int range",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd(
+					"deriveaddresses", "00", btcjson.DescriptorRange{Value: 2})
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewDeriveAddressesCmd(
+					"00", &btcjson.DescriptorRange{Value: 2})
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"deriveaddresses","params":["00",2],"id":1}`,
+			unmarshalled: &btcjson.DeriveAddressesCmd{
+				Descriptor: "00",
+				Range:      &btcjson.DescriptorRange{Value: 2},
+			},
+		},
+		{
+			name: "deriveaddresses slice range",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd(
+					"deriveaddresses", "00",
+					btcjson.DescriptorRange{Value: []int{0, 2}},
+				)
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewDeriveAddressesCmd(
+					"00", &btcjson.DescriptorRange{Value: []int{0, 2}})
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"deriveaddresses","params":["00",[0,2]],"id":1}`,
+			unmarshalled: &btcjson.DeriveAddressesCmd{
+				Descriptor: "00",
+				Range:      &btcjson.DescriptorRange{Value: []int{0, 2}},
+			},
 		},
 		{
 			name: "getaddednodeinfo",
@@ -798,6 +843,32 @@ func TestChainSvrCmds(t *testing.T) {
 			},
 		},
 		{
+			name: "getnodeaddresses",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getnodeaddresses")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetNodeAddressesCmd(nil)
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"getnodeaddresses","params":[],"id":1}`,
+			unmarshalled: &btcjson.GetNodeAddressesCmd{
+				Count: btcjson.Int32(1),
+			},
+		},
+		{
+			name: "getnodeaddresses optional",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getnodeaddresses", 10)
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetNodeAddressesCmd(btcjson.Int32(10))
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"getnodeaddresses","params":[10],"id":1}`,
+			unmarshalled: &btcjson.GetNodeAddressesCmd{
+				Count: btcjson.Int32(10),
+			},
+		},
+		{
 			name: "getpeerinfo",
 			newCmd: func() (interface{}, error) {
 				return btcjson.NewCmd("getpeerinfo")
@@ -1170,6 +1241,26 @@ func TestChainSvrCmds(t *testing.T) {
 				Skip:        btcjson.Int(5),
 				Count:       btcjson.Int(10),
 				VinExtra:    btcjson.Int(1),
+				Reverse:     btcjson.Bool(true),
+				FilterAddrs: &[]string{"1Address"},
+			},
+		},
+		{
+			name: "searchrawtransactions",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("searchrawtransactions", "1Address", 0, 5, 10, "null", true, []string{"1Address"})
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewSearchRawTransactionsCmd("1Address",
+					btcjson.Int(0), btcjson.Int(5), btcjson.Int(10), nil, btcjson.Bool(true), &[]string{"1Address"})
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"searchrawtransactions","params":["1Address",0,5,10,null,true,["1Address"]],"id":1}`,
+			unmarshalled: &btcjson.SearchRawTransactionsCmd{
+				Address:     "1Address",
+				Verbose:     btcjson.Int(0),
+				Skip:        btcjson.Int(5),
+				Count:       btcjson.Int(10),
+				VinExtra:    nil,
 				Reverse:     btcjson.Bool(true),
 				FilterAddrs: &[]string{"1Address"},
 			},

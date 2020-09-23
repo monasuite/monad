@@ -44,7 +44,7 @@ type InfoWalletResult struct {
 	ProtocolVersion int32           `json:"protocolversion"`
 	WalletVersion   int32           `json:"walletversion"`
 	Balance         float64         `json:"balance"`
-	SatoshiBalance  monautil.Amount `json:"satoshi_balance"`
+	SatoshiBalance  monautil.Amount `json:"balance-satoshi"`
 	Blocks          int32           `json:"blocks"`
 	TimeOffset      int64           `json:"timeoffset"`
 	Connections     int32           `json:"connections"`

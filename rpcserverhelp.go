@@ -63,7 +63,6 @@ var helpDescsEnUS = map[string]string{
 	// PrevOut help.
 	"prevout-addresses": "previous output addresses",
 	"prevout-value":     "previous output value",
-	"prevout-amount":    "previous output value in satoshi",
 
 	// VinPrevOut help.
 	"vinprevout-coinbase":    "The hex-encoded bytes of the signature script (coinbase txns only)",
@@ -421,6 +420,7 @@ var helpDescsEnUS = map[string]string{
 	"infowalletresult-protocolversion": "The latest supported protocol version",
 	"infowalletresult-walletversion":   "The version of the wallet server",
 	"infowalletresult-balance":         "The total bitcoin balance of the wallet",
+	"infowalletresult-balance-satoshi": "The total bitcoin balance of the wallet in satoshi",
 	"infowalletresult-blocks":          "The number of blocks processed",
 	"infowalletresult-timeoffset":      "The time offset",
 	"infowalletresult-connections":     "The number of connected peers",

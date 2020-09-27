@@ -1446,7 +1446,7 @@ func (c *Client) Connect(tries int) error {
 
 const (
 	// bitcoind19Str is the string representation of bitcoind v0.19.0. TODO monacoin is OK?
-	bitcoind19Str = "9.99.9"
+	bitcoind19Str = "0.18.1"
 
 	// bitcoindVersionPrefix specifies the prefix included in every bitcoind
 	// version exposed through GetNetworkInfo.

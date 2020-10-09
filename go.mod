@@ -10,7 +10,7 @@ require (
 	github.com/decred/dcrd/lru v1.0.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monautil v1.1.2
+	github.com/monasuite/monautil v1.1.3-0.20201009192835-00d5feaab5bf
 	github.com/shopspring/decimal v1.2.0
 	github.com/wakiyamap/lyra2rev2 v0.1.2
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37

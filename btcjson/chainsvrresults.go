@@ -9,6 +9,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
+	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
 	"github.com/shopspring/decimal"
@@ -251,10 +252,9 @@ type GetBlockFilterResult struct {
 // GetBlockTemplateResultTx models the transactions field of the
 // getblocktemplate command.
 type GetBlockTemplateResultTx struct {
-	Data string `json:"data"`
-	Hash string `json:"hash"`
-	// TODO: remove omitempty once implemented in rpcserver
-	TxID    string  `json:"txid,omitempty"`
+	Data    string  `json:"data"`
+	Hash    string  `json:"hash"`
+	TxID    string  `json:"txid"`
 	Depends []int64 `json:"depends"`
 	Fee     int64   `json:"fee"`
 	SigOps  int64   `json:"sigops"`
@@ -452,6 +452,65 @@ type GetTxOutResult struct {
 	Value         float64            `json:"value"`
 	ScriptPubKey  ScriptPubKeyResult `json:"scriptPubKey"`
 	Coinbase      bool               `json:"coinbase"`
+}
+
+// GetTxOutSetInfoResult models the data from the gettxoutsetinfo command.
+type GetTxOutSetInfoResult struct {
+	Height         int64           `json:"height"`
+	BestBlock      chainhash.Hash  `json:"bestblock"`
+	Transactions   int64           `json:"transactions"`
+	TxOuts         int64           `json:"txouts"`
+	BogoSize       int64           `json:"bogosize"`
+	HashSerialized chainhash.Hash  `json:"hash_serialized_2"`
+	DiskSize       int64           `json:"disk_size"`
+	TotalAmount    monautil.Amount `json:"total_amount"`
+}
+
+// UnmarshalJSON unmarshals the result of the gettxoutsetinfo JSON-RPC call
+// TODO Monacoin is OK?
+func (g *GetTxOutSetInfoResult) UnmarshalJSON(data []byte) error {
+	// Step 1: Create type aliases of the original struct.
+	type Alias GetTxOutSetInfoResult
+
+	// Step 2: Create an anonymous struct with raw replacements for the special
+	// fields.
+	aux := &struct {
+		BestBlock      string  `json:"bestblock"`
+		HashSerialized string  `json:"hash_serialized_2"`
+		TotalAmount    float64 `json:"total_amount"`
+		*Alias
+	}{
+		Alias: (*Alias)(g),
+	}
+
+	// Step 3: Unmarshal the data into the anonymous struct.
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	// Step 4: Convert the raw fields to the desired types
+	blockHash, err := chainhash.NewHashFromStr(aux.BestBlock)
+	if err != nil {
+		return err
+	}
+
+	g.BestBlock = *blockHash
+
+	serializedHash, err := chainhash.NewHashFromStr(aux.HashSerialized)
+	if err != nil {
+		return err
+	}
+
+	g.HashSerialized = *serializedHash
+
+	amount, err := monautil.NewAmount(decimal.NewFromFloat(aux.TotalAmount))
+	if err != nil {
+		return err
+	}
+
+	g.TotalAmount = amount
+
+	return nil
 }
 
 // GetNetTotalsResult models the data returned from the getnettotals command.

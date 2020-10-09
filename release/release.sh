@@ -36,7 +36,7 @@ gzip -f $PACKAGESRC > "$PACKAGESRC.gz"
 
 cd $MAINDIR
 
-# If BTCDBUILDSYS is set the default list is ignored. Useful to release
+# If MONADBUILDSYS is set the default list is ignored. Useful to release
 # for a subset of systems/architectures.
 SYS=${MONADBUILDSYS:-"
         darwin-amd64

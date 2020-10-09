@@ -83,14 +83,6 @@ func ExampleClient_DeriveAddresses() {
 }
 
 func ExampleClient_GetAddressInfo() {
-	connCfg = &ConnConfig{
-		Host:         "localhost:18332",
-		User:         "user",
-		Pass:         "pass",
-		HTTPPostMode: true,
-		DisableTLS:   true,
-	}
-
 	client, err := New(connCfg, nil)
 	if err != nil {
 		panic(err)
@@ -106,4 +98,41 @@ func ExampleClient_GetAddressInfo() {
 	fmt.Println(info.ScriptType.String()) // witness_v0_keyhash
 	fmt.Println(*info.HDKeyPath)          // m/49'/1'/0'/0/4
 	fmt.Println(info.Embedded.Address)    // tb1q3x2h2kh57wzg7jz00jhwn0ycvqtdk2ane37j27
+}
+
+func ExampleClient_GetWalletInfo() {
+	client, err := New(connCfg, nil)
+	if err != nil {
+		panic(err)
+	}
+	defer client.Shutdown()
+
+	info, err := client.GetWalletInfo()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(info.WalletVersion)    // 169900
+	fmt.Println(info.TransactionCount) // 22
+	fmt.Println(*info.HDSeedID)        // eb44e4e9b864ef17e7ba947da746375b000f5d94
+	fmt.Println(info.Scanning.Value)   // false
+}
+
+func ExampleClient_GetTxOutSetInfo() {
+	client, err := New(connCfg, nil)
+	if err != nil {
+		panic(err)
+	}
+	defer client.Shutdown()
+
+	r, err := client.GetTxOutSetInfo()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(r.TotalAmount.String()) // 20947654.56996054 BTC
+	fmt.Println(r.BestBlock.String())   // 000000000000005f94116250e2407310463c0a7cf950f1af9ebe935b1c0687ab
+	fmt.Println(r.TxOuts)               // 24280607
+	fmt.Println(r.Transactions)         // 9285603
+	fmt.Println(r.DiskSize)             // 1320871611
 }

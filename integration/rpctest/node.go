@@ -41,10 +41,18 @@ type nodeConfig struct {
 }
 
 // newConfig returns a newConfig with all default values.
-func newConfig(prefix, certFile, keyFile string, extra []string) (*nodeConfig, error) {
-	monadPath, err := monadExecutablePath()
-	if err != nil {
-		monadPath = "monad"
+func newConfig(prefix, certFile, keyFile string, extra []string,
+	customExePath string) (*nodeConfig, error) {
+
+	var btcdPath string
+	if customExePath != "" {
+		btcdPath = customExePath
+	} else {
+		var err error
+		btcdPath, err = btcdExecutablePath()
+		if err != nil {
+			btcdPath = "monad"
+		}
 	}
 
 	a := &nodeConfig{
@@ -54,7 +62,7 @@ func newConfig(prefix, certFile, keyFile string, extra []string) (*nodeConfig, e
 		rpcPass:   "pass",
 		extra:     extra,
 		prefix:    prefix,
-		exe:       monadPath,
+		exe:       btcdPath,
 		endpoint:  "ws",
 		certFile:  certFile,
 		keyFile:   keyFile,

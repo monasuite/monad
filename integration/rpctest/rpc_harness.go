@@ -7,6 +7,7 @@ package rpctest
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net"
 	"os"
 	"path/filepath"
@@ -34,21 +35,19 @@ const (
 	// BlockVersion is the default block version used when generating
 	// blocks.
 	BlockVersion = 4
+
+	// DefaultMaxConnectionRetries is the default number of times we re-try
+	// to connect to the node after starting it.
+	DefaultMaxConnectionRetries = 20
+
+	// DefaultConnectionRetryTimeout is the default duration we wait between
+	// two connection attempts.
+	DefaultConnectionRetryTimeout = 50 * time.Millisecond
 )
 
 var (
 	// current number of active test nodes.
 	numTestInstances = 0
-
-	// processID is the process ID of the current running process.  It is
-	// used to calculate ports based upon it when launching an rpc
-	// harnesses.  The intent is to allow multiple process to run in
-	// parallel without port collisions.
-	//
-	// It should be noted however that there is still some small probability
-	// that there will be port collisions either due to other processes
-	// running or simply due to the stars aligning on the process IDs.
-	processID = os.Getpid()
 
 	// testInstances is a private package-level slice used to keep track of
 	// all active test harnesses. This global can be used to perform
@@ -58,6 +57,13 @@ var (
 
 	// Used to protest concurrent access to above declared variables.
 	harnessStateMtx sync.RWMutex
+
+	// ListenAddressGenerator is a function that is used to generate two
+	// listen addresses (host:port), one for the P2P listener and one for
+	// the RPC listener. This is exported to allow overwriting of the
+	// default behavior which isn't very concurrency safe (just selecting
+	// a random port can produce collisions and therefore flakes).
+	ListenAddressGenerator = generateListeningAddresses
 )
 
 // HarnessTestCase represents a test-case which utilizes an instance of the
@@ -78,15 +84,22 @@ type Harness struct {
 	// to.
 	ActiveNet *chaincfg.Params
 
+	// MaxConnRetries is the maximum number of times we re-try to connect to
+	// the node after starting it.
+	MaxConnRetries int
+
+	// ConnectionRetryTimeout is the duration we wait between two connection
+	// attempts.
+	ConnectionRetryTimeout time.Duration
+
 	Node     *rpcclient.Client
 	node     *node
 	handlers *rpcclient.NotificationHandlers
 
 	wallet *memWallet
 
-	testNodeDir    string
-	maxConnRetries int
-	nodeNum        int
+	testNodeDir string
+	nodeNum     int
 
 	sync.Mutex
 }
@@ -94,11 +107,12 @@ type Harness struct {
 // New creates and initializes new instance of the rpc test harness.
 // Optionally, websocket handlers and a specified configuration may be passed.
 // In the case that a nil config is passed, a default configuration will be
-// used.
+// used. If a custom btcd executable is specified, it will be used to start the
+// harness node. Otherwise a new binary is built on demand.
 //
 // NOTE: This function is safe for concurrent access.
 func New(activeNet *chaincfg.Params, handlers *rpcclient.NotificationHandlers,
-	extraArgs []string) (*Harness, error) {
+	extraArgs []string, customExePath string) (*Harness, error) {
 
 	harnessStateMtx.Lock()
 	defer harnessStateMtx.Unlock()
@@ -144,13 +158,15 @@ func New(activeNet *chaincfg.Params, handlers *rpcclient.NotificationHandlers,
 	miningAddr := fmt.Sprintf("--miningaddr=%s", wallet.coinbaseAddr)
 	extraArgs = append(extraArgs, miningAddr)
 
-	config, err := newConfig("rpctest", certFile, keyFile, extraArgs)
+	config, err := newConfig(
+		"rpctest", certFile, keyFile, extraArgs, customExePath,
+	)
 	if err != nil {
 		return nil, err
 	}
 
 	// Generate p2p+rpc listening addresses.
-	config.listen, config.rpcListen = generateListeningAddresses()
+	config.listen, config.rpcListen = ListenAddressGenerator()
 
 	// Create the testing node bounded to the simnet.
 	node, err := newNode(config, nodeTestData)
@@ -190,13 +206,14 @@ func New(activeNet *chaincfg.Params, handlers *rpcclient.NotificationHandlers,
 	}
 
 	h := &Harness{
-		handlers:       handlers,
-		node:           node,
-		maxConnRetries: 20,
-		testNodeDir:    nodeTestData,
-		ActiveNet:      activeNet,
-		nodeNum:        nodeNum,
-		wallet:         wallet,
+		handlers:               handlers,
+		node:                   node,
+		MaxConnRetries:         DefaultMaxConnectionRetries,
+		ConnectionRetryTimeout: DefaultConnectionRetryTimeout,
+		testNodeDir:            nodeTestData,
+		ActiveNet:              activeNet,
+		nodeNum:                nodeNum,
+		wallet:                 wallet,
 	}
 
 	// Track this newly created test instance within the package level
@@ -312,9 +329,9 @@ func (h *Harness) connectRPCClient() error {
 	var err error
 
 	rpcConf := h.node.config.rpcConnConfig()
-	for i := 0; i < h.maxConnRetries; i++ {
+	for i := 0; i < h.MaxConnRetries; i++ {
 		if client, err = rpcclient.New(&rpcConf, h.handlers); err != nil {
-			time.Sleep(time.Duration(i) * 50 * time.Millisecond)
+			time.Sleep(time.Duration(i) * h.ConnectionRetryTimeout)
 			continue
 		}
 		break
@@ -477,13 +494,14 @@ func (h *Harness) GenerateAndSubmitBlockWithCustomCoinbaseOutputs(
 // addresses designated for the current rpc test. If there haven't been any
 // test instances created, the default ports are used. Otherwise, in order to
 // support multiple test nodes running at once, the p2p and rpc port are
-// incremented after each initialization.
+// picked at random between {min/max}PeerPort and {min/max}RPCPort respectively.
 func generateListeningAddresses() (string, string) {
 	localhost := "127.0.0.1"
 
+	rand.Seed(time.Now().UnixNano())
+
 	portString := func(minPort, maxPort int) string {
-		port := minPort + numTestInstances + ((20 * processID) %
-			(maxPort - minPort))
+		port := minPort + rand.Intn(maxPort-minPort)
 		return strconv.Itoa(port)
 	}
 

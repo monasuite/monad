@@ -12,8 +12,8 @@ import (
 
 var connCfg = &ConnConfig{
 	Host:         "localhost:8332",
-	User:         "yourrpcuser",
-	Pass:         "yourrpcpass",
+	User:         "user",
+	Pass:         "pass",
 	HTTPPostMode: true,
 	DisableTLS:   true,
 }
@@ -135,4 +135,23 @@ func ExampleClient_GetTxOutSetInfo() {
 	fmt.Println(r.TxOuts)               // 24280607
 	fmt.Println(r.Transactions)         // 9285603
 	fmt.Println(r.DiskSize)             // 1320871611
+}
+
+func ExampleClient_CreateWallet() {
+	client, err := New(connCfg, nil)
+	if err != nil {
+		panic(err)
+	}
+	defer client.Shutdown()
+
+	r, err := client.CreateWallet(
+		"mywallet",
+		WithCreateWalletBlank(),
+		WithCreateWalletPassphrase("secret"),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(r.Name) // mywallet
 }

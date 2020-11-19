@@ -19,17 +19,17 @@ var (
 
 	// executablePath is the path to the compiled executable. This is the empty
 	// string until monad is compiled. This should not be accessed directly;
-	// instead use the function monadExecutablePath().
+	// instead use the function btcdExecutablePath().
 	executablePath string
 )
 
-// monadExecutablePath returns a path to the monad executable to be used by
+// btcdExecutablePath returns a path to the monad executable to be used by
 // rpctests. To ensure the code tests against the most up-to-date version of
 // monad, this method compiles monad the first time it is called. After that, the
 // generated binary is used for subsequent test harnesses. The executable file
 // is not cleaned up, but since it lives at a static path in a temp directory,
 // it is not a big deal.
-func monadExecutablePath() (string, error) {
+func btcdExecutablePath() (string, error) {
 	compileMtx.Lock()
 	defer compileMtx.Unlock()
 

@@ -34,11 +34,7 @@ not be reachable for inbound connections unless you also configure a Tor
 ### Command line example
 
 ```bash
-<<<<<<< HEAD
-$ ./monad --proxy=127.0.0.1:9050
-=======
-./btcd --proxy=127.0.0.1:9050
->>>>>>> upstream/master
+./monad --proxy=127.0.0.1:9050
 ```
 
 ### Config file example
@@ -80,11 +76,7 @@ three flags:
 ### Command line example
 
 ```bash
-<<<<<<< HEAD
-$ ./monad --proxy=127.0.0.1:9050 --listen=127.0.0.1 --externalip=fooanon.onion
-=======
-./btcd --proxy=127.0.0.1:9050 --listen=127.0.0.1 --externalip=fooanon.onion
->>>>>>> upstream/master
+./monad --proxy=127.0.0.1:9050 --listen=127.0.0.1 --externalip=fooanon.onion
 ```
 
 ### Config file example
@@ -119,11 +111,7 @@ routed via Tor due to the `--onion` flag.
 ### Command line example
 
 ```bash
-<<<<<<< HEAD
-$ ./monad --onion=127.0.0.1:9050 --externalip=fooanon.onion
-=======
-./btcd --onion=127.0.0.1:9050 --externalip=fooanon.onion
->>>>>>> upstream/master
+./monad --onion=127.0.0.1:9050 --externalip=fooanon.onion
 ```
 
 ### Config file example
@@ -146,11 +134,7 @@ flag.  This option requires --proxy or --onionproxy to be set.
 ### Command line example
 
 ```bash
-<<<<<<< HEAD
-$ ./monad --proxy=127.0.0.1:9050 --torisolation
-=======
-./btcd --proxy=127.0.0.1:9050 --torisolation
->>>>>>> upstream/master
+./monad --proxy=127.0.0.1:9050 --torisolation
 ```
 
 ### Config file example

@@ -263,8 +263,8 @@ func (c *Client) ListUnspent() ([]btcjson.ListUnspentResult, error) {
 }
 
 // ListUnspentMin returns all unspent transaction outputs known to a wallet,
-// using the specified number of minimum conformations and default number of
-// maximum confiramtions (999999) as a filter.
+// using the specified number of minimum confirmations and default number of
+// maximum confirmations (999999) as a filter.
 func (c *Client) ListUnspentMin(minConf int) ([]btcjson.ListUnspentResult, error) {
 	return c.ListUnspentMinAsync(minConf).Receive()
 }
@@ -375,7 +375,7 @@ func (c *Client) ListSinceBlockMinConfWatchOnlyAsync(blockHash *chainhash.Hash, 
 // specified block hash, or all transactions if it is nil, using the specified
 // number of minimum confirmations as a filter.
 //
-// See ListSinceBlock to use the default minimum number of confirmations and default watch only paremeter.
+// See ListSinceBlock to use the default minimum number of confirmations and default watch only parameter.
 func (c *Client) ListSinceBlockMinConfWatchOnly(blockHash *chainhash.Hash, minConfirms int, watchOnly bool) (*btcjson.ListSinceBlockResult, error) {
 	return c.ListSinceBlockMinConfWatchOnlyAsync(blockHash, minConfirms, watchOnly).Receive()
 }
@@ -573,7 +573,7 @@ func (c *Client) SendToAddressCommentAsync(address monautil.Address,
 // SendToAddressComment sends the passed amount to the given address and stores
 // the provided comment and comment to in the wallet.  The comment parameter is
 // intended to be used for the purpose of the transaction while the commentTo
-// parameter is indended to be used for who the transaction is being sent to.
+// parameter is intended to be used for who the transaction is being sent to.
 //
 // The comments are not part of the transaction and are only internal
 // to the wallet.
@@ -679,7 +679,7 @@ func (c *Client) SendFromCommentAsync(fromAccount string,
 // SendFromComment sends the passed amount to the given address using the
 // provided account as a source of funds and stores the provided comment and
 // comment to in the wallet.  The comment parameter is intended to be used for
-// the purpose of the transaction while the commentTo parameter is indended to
+// the purpose of the transaction while the commentTo parameter is intended to
 // be used for who the transaction is being sent to.  Only funds with the passed
 // number of minimum confirmations will be used.
 //
@@ -938,6 +938,91 @@ func (c *Client) CreateNewAccountAsync(account string) FutureCreateNewAccountRes
 // CreateNewAccount creates a new wallet account.
 func (c *Client) CreateNewAccount(account string) error {
 	return c.CreateNewAccountAsync(account).Receive()
+}
+
+// FutureCreateWalletResult is a future promise to deliver the result of a
+// CreateWalletAsync RPC invocation (or an applicable error).
+type FutureCreateWalletResult chan *response
+
+// Receive waits for the response promised by the future and returns the
+// result of creating a new wallet.
+func (r FutureCreateWalletResult) Receive() (*btcjson.CreateWalletResult, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+
+	var createWalletResult btcjson.CreateWalletResult
+	err = json.Unmarshal(res, &createWalletResult)
+	if err != nil {
+		return nil, err
+	}
+	return &createWalletResult, nil
+}
+
+// CreateWalletOpt defines a functional-option to be used with CreateWallet
+// method.
+type CreateWalletOpt func(*btcjson.CreateWalletCmd)
+
+// WithCreateWalletDisablePrivateKeys disables the possibility of private keys
+// to be used with a wallet created using the CreateWallet method. Using this
+// option will make the wallet watch-only.
+func WithCreateWalletDisablePrivateKeys() CreateWalletOpt {
+	return func(c *btcjson.CreateWalletCmd) {
+		c.DisablePrivateKeys = btcjson.Bool(true)
+	}
+}
+
+// WithCreateWalletBlank specifies creation of a blank wallet.
+func WithCreateWalletBlank() CreateWalletOpt {
+	return func(c *btcjson.CreateWalletCmd) {
+		c.Blank = btcjson.Bool(true)
+	}
+}
+
+// WithCreateWalletPassphrase specifies a passphrase to encrypt the wallet
+// with.
+func WithCreateWalletPassphrase(value string) CreateWalletOpt {
+	return func(c *btcjson.CreateWalletCmd) {
+		c.Passphrase = btcjson.String(value)
+	}
+}
+
+// WithCreateWalletAvoidReuse specifies keeping track of coin reuse, and
+// treat dirty and clean coins differently with privacy considerations in mind.
+func WithCreateWalletAvoidReuse() CreateWalletOpt {
+	return func(c *btcjson.CreateWalletCmd) {
+		c.AvoidReuse = btcjson.Bool(true)
+	}
+}
+
+// CreateWalletAsync returns an instance of a type that can be used to get the
+// result of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See CreateWallet for the blocking version and more details.
+func (c *Client) CreateWalletAsync(name string, opts ...CreateWalletOpt) FutureCreateWalletResult {
+	cmd := btcjson.NewCreateWalletCmd(name, nil, nil, nil, nil)
+
+	// Apply each specified option to mutate the default command.
+	for _, opt := range opts {
+		opt(cmd)
+	}
+
+	return c.sendCmd(cmd)
+}
+
+// CreateWallet creates a new wallet account, with the possibility to use
+// private keys.
+//
+// Optional parameters can be specified using functional-options pattern. The
+// following functions are available:
+//   * WithCreateWalletDisablePrivateKeys
+//   * WithCreateWalletBlank
+//   * WithCreateWalletPassphrase
+//   * WithCreateWalletAvoidReuse
+func (c *Client) CreateWallet(name string, opts ...CreateWalletOpt) (*btcjson.CreateWalletResult, error) {
+	return c.CreateWalletAsync(name, opts...).Receive()
 }
 
 // FutureGetAddressInfoResult is a future promise to deliver the result of an
@@ -2609,12 +2694,141 @@ func (c *Client) GetWalletInfo() (*btcjson.GetWalletInfoResult, error) {
 	return c.GetWalletInfoAsync().Receive()
 }
 
+// FutureBackupWalletResult is a future promise to deliver the result of an
+// BackupWalletAsync RPC invocation (or an applicable error)
+type FutureBackupWalletResult chan *response
+
+// Receive waits for the response promised by the future
+func (r FutureBackupWalletResult) Receive() error {
+	_, err := receiveFuture(r)
+	return err
+}
+
+// BackupWalletAsync returns an instance of a type that can be used to get the result
+// of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See BackupWallet for the blocking version and more details.
+func (c *Client) BackupWalletAsync(destination string) FutureBackupWalletResult {
+	return c.sendCmd(btcjson.NewBackupWalletCmd(destination))
+}
+
+// BackupWallet safely copies current wallet file to destination, which can
+// be a directory or a path with filename
+func (c *Client) BackupWallet(destination string) error {
+	return c.BackupWalletAsync(destination).Receive()
+}
+
+// FutureDumpWalletResult is a future promise to deliver the result of an
+// DumpWallet RPC invocation (or an applicable error)
+type FutureDumpWalletResult chan *response
+
+// Receive waits for the response promised by the future
+func (r FutureDumpWalletResult) Receive() (*btcjson.DumpWalletResult, error) {
+	bytes, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+
+	var res btcjson.DumpWalletResult
+	err = json.Unmarshal(bytes, &res)
+	return &res, err
+}
+
+// DumpWalletAsync returns an instance of a type that can be used to get the result
+// of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See DumpWalletAsync for the blocking version and more details.
+func (c *Client) DumpWalletAsync(destination string) FutureDumpWalletResult {
+	return c.sendCmd(btcjson.NewDumpWalletCmd(destination))
+}
+
+// DumpWallet dumps all wallet keys in a human-readable format to a server-side file.
+func (c *Client) DumpWallet(destination string) (*btcjson.DumpWalletResult, error) {
+	return c.DumpWalletAsync(destination).Receive()
+}
+
+// FutureImportWalletResult is a future promise to deliver the result of an
+// ImportWalletAsync RPC invocation (or an applicable error)
+type FutureImportWalletResult chan *response
+
+// Receive waits for the response promised by the future
+func (r FutureImportWalletResult) Receive() error {
+	_, err := receiveFuture(r)
+	return err
+}
+
+// ImportWalletAsync returns an instance of a type that can be used to get the result
+// of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See ImportWallet for the blocking version and more details.
+func (c *Client) ImportWalletAsync(filename string) FutureImportWalletResult {
+	return c.sendCmd(btcjson.NewImportWalletCmd(filename))
+}
+
+// ImportWallet imports keys from a wallet dump file (see DumpWallet).
+func (c *Client) ImportWallet(filename string) error {
+	return c.ImportWalletAsync(filename).Receive()
+}
+
+// FutureUnloadWalletResult is a future promise to deliver the result of an
+// UnloadWalletAsync RPC invocation (or an applicable error)
+type FutureUnloadWalletResult chan *response
+
+// Receive waits for the response promised by the future
+func (r FutureUnloadWalletResult) Receive() error {
+	_, err := receiveFuture(r)
+	return err
+}
+
+// UnloadWalletAsync returns an instance of a type that can be used to get the result
+// of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See UnloadWallet for the blocking version and more details.
+func (c *Client) UnloadWalletAsync(walletName *string) FutureUnloadWalletResult {
+	return c.sendCmd(btcjson.NewUnloadWalletCmd(walletName))
+}
+
+// UnloadWallet unloads the referenced wallet. If the RPC server URL already
+// contains the name of the wallet, like http://127.0.0.1:8332/wallet/<walletname>,
+// the parameter must be nil, or it'll return an error.
+func (c *Client) UnloadWallet(walletName *string) error {
+	return c.UnloadWalletAsync(walletName).Receive()
+}
+
+// FutureLoadWalletResult is a future promise to deliver the result of an
+// LoadWalletAsync RPC invocation (or an applicable error)
+type FutureLoadWalletResult chan *response
+
+// Receive waits for the response promised by the future
+func (r FutureLoadWalletResult) Receive() (*btcjson.LoadWalletResult, error) {
+	bytes, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+	var result btcjson.LoadWalletResult
+	err = json.Unmarshal(bytes, &result)
+	return &result, err
+}
+
+// LoadWalletAsync returns an instance of a type that can be used to get the result
+// of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See LoadWallet for the blocking version and more details.
+func (c *Client) LoadWalletAsync(walletName string) FutureLoadWalletResult {
+	return c.sendCmd(btcjson.NewLoadWalletCmd(walletName))
+}
+
+// LoadWallet loads a wallet from a wallet file or directory.
+func (c *Client) LoadWallet(walletName string) (*btcjson.LoadWalletResult, error) {
+	return c.LoadWalletAsync(walletName).Receive()
+}
+
 // TODO(davec): Implement
-// backupwallet (NYI in btcwallet)
 // encryptwallet (Won't be supported by btcwallet since it's always encrypted)
 // listaddressgroupings (NYI in btcwallet)
 // listreceivedbyaccount (NYI in btcwallet)
-
-// DUMP
-// importwallet (NYI in btcwallet)
-// dumpwallet (NYI in btcwallet)

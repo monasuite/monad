@@ -63,6 +63,61 @@ func TestWalletSvrCmds(t *testing.T) {
 			},
 		},
 		{
+			name: "createwallet",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("createwallet", "mywallet", true, true, "secret", true)
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewCreateWalletCmd("mywallet",
+					btcjson.Bool(true), btcjson.Bool(true),
+					btcjson.String("secret"), btcjson.Bool(true))
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"createwallet","params":["mywallet",true,true,"secret",true],"id":1}`,
+			unmarshalled: &btcjson.CreateWalletCmd{
+				WalletName:         "mywallet",
+				DisablePrivateKeys: btcjson.Bool(true),
+				Blank:              btcjson.Bool(true),
+				Passphrase:         btcjson.String("secret"),
+				AvoidReuse:         btcjson.Bool(true),
+			},
+		},
+		{
+			name: "createwallet - optional1",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("createwallet", "mywallet")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewCreateWalletCmd("mywallet",
+					nil, nil, nil, nil)
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"createwallet","params":["mywallet"],"id":1}`,
+			unmarshalled: &btcjson.CreateWalletCmd{
+				WalletName:         "mywallet",
+				DisablePrivateKeys: btcjson.Bool(false),
+				Blank:              btcjson.Bool(false),
+				Passphrase:         btcjson.String(""),
+				AvoidReuse:         btcjson.Bool(false),
+			},
+		},
+		{
+			name: "createwallet - optional2",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("createwallet", "mywallet", "null", "null", "secret")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewCreateWalletCmd("mywallet",
+					nil, nil, btcjson.String("secret"), nil)
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"createwallet","params":["mywallet",null,null,"secret"],"id":1}`,
+			unmarshalled: &btcjson.CreateWalletCmd{
+				WalletName:         "mywallet",
+				DisablePrivateKeys: nil,
+				Blank:              nil,
+				Passphrase:         btcjson.String("secret"),
+				AvoidReuse:         btcjson.Bool(false),
+			},
+		},
+		{
 			name: "addwitnessaddress",
 			newCmd: func() (interface{}, error) {
 				return btcjson.NewCmd("addwitnessaddress", "1address")
@@ -74,6 +129,49 @@ func TestWalletSvrCmds(t *testing.T) {
 			unmarshalled: &btcjson.AddWitnessAddressCmd{
 				Address: "1address",
 			},
+		},
+		{
+			name: "backupwallet",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("backupwallet", "backup.dat")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewBackupWalletCmd("backup.dat")
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"backupwallet","params":["backup.dat"],"id":1}`,
+			unmarshalled: &btcjson.BackupWalletCmd{Destination: "backup.dat"},
+		},
+		{
+			name: "loadwallet",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("loadwallet", "wallet.dat")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewLoadWalletCmd("wallet.dat")
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"loadwallet","params":["wallet.dat"],"id":1}`,
+			unmarshalled: &btcjson.LoadWalletCmd{WalletName: "wallet.dat"},
+		},
+		{
+			name: "unloadwallet",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("unloadwallet", "default")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewUnloadWalletCmd(btcjson.String("default"))
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"unloadwallet","params":["default"],"id":1}`,
+			unmarshalled: &btcjson.UnloadWalletCmd{WalletName: btcjson.String("default")},
+		},
+		{name: "unloadwallet - nil arg",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("unloadwallet")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewUnloadWalletCmd(nil)
+			},
+			marshalled:   `{"jsonrpc":"1.0","method":"unloadwallet","params":[],"id":1}`,
+			unmarshalled: &btcjson.UnloadWalletCmd{WalletName: nil},
 		},
 		{
 			name: "createmultisig",

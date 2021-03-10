@@ -1,7 +1,7 @@
 indexers
 ========
 
-[![Build Status](https://travis-ci.org/monasuite/monad.png?branch=master)](https://travis-ci.org/monasuite/monad)
+[![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
 
 Package indexers implements optional block chain indexes.
 

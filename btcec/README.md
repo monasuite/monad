@@ -25,23 +25,19 @@ $ go get -u github.com/monasuite/monad/btcec
 
 ## Examples
 
-* [Sign Message]
-  (http://godoc.org/github.com/monasuite/monad/btcec#example-package--SignMessage)  
+* [Sign Message](https://pkg.go.dev/github.com/monasuite/monad/btcec#example-package--SignMessage)  
   Demonstrates signing a message with a secp256k1 private key that is first
   parsed form raw bytes and serializing the generated signature.
 
-* [Verify Signature]
-  (http://godoc.org/github.com/monasuite/monad/btcec#example-package--VerifySignature)  
+* [Verify Signature](https://pkg.go.dev/github.com/monasuite/monad/btcec#example-package--VerifySignature)  
   Demonstrates verifying a secp256k1 signature against a public key that is
   first parsed from raw bytes.  The signature is also parsed from raw bytes.
 
-* [Encryption]
-  (http://godoc.org/github.com/monasuite/monad/btcec#example-package--EncryptMessage)
+* [Encryption](https://pkg.go.dev/github.com/monasuite/monad/btcec#example-package--EncryptMessage)
   Demonstrates encrypting a message for a public key that is first parsed from
   raw bytes, then decrypting it using the corresponding private key.
 
-* [Decryption]
-  (http://godoc.org/github.com/monasuite/monad/btcec#example-package--DecryptMessage)
+* [Decryption](https://pkg.go.dev/github.com/monasuite/monad/btcec#example-package--DecryptMessage)
   Demonstrates decrypting a message using a private key that is first parsed
   from raw bytes.
 

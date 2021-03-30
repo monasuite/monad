@@ -2,6 +2,8 @@ indexers
 ========
 
 [![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](https://pkg.go.dev/github.com/monasuite/monad/blockchain/indexers?status.png)](https://pkg.go.dev/github.com/monasuite/monad/blockchain/indexers)
 
 Package indexers implements optional block chain indexes.
 

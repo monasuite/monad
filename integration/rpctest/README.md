@@ -2,11 +2,9 @@
 rpctest
 =======
 
-[![Build Status](http://img.shields.io/travis/monasuite/monad.svg)]
-(https://travis-ci.org/monasuite/monad) [![ISC License]
-(http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)]
-(http://godoc.org/github.com/monasuite/monad/rpctest)
+[![Build Status](https://github.com/monasuite/monad/workflows/Build%20and%20Test/badge.svg)](https://github.com/monasuite/monad/actions)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/monasuite/monad/rpctest)
 
 Package rpctest provides a monad-specific RPC testing harness crafting and
 executing integration tests by driving a `monad` instance via the `RPC`

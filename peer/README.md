@@ -63,8 +63,7 @@ $ go get -u github.com/monasuite/monad/peer
 
 ## Examples
 
-* [New Outbound Peer Example]
-  (https://godoc.org/github.com/monasuite/monad/peer#example-package--NewOutboundPeer)  
+* [New Outbound Peer Example]  (https://godoc.org/github.com/monasuite/monad/peer#example-package--NewOutboundPeer)  
   Demonstrates the basic process for initializing and creating an outbound peer.
   Peers negotiate by exchanging version and verack messages.  For demonstration,
   a simple handler for the version message is attached to the peer.

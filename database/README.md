@@ -42,13 +42,11 @@ $ go get -u github.com/monasuite/monad/database
 
 ## Examples
 
-* [Basic Usage Example]
-  (http://godoc.org/github.com/monasuite/monad/database#example-package--BasicUsage)  
+* [Basic Usage Example](https://pkg.go.dev/github.com/monasuite/monad/database#example-package--BasicUsage)
   Demonstrates creating a new database and using a managed read-write
   transaction to store and retrieve metadata.
 
-* [Block Storage and Retrieval Example]
-  (http://godoc.org/github.com/monasuite/monad/database#example-package--BlockStorageAndRetrieval)  
+* [Block Storage and Retrieval Example](https://pkg.go.dev/github.com/monasuite/monad/database#example-package--BlockStorageAndRetrieval)
   Demonstrates creating a new database, using a managed read-write transaction
   to store a block, and then using a managed read-only transaction to fetch the
   block.

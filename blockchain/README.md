@@ -72,7 +72,7 @@ is by no means exhaustive:
   represent the target difficulty to a big integer and display it using the
   typical hex notation.
 
-* [BigToCompact Example](http://godoc.org/github.com/btcsuite/btcd/blockchain#example-BigToCompact)  
+* [BigToCompact Example](https://pkg.go.dev/github.com/btcsuite/btcd/blockchain#example-BigToCompact)  
   Demonstrates how to convert a target difficulty into the
   compact "bits" in a block header which represent that target difficulty.
 

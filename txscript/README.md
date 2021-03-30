@@ -26,8 +26,7 @@ $ go get -u github.com/monasuite/monad/txscript
 
 ## Examples
 
-* [Standard Pay-to-pubkey-hash Script]
-  (http://godoc.org/github.com/monasuite/monad/txscript#example-PayToAddrScript)  
+* [Standard Pay-to-pubkey-hash Script](http://godoc.org/github.com/monasuite/monad/txscript#example-PayToAddrScript)  
   Demonstrates creating a script which pays to a bitcoin address.  It also
   prints the created script hex and uses the DisasmString function to display
   the disassembled script.

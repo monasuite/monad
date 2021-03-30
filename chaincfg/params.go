@@ -441,6 +441,7 @@ var TestNet4Params = Params{
 	DefaultPort: "19403",
 	DNSSeeds: []DNSSeed{
 		{"testnet-dnsseed.monacoin.org", false},
+		{"testnet-dnsseed.tamami-foundation.org", false},
 	},
 
 	// Chain parameters

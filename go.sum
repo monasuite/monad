@@ -65,6 +65,8 @@ github.com/monasuite/monautil v1.1.2 h1:TUpcVByvA6PbsFm0LcBAmfDxEsnBmQqxMaRk0syi
 github.com/monasuite/monautil v1.1.2/go.mod h1:KoMmpGVTPshQyrwP5L6Uno09htl1BdVjHI/OhZ+zzA8=
 github.com/monasuite/monautil v1.1.3-0.20201009192835-00d5feaab5bf h1:8nYxYkSP2tVJnUZewtVjtj26VEobE+8NrqOLChA51zY=
 github.com/monasuite/monautil v1.1.3-0.20201009192835-00d5feaab5bf/go.mod h1:KoMmpGVTPshQyrwP5L6Uno09htl1BdVjHI/OhZ+zzA8=
+github.com/monasuite/monautil v1.1.3-0.20201206184148-63353a3ceadd h1:hMtM1PKITy8UZo2XqNVVZSXHdnTO6ZaNGH1a2eYGZ3Y=
+github.com/monasuite/monautil v1.1.3-0.20201206184148-63353a3ceadd/go.mod h1:4jxImPKk6hdxVqxYEL3qQD8NaO/OyASzbW3DY/OlC8o=
 github.com/monasuite/monautil/psbt v1.0.1/go.mod h1:7WRjsuiM52783pB5V68DM+A5EUFGQEPGZy7wd70Xay4=
 github.com/monasuite/monautil/psbt v1.1.0/go.mod h1:x3L79SW2/BzpLuvRU2RNEGZmbnlQZ69exKFyld5XKtI=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=

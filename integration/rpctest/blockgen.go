@@ -14,6 +14,7 @@ import (
 	"github.com/monasuite/monad/blockchain"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/mining"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
 	"github.com/monasuite/monautil"
@@ -181,6 +182,21 @@ func CreateBlock(prevBlock *monautil.Block, inclusionTxs []*monautil.Tx,
 	if inclusionTxs != nil {
 		blockTxns = append(blockTxns, inclusionTxs...)
 	}
+
+	// We must add the witness commitment to the coinbase if any
+	// transactions are segwit.
+	witnessIncluded := false
+	for i := 1; i < len(blockTxns); i++ {
+		if blockTxns[i].MsgTx().HasWitness() {
+			witnessIncluded = true
+			break
+		}
+	}
+
+	if witnessIncluded {
+		_ = mining.AddWitnessCommitment(coinbaseTx, blockTxns)
+	}
+
 	merkles := blockchain.BuildMerkleTreeStore(blockTxns, false)
 	var block wire.MsgBlock
 	block.Header = wire.BlockHeader{

@@ -31,12 +31,12 @@ func (cmd VolatileCheckpointCommand) String() string {
 
 // FutureVolatileCheckpointResult is a future promise to deliver the result of an
 // VolatileCheckpointAsync RPC invocation (or an applicable error).
-type FutureVolatileCheckpointResult chan *response
+type FutureVolatileCheckpointResult chan *Response
 
-// Receive waits for the response promised by the future and returns an error if
+// Receive waits for the Response promised by the future and returns an error if
 // any occurred when performing the specified command.
 func (r FutureVolatileCheckpointResult) Receive() error {
-	_, err := receiveFuture(r)
+	_, err := ReceiveFuture(r)
 	return err
 }
 
@@ -47,7 +47,7 @@ func (r FutureVolatileCheckpointResult) Receive() error {
 // See VolatileCheckpoint for the blocking version and more details.
 func (c *Client) VolatileCheckpointAsync(command VolatileCheckpointCommand, hash *string, blockheight *int64) FutureVolatileCheckpointResult {
 	cmd := btcjson.NewVolatileCheckpointCmd(btcjson.VolatileCheckpointSubCmd(command), hash, blockheight)
-	return c.sendCmd(cmd)
+	return c.SendCmd(cmd)
 }
 
 // VolatileCheckpoint attempts to perform the passed command on the passed persistent peer.
@@ -61,12 +61,12 @@ func (c *Client) VolatileCheckpoint(command VolatileCheckpointCommand, hash *str
 
 // FutureDumpVolatileCheckpointResult is a future promise to deliver the result of a
 // DumpVolatileCheckpointAsync RPC invocation (or an applicable error).
-type FutureDumpVolatileCheckpointResult chan *response
+type FutureDumpVolatileCheckpointResult chan *Response
 
-// Receive waits for the response promised by the future and returns the hash of
+// Receive waits for the Response promised by the future and returns the hash of
 // the block in the best block chain at the given height.
 func (r FutureDumpVolatileCheckpointResult) Receive() ([]btcjson.DumpVolatileCheckpointResult, error) {
-	res, err := receiveFuture(r)
+	res, err := ReceiveFuture(r)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (r FutureDumpVolatileCheckpointResult) Receive() ([]btcjson.DumpVolatileChe
 // See DumpVolatileCheckpoint for the blocking version and more details.
 func (c *Client) DumpVolatileCheckpointAsync() FutureDumpVolatileCheckpointResult {
 	cmd := btcjson.NewDumpVolatileCheckpointCmd()
-	return c.sendCmd(cmd)
+	return c.SendCmd(cmd)
 }
 
 // DumpVolatileCheckpoint returns the hash of the block in the best block chain at the

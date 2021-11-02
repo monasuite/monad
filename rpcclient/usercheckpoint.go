@@ -31,12 +31,12 @@ func (cmd CheckpointCommand) String() string {
 
 // FutureCheckpointResult is a future promise to deliver the result of an
 // CheckpointAsync RPC invocation (or an applicable error).
-type FutureCheckpointResult chan *response
+type FutureCheckpointResult chan *Response
 
-// Receive waits for the response promised by the future and returns an error if
+// Receive waits for the Response promised by the future and returns an error if
 // any occurred when performing the specified command.
 func (r FutureCheckpointResult) Receive() error {
-	_, err := receiveFuture(r)
+	_, err := ReceiveFuture(r)
 	return err
 }
 
@@ -47,7 +47,7 @@ func (r FutureCheckpointResult) Receive() error {
 // See Checkpoint for the blocking version and more details.
 func (c *Client) CheckpointAsync(command CheckpointCommand, hash *string, blockheight int64) FutureCheckpointResult {
 	cmd := btcjson.NewCheckpointCmd(btcjson.CheckpointSubCmd(command), hash, blockheight)
-	return c.sendCmd(cmd)
+	return c.SendCmd(cmd)
 }
 
 // Checkpoint attempts to perform the passed command on the passed persistent peer.
@@ -61,12 +61,12 @@ func (c *Client) Checkpoint(command CheckpointCommand, hash *string, blockheight
 
 // FutureDumpCheckpointResult is a future promise to deliver the result of a
 // DumpCheckpointAsync RPC invocation (or an applicable error).
-type FutureDumpCheckpointResult chan *response
+type FutureDumpCheckpointResult chan *Response
 
-// Receive waits for the response promised by the future and returns the hash of
+// Receive waits for the Response promised by the future and returns the hash of
 // the block in the best block chain at the given height.
 func (r FutureDumpCheckpointResult) Receive() ([]btcjson.DumpCheckpointResult, error) {
-	res, err := receiveFuture(r)
+	res, err := ReceiveFuture(r)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (r FutureDumpCheckpointResult) Receive() ([]btcjson.DumpCheckpointResult, e
 // See DumpCheckpoint for the blocking version and more details.
 func (c *Client) DumpCheckpointAsync(maxnum *int32) FutureDumpCheckpointResult {
 	cmd := btcjson.NewDumpCheckpointCmd(maxnum)
-	return c.sendCmd(cmd)
+	return c.SendCmd(cmd)
 }
 
 // DumpCheckpoint returns the hash of the block in the best block chain at the

@@ -36,7 +36,7 @@ which are both under active development.
 
 ## Requirements
 
-[Go](http://golang.org) 1.14 or newer.
+[Go](http://golang.org) 1.16 or newer.
 
 ## Installation
 
@@ -93,12 +93,6 @@ configuration.
 ```bash
 $ ./monad
 ```
-
-## IRC
-
-- irc.freenode.net
-- channel #monad
-- [webchat](https://webchat.freenode.net/?channels=monad)
 
 ## Issue Tracker
 

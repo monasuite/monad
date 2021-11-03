@@ -67,7 +67,6 @@ const (
 	sampleConfigFilename         = "sample-monad.conf"
 	defaultTxIndex               = false
 	defaultAddrIndex             = false
-	defaultCmdCheckpoint         = true
 )
 
 var (
@@ -110,7 +109,6 @@ type config struct {
 	BlockMinWeight       uint32        `long:"blockminweight" description:"Mininum block weight to be used when creating a block"`
 	BlockPrioritySize    uint32        `long:"blockprioritysize" description:"Size in bytes for high-priority/low-fee transactions when creating a block"`
 	BlocksOnly           bool          `long:"blocksonly" description:"Do not accept transactions from remote peers."`
-	CmdCheckpoint        bool          `long:"cmdcheckpoint" description:"Monacoinproject plans checkpoint distribution. To deny checkpoint, use the argument cmdcheckpoint=false"`
 	ConfigFile           string        `short:"C" long:"configfile" description:"Path to configuration file"`
 	ConnectPeers         []string      `long:"connect" description:"Connect only to the specified peers at startup"`
 	CPUProfile           string        `long:"cpuprofile" description:"Write CPU profile to the specified file"`
@@ -442,7 +440,6 @@ func loadConfig() (*config, []string, error) {
 		Generate:             defaultGenerate,
 		TxIndex:              defaultTxIndex,
 		AddrIndex:            defaultAddrIndex,
-		CmdCheckpoint:        defaultCmdCheckpoint,
 	}
 
 	// Service options which are only added on Windows.

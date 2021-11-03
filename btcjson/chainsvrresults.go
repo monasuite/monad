@@ -145,20 +145,6 @@ type DecodeScriptResult struct {
 	P2sh      string   `json:"p2sh,omitempty"`
 }
 
-// DumpCheckpointResult models the data returned from the dumpcheckpoint
-// command.
-type DumpCheckpointResult struct {
-	Blocks int64  `json:"height"`
-	Hash   string `json:"hash"`
-}
-
-// DumpVolatileCheckpointResult models the data returned from the dumpvolatilecheckpoint
-// command.
-type DumpVolatileCheckpointResult struct {
-	Blocks int64  `json:"height"`
-	Hash   string `json:"hash"`
-}
-
 // GetAddedNodeInfoResultAddr models the data of the addresses portion of the
 // getaddednodeinfo command.
 type GetAddedNodeInfoResultAddr struct {

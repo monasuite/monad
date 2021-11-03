@@ -62,58 +62,6 @@ type CreateRawTransactionCmd struct {
 	LockTime *int64
 }
 
-// CheckpointCmd defines the type used in the addnode JSON-RPC command for the
-// sub command field.
-type CheckpointSubCmd string
-
-const (
-	// CAdd indicates the specified checkpoint should be added as a persistent
-	// checkpoint.
-	CAdd CheckpointSubCmd = "add"
-
-	// CDelete indicates the specified checkpoint should be deleted.
-	CDelete CheckpointSubCmd = "delete"
-)
-
-// CheckpointCmd defines the addnode JSON-RPC command.
-type CheckpointCmd struct {
-	SubCmd CheckpointSubCmd `jsonrpcusage:"\"add|delete\""`
-	Index  int64
-	Hash   *string `jsonrpcdefault:"\"Hash\""`
-}
-
-// NewCheckpointCmd returns a new instance which can be used to issue an checkpoint
-// JSON-RPC command.
-func NewCheckpointCmd(subCmd CheckpointSubCmd, hash *string, index int64) *CheckpointCmd {
-	return &CheckpointCmd{
-		SubCmd: subCmd,
-		Index:  index,
-		Hash:   hash,
-	}
-}
-
-// DumpCheckpointCmd defines the dumpcheckpoint JSON-RPC command.
-type DumpCheckpointCmd struct {
-	Maxnum *int32 `jsonrpcdefault:"2147483647"`
-}
-
-// NewDumpCheckpointCmd returns a new instance which can be used to issue a
-// dumpcheckpoint JSON-RPC command.
-func NewDumpCheckpointCmd(maxnum *int32) *DumpCheckpointCmd {
-	return &DumpCheckpointCmd{
-		Maxnum: maxnum,
-	}
-}
-
-// DumpVolatileCheckpointCmd defines the dumpvolatilecheckpoint JSON-RPC command.
-type DumpVolatileCheckpointCmd struct{}
-
-// NewDumpVolatileCheckpointCmd returns a new instance which can be used to issue a
-// dumpvolatilecheckpoint JSON-RPC command.
-func NewDumpVolatileCheckpointCmd() *DumpVolatileCheckpointCmd {
-	return &DumpVolatileCheckpointCmd{}
-}
-
 // NewCreateRawTransactionCmd returns a new instance which can be used to issue
 // a createrawtransaction JSON-RPC command.
 //
@@ -1094,45 +1042,12 @@ func NewVerifyTxOutProofCmd(proof string) *VerifyTxOutProofCmd {
 	}
 }
 
-// VolatileCheckpointCmd defines the type used in the addnode JSON-RPC command for the
-// sub command field.
-type VolatileCheckpointSubCmd string
-
-const (
-	// VCSet indicates the specified volatilecheckpoint should be added as a persistent
-	// checkpoint.
-	VCSet VolatileCheckpointSubCmd = "set"
-
-	// CDelete indicates the specified volatilecheckpoint should be cleared.
-	VCClear VolatileCheckpointSubCmd = "clear"
-)
-
-// VolatileCheckpointCmd defines the addnode JSON-RPC command.
-type VolatileCheckpointCmd struct {
-	SubCmd VolatileCheckpointSubCmd `jsonrpcusage:"\"set|clear\""`
-	Index  *int64                   `jsonrpcdefault:"0"`
-	Hash   *string                  `jsonrpcdefault:"\"Hash\""`
-}
-
-// NewVolatileCheckpointCmd returns a new instance which can be used to issue an volatilecheckpoint
-// JSON-RPC command.
-func NewVolatileCheckpointCmd(subCmd VolatileCheckpointSubCmd, hash *string, index *int64) *VolatileCheckpointCmd {
-	return &VolatileCheckpointCmd{
-		SubCmd: subCmd,
-		Index:  index,
-		Hash:   hash,
-	}
-}
-
 func init() {
 	// No special flags for commands in this file.
 	flags := UsageFlag(0)
 
 	MustRegisterCmd("addnode", (*AddNodeCmd)(nil), flags)
 	MustRegisterCmd("createrawtransaction", (*CreateRawTransactionCmd)(nil), flags)
-	MustRegisterCmd("checkpoint", (*CheckpointCmd)(nil), flags)
-	MustRegisterCmd("dumpcheckpoint", (*DumpCheckpointCmd)(nil), flags)
-	MustRegisterCmd("dumpvolatilecheckpoint", (*DumpVolatileCheckpointCmd)(nil), flags)
 	MustRegisterCmd("decoderawtransaction", (*DecodeRawTransactionCmd)(nil), flags)
 	MustRegisterCmd("decodescript", (*DecodeScriptCmd)(nil), flags)
 	MustRegisterCmd("deriveaddresses", (*DeriveAddressesCmd)(nil), flags)
@@ -1187,5 +1102,4 @@ func init() {
 	MustRegisterCmd("verifychain", (*VerifyChainCmd)(nil), flags)
 	MustRegisterCmd("verifymessage", (*VerifyMessageCmd)(nil), flags)
 	MustRegisterCmd("verifytxoutproof", (*VerifyTxOutProofCmd)(nil), flags)
-	MustRegisterCmd("volatilecheckpoint", (*VolatileCheckpointCmd)(nil), flags)
 }

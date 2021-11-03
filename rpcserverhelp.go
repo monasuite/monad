@@ -237,33 +237,6 @@ var helpDescsEnUS = map[string]string{
 	"searchrawtransactionsresult-vsize":         "The virtual size of the transaction in bytes",
 	"searchrawtransactionsresult-weight":        "The transaction's weight (between vsize*4-3 and vsize*4)",
 
-	// CheckpointCmd help.
-	"checkpoint--synopsis": "Manage user's checkpoint.",
-	"checkpoint-subcmd":    "'add' to add a user's checkpoint, 'delete' to delete a user's checkpoint.",
-	"checkpoint-index":     "The block height",
-	"checkpoint-hash":      "The block hash",
-	"checkpoint--result0":  "User's checkpoints",
-
-	// DumpCheckpointCmd help.
-	"dumpcheckpoint--synopsis": "Manage user's checkpoint.",
-	"dumpcheckpoint--index":    "The block height",
-	"dumpcheckpoint--height":   "The block hash",
-	"dumpcheckpoint-maxnum":    "Maxnum dump checkpoints",
-	"dumpcheckpoint--result0":  "User's checkpoints",
-
-	// VolatileCheckpointCmd help.
-	"volatilecheckpoint--synopsis": "Manage alert's checkpoint.",
-	"volatilecheckpoint-subcmd":    "'set' to add a volatile checkpoint, 'clear' to clear volatile checkpoint.",
-	"volatilecheckpoint-index":     "The block height",
-	"volatilecheckpoint-hash":      "The block hash",
-	"volatilecheckpoint--result0":  "From alert checkpoints",
-
-	// DumpVolatileCheckpointCmd help.
-	"dumpvolatilecheckpoint--synopsis": "Returns volatile checkpoints",
-	"dumpvolatilecheckpoint--index":    "The block height",
-	"dumpvolatilecheckpoint--height":   "The block hash",
-	"dumpvolatilecheckpoint--result0":  "Volatile checkpoints",
-
 	// GetBlockVerboseResult help.
 	"getblockverboseresult-hash":              "The hash of the block (same as provided)",
 	"getblockverboseresult-confirmations":     "The number of confirmations",
@@ -743,12 +716,9 @@ var helpDescsEnUS = map[string]string{
 var rpcResultTypes = map[string][]interface{}{
 	"addnode":                nil,
 	"createrawtransaction":   {(*string)(nil)},
-	"checkpoint":             {(*string)(nil)},
 	"debuglevel":             {(*string)(nil), (*string)(nil)},
 	"decoderawtransaction":   {(*btcjson.TxRawDecodeResult)(nil)},
 	"decodescript":           {(*btcjson.DecodeScriptResult)(nil)},
-	"dumpcheckpoint":         {(*string)(nil)},
-	"dumpvolatilecheckpoint": {(*string)(nil)},
 	"estimatefee":            {(*float64)(nil)},
 	"generate":               {(*[]string)(nil)},
 	"getaddednodeinfo":       {(*[]string)(nil), (*[]btcjson.GetAddedNodeInfoResult)(nil)},
@@ -792,7 +762,6 @@ var rpcResultTypes = map[string][]interface{}{
 	"verifychain":            {(*bool)(nil)},
 	"verifymessage":          {(*bool)(nil)},
 	"version":                {(*map[string]btcjson.VersionResult)(nil)},
-	"volatilecheckpoint":     {(*string)(nil)},
 
 	// Websocket commands.
 	"loadtxfilter":              nil,

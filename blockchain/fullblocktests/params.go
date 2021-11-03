@@ -144,10 +144,6 @@ var regressionNetParams = &chaincfg.Params{
 	// address generation.
 	HDCoinType: 1,
 
-	// vAlertPubKey is used checkpoint's deliverty
-	AlertPubMainKey: []byte{},
-	AlertPubSubKey:  []byte{},
-
 	// Lyra2re2&DGWv3's HF height. Used to calculate Pow. 0 to speed up the height for testing.
 	Lyra2re2DGWv3Height: 0,
 }

@@ -16,7 +16,6 @@ import (
 	"runtime/pprof"
 
 	"github.com/monasuite/monad/blockchain/indexers"
-	"github.com/monasuite/monad/checkpoint"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/limits"
 )
@@ -109,38 +108,6 @@ func monadMain(serverChan chan<- *server) error {
 		// Ensure the database is sync'd and closed on shutdown.
 		monadLog.Infof("Gracefully shutting down the database...")
 		db.Close()
-	}()
-
-	ak := checkpoint.GetAlertKeyDbInstance()
-	_, aerr := ak.OpenDB(cfg.DataDir, activeNetParams.Params)
-	if aerr != nil {
-		monadLog.Errorf("Error in opning AlertKeyDB: %v", aerr)
-	}
-	ak.IsValid(activeNetParams.Params)
-	defer func() {
-		monadLog.Infof("Gracefully shutting down the alertkey database...")
-		checkpoint.GetAlertKeyDbInstance().CloseDB()
-	}()
-
-	uc := checkpoint.GetUserCheckpointDbInstance()
-	_, uerr := uc.OpenDB(cfg.DataDir, activeNetParams.Params)
-	if uerr != nil {
-		monadLog.Errorf("Error in opning UserCheckpointDB: %v", uerr)
-	}
-	defer func() {
-		monadLog.Infof("Gracefully shutting down the usercheckpoint database...")
-		checkpoint.GetUserCheckpointDbInstance().CloseDB()
-	}()
-
-	vc := checkpoint.GetVolatileCheckpointDbInstance()
-	_, verr := vc.OpenDB(cfg.DataDir, activeNetParams.Params)
-	if verr != nil {
-		monadLog.Errorf("Error in opning VolatileCheckpointDB: %v", verr)
-	}
-	defer func() {
-		checkpoint.GetVolatileCheckpointDbInstance().ClearDB()
-		monadLog.Infof("Gracefully shutting down the volatilecheckpoint database...")
-		checkpoint.GetVolatileCheckpointDbInstance().CloseDB()
 	}()
 
 	// Return now if an interrupt signal was triggered.

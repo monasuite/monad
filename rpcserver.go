@@ -34,7 +34,6 @@ import (
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
-	"github.com/monasuite/monad/checkpoint"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/mempool"
 	"github.com/monasuite/monad/mining"
@@ -134,12 +133,9 @@ var rpcHandlers map[string]commandHandler
 var rpcHandlersBeforeInit = map[string]commandHandler{
 	"addnode":                handleAddNode,
 	"createrawtransaction":   handleCreateRawTransaction,
-	"checkpoint":             handleCheckpoint,
 	"debuglevel":             handleDebugLevel,
 	"decoderawtransaction":   handleDecodeRawTransaction,
 	"decodescript":           handleDecodeScript,
-	"dumpcheckpoint":         handleDumpCheckpoint,
-	"dumpvolatilecheckpoint": handleDumpVolatileCheckpoint,
 	"estimatefee":            handleEstimateFee,
 	"generate":               handleGenerate,
 	"getaddednodeinfo":       handleGetAddedNodeInfo,
@@ -183,7 +179,6 @@ var rpcHandlersBeforeInit = map[string]commandHandler{
 	"verifychain":            handleVerifyChain,
 	"verifymessage":          handleVerifyMessage,
 	"version":                handleVersion,
-	"volatilecheckpoint":     handleVolatileCheckpoint,
 }
 
 // list of commands that we recognize, but for which monad has no support because
@@ -262,38 +257,34 @@ var rpcLimited = map[string]struct{}{
 	"help": {},
 
 	// HTTP/S-only commands
-	"createrawtransaction":   {},
-	"checkpoint":             {},
-	"decoderawtransaction":   {},
-	"decodescript":           {},
-	"dumpcheckpoint":         {},
-	"dumpvolatilecheckpoint": {},
-	"estimatefee":            {},
-	"getbestblock":           {},
-	"getbestblockhash":       {},
-	"getblock":               {},
-	"getblockcount":          {},
-	"getblockhash":           {},
-	"getblockheader":         {},
-	"getcfilter":             {},
-	"getcfilterheader":       {},
-	"getcurrentnet":          {},
-	"getdifficulty":          {},
-	"getheaders":             {},
-	"getinfo":                {},
-	"getnettotals":           {},
-	"getnetworkhashps":       {},
-	"getrawmempool":          {},
-	"getrawtransaction":      {},
-	"gettxout":               {},
-	"searchrawtransactions":  {},
-	"sendrawtransaction":     {},
-	"submitblock":            {},
-	"uptime":                 {},
-	"validateaddress":        {},
-	"verifymessage":          {},
-	"version":                {},
-	"volatilecheckpoint":     {},
+	"createrawtransaction":  {},
+	"decoderawtransaction":  {},
+	"decodescript":          {},
+	"estimatefee":           {},
+	"getbestblock":          {},
+	"getbestblockhash":      {},
+	"getblock":              {},
+	"getblockcount":         {},
+	"getblockhash":          {},
+	"getblockheader":        {},
+	"getcfilter":            {},
+	"getcfilterheader":      {},
+	"getcurrentnet":         {},
+	"getdifficulty":         {},
+	"getheaders":            {},
+	"getinfo":               {},
+	"getnettotals":          {},
+	"getnetworkhashps":      {},
+	"getrawmempool":         {},
+	"getrawtransaction":     {},
+	"gettxout":              {},
+	"searchrawtransactions": {},
+	"sendrawtransaction":    {},
+	"submitblock":           {},
+	"uptime":                {},
+	"validateaddress":       {},
+	"verifymessage":         {},
+	"version":               {},
 }
 
 // builderScript is a convenience function which is used for hard-coded scripts
@@ -868,140 +859,6 @@ func handleDecodeScript(s *rpcServer, cmd interface{}, closeChan <-chan struct{}
 		reply.P2sh = p2sh.EncodeAddress()
 	}
 	return reply, nil
-}
-
-const (
-	// userCheckpointDbNamePrefix is the prefix for the monad checkpoint database.
-	userCheckpointDbNamePrefix = "usercheckpoints"
-)
-
-// handleCheckpoint handles checkpoint commands.
-func handleCheckpoint(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	c := cmd.(*btcjson.CheckpointCmd)
-
-	uc := checkpoint.GetUserCheckpointDbInstance()
-	if c.Index < 0 {
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: fmt.Sprintf("Block height %v out of range", c.Index),
-		}
-	}
-
-	if *c.Hash == "Hash" && c.SubCmd == "add" {
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: "invalid parameter",
-		}
-	}
-
-	switch c.SubCmd {
-	case "add":
-		uc.Add(c.Index, *c.Hash)
-	case "delete":
-		uc.Delete(c.Index)
-	default:
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: "invalid subcommand for checkpoint",
-		}
-	}
-
-	// no data returned unless an error.
-	return nil, nil
-}
-
-// handleDumpcheckpoint handles dumpcheckpoint commands.
-func handleDumpCheckpoint(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	c := cmd.(*btcjson.DumpCheckpointCmd)
-	var n int32
-	uc := checkpoint.GetUserCheckpointDbInstance()
-	iter := uc.Ucdb.NewIterator(nil, nil)
-	iter.Last()
-	if !iter.Valid() || *c.Maxnum <= 0 {
-		return "[]", nil
-	}
-
-	checkpoints := make([]*btcjson.DumpCheckpointResult, 0, n)
-	for iter.Valid() {
-		height, _ := strconv.ParseInt(string(iter.Key()), 10, 64)
-		checkpoint := &btcjson.DumpCheckpointResult{
-			Blocks: height,
-			Hash:   string(iter.Value()),
-		}
-		checkpoints = append(checkpoints, checkpoint)
-		if *c.Maxnum <= int32(len(checkpoints)) {
-			break
-		}
-		iter.Prev()
-	}
-
-	// no data returned unless an error.
-	return checkpoints, nil
-}
-
-const (
-	// volatileCheckpointDbNamePrefix is the prefix for the monad checkpoint database.
-	volatileCheckpointDbNamePrefix = "volatilecheckpoints"
-)
-
-// handleVolatileCheckpoint handles volatilecheckpoint commands.
-func handleVolatileCheckpoint(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	c := cmd.(*btcjson.VolatileCheckpointCmd)
-
-	vc := checkpoint.GetVolatileCheckpointDbInstance()
-	if *c.Index < 0 {
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: fmt.Sprintf("Block height %v out of range", *c.Index),
-		}
-	}
-
-	if *c.Hash == "Hash" && c.SubCmd == "set" {
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: "invalid parameter",
-		}
-	}
-
-	switch c.SubCmd {
-	case "set":
-		vc.Set(*c.Index, *c.Hash)
-	case "clear":
-		vc.ClearDB()
-	default:
-		return nil, &btcjson.RPCError{
-			Code:    btcjson.ErrRPCInvalidParameter,
-			Message: "invalid subcommand for checkpoint",
-		}
-	}
-
-	// no data returned unless an error.
-	return nil, nil
-}
-
-// handleDumpVolatilecheckpoint handles dumpVolatilecheckpoint commands.
-func handleDumpVolatileCheckpoint(s *rpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	var n int32
-	vc := checkpoint.GetVolatileCheckpointDbInstance()
-	iter := vc.Vcdb.NewIterator(nil, nil)
-	iter.Last()
-	if !iter.Valid() {
-		return "[]", nil
-	}
-
-	checkpoints := make([]*btcjson.DumpVolatileCheckpointResult, 0, n)
-	for iter.Valid() {
-		height, _ := strconv.ParseInt(string(iter.Key()), 10, 64)
-		checkpoint := &btcjson.DumpVolatileCheckpointResult{
-			Blocks: height,
-			Hash:   string(iter.Value()),
-		}
-		checkpoints = append(checkpoints, checkpoint)
-		iter.Prev()
-	}
-
-	// no data returned unless an error.
-	return checkpoints, nil
 }
 
 // handleEstimateFee handles estimatefee commands.

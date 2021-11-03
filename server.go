@@ -10,7 +10,6 @@ import (
 	"crypto/rand"
 	"crypto/tls"
 	"encoding/binary"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -28,7 +27,6 @@ import (
 	"github.com/monasuite/monad/blockchain/indexers"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
-	"github.com/monasuite/monad/checkpoint"
 	"github.com/monasuite/monad/connmgr"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/mempool"
@@ -77,16 +75,6 @@ var zeroHash chainhash.Hash
 // onionAddr implements the net.Addr interface and represents a tor address.
 type onionAddr struct {
 	addr string
-}
-
-// CheckPointData is a checkpoint to be acquired by Alert.
-type CheckPointData struct {
-	Height int64  `json:"height"`
-	Hash   string `json:"hash"`
-}
-
-type AlertKeyData struct {
-	Key string `json:"key"`
 }
 
 // String returns the onion address.
@@ -1322,61 +1310,6 @@ func (sp *serverPeer) OnWrite(_ *peer.Peer, bytesWritten int, msg wire.Message, 
 	sp.server.AddBytesSent(uint64(bytesWritten))
 }
 
-// OnAlert is invoked when a peer receives a alert and it is used to update
-// the checkpoint db.
-func (sp *serverPeer) OnAlert(_ *peer.Peer, msg *wire.MsgAlert) {
-	// Invalid if cmdcheckpoint is false.
-	if !cfg.CmdCheckpoint {
-		return
-	}
-
-	// Invalid if IsValid(Invalidation judgment of alertkey) is false.
-	ak := checkpoint.GetAlertKeyDbInstance()
-	if !ak.IsValid(activeNetParams.Params) {
-		return
-	}
-
-	// Invalid if the certificate is invalid.
-	if !(CheckSignature(activeNetParams.AlertPubMainKey, msg.SerializedPayload, msg.Signature) ||
-		CheckSignature(activeNetParams.AlertPubSubKey, msg.SerializedPayload, msg.Signature)) {
-		return
-	}
-
-	switch {
-	case strings.Contains(msg.Payload.Comment, "height") && strings.Contains(msg.Payload.Comment, "hash"):
-		if !(len(string(msg.Payload.SetCancel)) == 0) ||
-			!(fmt.Sprintf("%v", msg.Payload.SetSubVer) == "[]") ||
-			!(len(msg.Payload.StatusBar) == 0) ||
-			!(len(msg.Payload.Reserved) == 0) ||
-			len(msg.Payload.Comment) > 128 {
-			return
-		}
-		byteComment := ([]byte)(msg.Payload.Comment)
-		cpd := new(CheckPointData)
-		if err := json.Unmarshal(byteComment, cpd); err != nil {
-			peerLog.Infof("ALERT, Parse error")
-			return
-		}
-		best := sp.server.chain.BestSnapshot()
-		CmdCheckpoint(cpd.Height, cpd.Hash, int64(best.Height), fmt.Sprintf("%v", best.Hash), int64(msg.Payload.MinVer))
-
-	case strings.Contains(msg.Payload.Comment, "key"):
-		// MainKey only
-		if !(CheckSignature(activeNetParams.AlertPubMainKey, msg.SerializedPayload, msg.Signature)) {
-			return
-		}
-		byteComment := ([]byte)(msg.Payload.Comment)
-		akd := new(AlertKeyData)
-		if err := json.Unmarshal(byteComment, akd); err != nil {
-			peerLog.Infof("ALERT, Parse error")
-			return
-		}
-		CmdInvalidateKey(akd.Key)
-
-	default:
-	}
-}
-
 // OnNotFound is invoked when a peer sends a notfound message.
 func (sp *serverPeer) OnNotFound(p *peer.Peer, msg *wire.MsgNotFound) {
 	if !sp.Connected() {
@@ -2113,14 +2046,13 @@ func newPeerConfig(sp *serverPeer) *peer.Config {
 			OnAddr:         sp.OnAddr,
 			OnRead:         sp.OnRead,
 			OnWrite:        sp.OnWrite,
-			OnAlert:        sp.OnAlert,
 			OnNotFound:     sp.OnNotFound,
 
 			// Note: The reference client currently bans peers that send alerts
 			// not signed with its key.  We could verify against their key, but
 			// since the reference client is currently unwilling to support
 			// other implementations' alert messages, we will not relay theirs.
-			//OnAlert: nil,
+			OnAlert: nil,
 		},
 		NewestBlock:         sp.newestBlock,
 		HostToNetAddress:    sp.server.addrManager.HostToNetAddress,

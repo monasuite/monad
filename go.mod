@@ -10,7 +10,7 @@ require (
 	github.com/decred/dcrd/lru v1.0.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monautil v1.1.3-0.20201206184148-63353a3ceadd
+	github.com/monasuite/monautil v1.1.3-0.20211103030141-3548ad186fe5
 	github.com/monasuite/monautil/psbt v1.1.0 // indirect
 	github.com/shopspring/decimal v1.3.1
 	github.com/wakiyamap/lyra2rev2 v0.1.2

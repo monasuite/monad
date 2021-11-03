@@ -12,9 +12,9 @@ require (
 	github.com/jrick/logrotate v1.0.0
 	github.com/monasuite/monautil v1.1.3-0.20201206184148-63353a3ceadd
 	github.com/monasuite/monautil/psbt v1.1.0 // indirect
-	github.com/shopspring/decimal v1.2.0
+	github.com/shopspring/decimal v1.3.1
 	github.com/wakiyamap/lyra2rev2 v0.1.2
-	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 )
 
 go 1.16

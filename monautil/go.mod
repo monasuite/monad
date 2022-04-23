@@ -9,5 +9,5 @@ require (
 	github.com/kkdai/bstream v1.0.0
 	github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225
 	github.com/shopspring/decimal v1.3.1
-	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 )

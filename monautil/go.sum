@@ -56,6 +56,7 @@ github.com/monasuite/monad v0.22.1-beta h1:3B/p24izNkbBmLds8nuAl6Sg9S+ZLLjbAxvic
 github.com/monasuite/monad v0.22.1-beta/go.mod h1:Z8IF4S54MQMjSoQ+2KAJdewQVuJsYGZ7i1fOtHgk5Zc=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225 h1:erTmj1ljFGYYpq2Sj0gshVsBznE8RHcL21DskHx3WYM=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225/go.mod h1:KH0yZrcZYBhL6uKlHPDyXv7P6hXMwstSuJQcZ5iVtEM=
+github.com/monasuite/monad/monautil v1.0.0/go.mod h1:es9mTGw/7FeHWHd8qAm3IwwRY+CWu4fTUqRgyQgZjQo=
 github.com/monasuite/monautil v0.0.0-20190606162653-90b266792864/go.mod h1:kIVSL9QpyEYOh60Z7DIAAIhzOd9pHpRbMA3rOqVXOwc=
 github.com/monasuite/monautil v1.1.0/go.mod h1:b5tmGuaSp+AMFptTgNUuYWwct+WTaS+lSh2yUkQQQvw=
 github.com/monasuite/monautil v1.1.1 h1:My6v9Z0p+d357Q6TRM9p1k4nhQmJIs3s7yqn+lZn9Cs=
@@ -88,6 +89,7 @@ golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACk
 golang.org/x/crypto v0.0.0-20200214034016-1d94cc7ab1c6/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37 h1:cg5LA/zNPRzIXIWSCxQW10Rvpy94aQh3LT/ShoCpkHw=
 golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
+golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 h1:7I4JAnoQBe7ZtJcBaYHi5UtiO8tQHbUSXxL+pnGRANg=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
 golang.org/x/net v0.0.0-20180719180050-a680a1efc54d/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
 golang.org/x/net v0.0.0-20180906233101-161cd47e91fd h1:nTDtHvHSdCn1m6ITfMRqtOd/9+7a3s8RBNOZ3eYZzJA=

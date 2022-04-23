@@ -1099,8 +1099,8 @@ import (
 	"log"
 	"path/filepath"
 
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/rpcclient"
-	"github.com/monasuite/monautil"
 )
 
 func main() {
@@ -1163,8 +1163,8 @@ import (
 	"time"
 
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/rpcclient"
-	"github.com/monasuite/monautil"
 )
 
 func main() {
@@ -1255,8 +1255,8 @@ import (
 	"time"
 
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/rpcclient"
-	"github.com/monasuite/monautil"
 )
 
 func main() {

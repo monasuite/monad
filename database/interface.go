@@ -9,7 +9,7 @@ package database
 
 import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // Cursor represents a cursor over key/value pairs and nested buckets of a

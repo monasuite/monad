@@ -14,7 +14,7 @@ import (
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/database/ffldb"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // dbType is the database type name for this driver.

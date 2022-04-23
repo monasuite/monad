@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // BenchmarkIsCoinBase performs a simple benchmark against the IsCoinBase

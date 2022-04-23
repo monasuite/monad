@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/rpcclient"
-	"github.com/monasuite/monautil"
 )
 
 func main() {

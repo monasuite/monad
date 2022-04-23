@@ -13,7 +13,7 @@ import (
 	"time"
 
 	flags "github.com/jessevdk/go-flags"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 type config struct {

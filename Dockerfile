@@ -39,8 +39,8 @@ FROM $ARCH/alpine:3.12
 
 COPY --from=build-container /go/bin /bin
 
-VOLUME ["/root/.btcd"]
+VOLUME ["/root/.monad"]
 
-EXPOSE 8333 8334
+EXPOSE 9401 9402
 
 ENTRYPOINT ["btcd"]

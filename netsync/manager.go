@@ -17,9 +17,9 @@ import (
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/mempool"
+	"github.com/monasuite/monad/monautil"
 	peerpkg "github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 const (

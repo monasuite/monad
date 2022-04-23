@@ -11,10 +11,10 @@ import (
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/database"
+	"github.com/monasuite/monad/monautil"
+	"github.com/monasuite/monad/monautil/gcs"
+	"github.com/monasuite/monad/monautil/gcs/builder"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
-	"github.com/monasuite/monautil/gcs"
-	"github.com/monasuite/monautil/gcs/builder"
 )
 
 const (

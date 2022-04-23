@@ -32,12 +32,12 @@ import (
 	"github.com/monasuite/monad/mempool"
 	"github.com/monasuite/monad/mining"
 	"github.com/monasuite/monad/mining/cpuminer"
+	"github.com/monasuite/monad/monautil"
+	"github.com/monasuite/monad/monautil/bloom"
 	"github.com/monasuite/monad/netsync"
 	"github.com/monasuite/monad/peer"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
-	"github.com/monasuite/monautil/bloom"
 )
 
 const (

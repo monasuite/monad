@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/btcjson"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // TestWalletSvrCmds tests all of the wallet server commands marshal and

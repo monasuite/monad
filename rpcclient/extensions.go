@@ -14,8 +14,8 @@ import (
 
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 // FutureDebugLevelResult is a future promise to deliver the result of a

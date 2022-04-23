@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/rpcclient"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 func main() {

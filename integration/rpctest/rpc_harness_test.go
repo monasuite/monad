@@ -15,9 +15,9 @@ import (
 
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 func testSendOutputs(r *Harness, t *testing.T) {

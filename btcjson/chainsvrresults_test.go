@@ -12,7 +12,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg/chainhash"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 	"github.com/shopspring/decimal"
 )
 

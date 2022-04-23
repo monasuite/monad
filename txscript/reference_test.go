@@ -16,8 +16,8 @@ import (
 	"testing"
 
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 	"github.com/shopspring/decimal"
 )
 
@@ -837,6 +837,7 @@ func TestCalcSignatureHash(t *testing.T) {
 			err)
 	}
 
+	const scriptVersion = 0
 	for i, test := range tests {
 		if i == 0 {
 			// Skip first line -- contains comments only.
@@ -856,16 +857,20 @@ func TestCalcSignatureHash(t *testing.T) {
 		}
 
 		subScript, _ := hex.DecodeString(test[1].(string))
-		parsedScript, err := parseScript(subScript)
-		if err != nil {
+		if err := checkScriptParses(scriptVersion, subScript); err != nil {
 			t.Errorf("TestCalcSignatureHash failed test #%d: "+
 				"Failed to parse sub-script: %v", i, err)
 			continue
 		}
 
 		hashType := SigHashType(testVecF64ToUint32(test[3].(float64)))
-		hash := calcSignatureHash(parsedScript, hashType, &tx,
+		hash, err := CalcSignatureHash(subScript, hashType, &tx,
 			int(test[2].(float64)))
+		if err != nil {
+			t.Errorf("TestCalcSignatureHash failed test #%d: "+
+				"Failed to compute sighash: %v", i, err)
+			continue
+		}
 
 		expectedHash, _ := chainhash.NewHashFromStr(test[4].(string))
 		if !bytes.Equal(hash, expectedHash[:]) {

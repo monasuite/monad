@@ -24,8 +24,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/monasuite/monautil"
 	"github.com/monasuite/monad/chaincfg"
+	"github.com/monasuite/monad/monautil"
 )
 
 var testnet = flag.Bool("testnet", false, "operate on the testnet Bitcoin network")

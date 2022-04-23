@@ -7,9 +7,9 @@ package blockchain
 import (
 	"fmt"
 
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 const (

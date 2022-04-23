@@ -13,7 +13,7 @@ import (
 
 	"github.com/monasuite/monad/blockchain"
 	"github.com/monasuite/monad/database"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 var (

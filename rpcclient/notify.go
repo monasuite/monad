@@ -15,8 +15,8 @@ import (
 
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 	"github.com/shopspring/decimal"
 )
 

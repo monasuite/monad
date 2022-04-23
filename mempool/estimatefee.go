@@ -18,7 +18,7 @@ import (
 
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/mining"
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // TODO incorporate Alex Morcos' modifications to Gavin's initial model

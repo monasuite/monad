@@ -10,9 +10,9 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/txscript"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 // txValidateItem holds a transaction along with which input to validate.

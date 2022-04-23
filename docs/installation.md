@@ -52,8 +52,8 @@ recommended that `GOPATH` is set to a directory in your home directory such as
 * Run the following commands to obtain btcd, all dependencies, and install it:
 
 ```bash
-git clone https://github.com/btcsuite/btcd $GOPATH/src/github.com/btcsuite/btcd
-cd $GOPATH/src/github.com/btcsuite/btcd
+git clone https://github.com/monasuite/monad $GOPATH/src/github.com/monasuite/monad
+cd $GOPATH/src/github.com/monasuite/monad
 GO111MODULE=on go install -v . ./cmd/...
 ```
 

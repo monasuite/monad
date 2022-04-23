@@ -10,8 +10,8 @@ import (
 
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/txscript"
-	"github.com/monasuite/monautil"
 )
 
 // CheckpointConfirmations is the number of blocks before the end of the current

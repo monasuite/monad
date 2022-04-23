@@ -7,7 +7,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/monasuite/monautil"
+	"github.com/monasuite/monad/monautil"
 )
 
 // TestMerkle tests the BuildMerkleTreeStore API.

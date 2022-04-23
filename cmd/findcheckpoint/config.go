@@ -13,8 +13,8 @@ import (
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/database"
 	_ "github.com/monasuite/monad/database/ffldb"
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"
-	"github.com/monasuite/monautil"
 )
 
 const (

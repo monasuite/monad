@@ -7,7 +7,6 @@ package builder_test
 
 import (
 	"encoding/hex"
-	"fmt"
 	"testing"
 
 	"github.com/monasuite/monad/chaincfg"
@@ -82,7 +81,6 @@ func TestUseBlockHash(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Address decode failed: %s", err.Error())
 	}
-	fmt.Printf("%v\n", addr)
 	addrBytes, err := txscript.PayToAddrScript(addr)
 	if err != nil {
 		t.Fatalf("Address script build failed: %s", err.Error())

@@ -43,15 +43,15 @@ jobs:
         with:
           path-to-profile: coverage.txt
 
-      - name: Send btcutil coverage
+      - name: Send monautil coverage
         uses: shogo82148/actions-goveralls@v1
         with:
-          path-to-profile: btcutil/coverage.txt
+          path-to-profile: monautil/coverage.txt
 
-      - name: Send btcutil coverage for psbt package
+      - name: Send monautil coverage for psbt package
         uses: shogo82148/actions-goveralls@v1
         with:
-          path-to-profile: btcutil/psbt/coverage.txt
+          path-to-profile: monautil/psbt/coverage.txt
 
   test-race:
     name: Unit race

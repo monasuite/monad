@@ -9,7 +9,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/monautil"
@@ -90,7 +90,7 @@ func ExampleSignTxOutput() {
 		fmt.Println(err)
 		return
 	}
-	privKey, pubKey := btcec.PrivKeyFromBytes(btcec.S256(), privKeyBytes)
+	privKey, pubKey := btcec.PrivKeyFromBytes(privKeyBytes)
 	pubKeyHash := monautil.Hash160(pubKey.SerializeCompressed())
 	addr, err := monautil.NewAddressPubKeyHash(pubKeyHash,
 		&chaincfg.MainNetParams)

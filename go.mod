@@ -11,7 +11,7 @@ require (
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
 	github.com/monasuite/monad/monautil v1.0.0
-	github.com/monasuite/monautil v1.1.1
+	github.com/monasuite/monad/btcec/v2 v2.0.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/wakiyamap/lyra2rev2 v0.1.2
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
@@ -23,6 +23,7 @@ require (
 	github.com/btcsuite/golangcrypto v0.0.0-20150304025918-53f62d9b43e8 // indirect
 	github.com/btcsuite/snappy-go v1.0.0 // indirect
 	github.com/dchest/blake256 v1.1.0 // indirect
+	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 	github.com/kkdai/bstream v1.0.0 // indirect
 	github.com/onsi/ginkgo v1.14.0 // indirect
 	github.com/onsi/gomega v1.10.1 // indirect
@@ -30,5 +31,7 @@ require (
 )
 
 replace github.com/monasuite/monad/monautil => ./monautil
+
+replace github.com/monasuite/monad/btcec/v2 => ./btcec
 
 go 1.17

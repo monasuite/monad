@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/monasuite/monad/blockchain"
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/monautil"
@@ -198,7 +198,7 @@ type testGenerator struct {
 // makeTestGenerator returns a test generator instance initialized with the
 // genesis block as the tip.
 func makeTestGenerator(params *chaincfg.Params) (testGenerator, error) {
-	privKey, _ := btcec.PrivKeyFromBytes(btcec.S256(), []byte{0x01})
+	privKey, _ := btcec.PrivKeyFromBytes([]byte{0x01})
 	genesis := params.GenesisBlock
 	genesisHash := genesis.BlockHash()
 	return testGenerator{

@@ -15,7 +15,8 @@ DEPGET := cd /tmp && GO111MODULE=on go get -v
 GOBUILD := GO111MODULE=on go build -v
 GOINSTALL := GO111MODULE=on go install -v 
 DEV_TAGS := rpctest
-GOTEST := GO111MODULE=on go test -v -tags=$(DEV_TAGS)
+GOTEST_DEV = GO111MODULE=on go test -v -tags=$(DEV_TAGS)
+GOTEST := GO111MODULE=on go test -v
 
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
@@ -78,19 +79,27 @@ check: unit
 
 unit:
 	@$(call print, "Running unit tests.")
-	$(GOTEST) ./... -test.timeout=20m
-	cd monautil; $(GOTEST) ./... -test.timeout=20m
-	cd monautil/psbt; $(GOTEST) ./... -test.timeout=20m
+	$(GOTEST_DEV) ./... -test.timeout=20m
+	cd btcec; $(GOTEST_DEV) ./... -test.timeout=20m
+	cd monautil; $(GOTEST_DEV) ./... -test.timeout=20m
+	cd monautil/psbt; $(GOTEST_DEV) ./... -test.timeout=20m
 
 unit-cover: $(GOACC_BIN)
 	@$(call print, "Running unit coverage tests.")
 	$(GOACC_BIN) ./...
+	
+	# We need to remove the /v2 pathing from the module to have it work
+	# nicely with the CI tool we use to render live code coverage.
+	cd btcec; $(GOACC_BIN) ./...; sed -i.bak 's/v2\///g' coverage.txt
+
 	cd monautil; $(GOACC_BIN) ./...
+
 	cd monautil/psbt; $(GOACC_BIN) ./...
 
 unit-race:
 	@$(call print, "Running unit race tests.")
 	env CGO_ENABLED=1 GORACE="history_size=7 halt_on_errors=1" $(GOTEST) -race -test.timeout=20m ./...
+	cd btcec; env CGO_ENABLED=1 GORACE="history_size=7 halt_on_errors=1" $(GOTEST) -race -test.timeout=20m ./...
 	cd monautil; env CGO_ENABLED=1 GORACE="history_size=7 halt_on_errors=1" $(GOTEST) -race -test.timeout=20m ./...
 	cd monautil/psbt; env CGO_ENABLED=1 GORACE="history_size=7 halt_on_errors=1" $(GOTEST) -race -test.timeout=20m ./...
 
@@ -110,7 +119,7 @@ lint: $(LINT_BIN)
 
 clean:
 	@$(call print, "Cleaning source.$(NC)")
-	$(RM) coverage.txt btcutil/coverage.txt btcutil/psbt/coverage.txt
+	$(RM) coverage.txt btcec/coverage.txt monautil/coverage.txt monautil/psbt/coverage.txt
 
 .PHONY: all \
 	default \

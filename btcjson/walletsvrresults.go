@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/txscript"
-	"github.com/monasuite/monautil"
 )
 
 // CreateWalletResult models the result of the createwallet command.

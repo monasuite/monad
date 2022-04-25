@@ -11,7 +11,7 @@ import (
 	"sync"
 
 	"github.com/monasuite/monad/blockchain"
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/monautil"
@@ -133,6 +133,7 @@ func newMemWallet(net *chaincfg.Params, harnessID uint32) (*memWallet, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	coinbaseAddr, err := keyToAddr(coinbaseKey, net)
 	if err != nil {
 		return nil, err
@@ -514,10 +515,12 @@ func (m *memWallet) CreateTransaction(outputs []*wire.TxOut,
 			return nil, err
 		}
 
-		privKey, err := extendedKey.ECPrivKey()
+		privKeyOld, err := extendedKey.ECPrivKey()
 		if err != nil {
 			return nil, err
 		}
+
+		privKey, _ := btcec.PrivKeyFromBytes(privKeyOld.Serialize())
 
 		sigScript, err := txscript.SignatureScript(tx, i, utxo.pkScript,
 			txscript.SigHashAll, privKey, true)

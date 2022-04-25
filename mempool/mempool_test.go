@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/monasuite/monad/blockchain"
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/monautil"
@@ -291,7 +291,7 @@ func newPoolHarness(chainParams *chaincfg.Params) (*poolHarness, []spendableOutp
 	if err != nil {
 		return nil, nil, err
 	}
-	signKey, signPub := btcec.PrivKeyFromBytes(btcec.S256(), keyBytes)
+	signKey, signPub := btcec.PrivKeyFromBytes(keyBytes)
 
 	// Generate associated pay-to-script-hash address and resulting payment
 	// script.

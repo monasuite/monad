@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 	"github.com/monasuite/monad/monautil"
@@ -98,7 +98,7 @@ func TestCalcMinRequiredTxRelayFee(t *testing.T) {
 func TestCheckPkScriptStandard(t *testing.T) {
 	var pubKeys [][]byte
 	for i := 0; i < 4; i++ {
-		pk, err := btcec.NewPrivateKey(btcec.S256())
+		pk, err := btcec.NewPrivateKey()
 		if err != nil {
 			t.Fatalf("TestCheckPkScriptStandard NewPrivateKey failed: %v",
 				err)

@@ -6,9 +6,8 @@ package txscript
 
 import (
 	"errors"
-	"fmt"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"
@@ -28,10 +27,7 @@ func RawTxInWitnessSignature(tx *wire.MsgTx, sigHashes *TxSigHashes, idx int,
 		return nil, err
 	}
 
-	signature, err := key.Sign(hash)
-	if err != nil {
-		return nil, fmt.Errorf("cannot sign tx input: %s", err)
-	}
+	signature := btcec.Sign(key, hash)
 
 	return append(signature.Serialize(), byte(hashType)), nil
 }
@@ -51,7 +47,7 @@ func WitnessSignature(tx *wire.MsgTx, sigHashes *TxSigHashes, idx int, amt int64
 		return nil, err
 	}
 
-	pk := (*btcec.PublicKey)(&privKey.PublicKey)
+	pk := privKey.PubKey()
 	var pkData []byte
 	if compress {
 		pkData = pk.SerializeCompressed()
@@ -73,10 +69,7 @@ func RawTxInSignature(tx *wire.MsgTx, idx int, subScript []byte,
 	if err != nil {
 		return nil, err
 	}
-	signature, err := key.Sign(hash)
-	if err != nil {
-		return nil, fmt.Errorf("cannot sign tx input: %s", err)
-	}
+	signature := btcec.Sign(key, hash)
 
 	return append(signature.Serialize(), byte(hashType)), nil
 }
@@ -95,7 +88,7 @@ func SignatureScript(tx *wire.MsgTx, idx int, subscript []byte, hashType SigHash
 		return nil, err
 	}
 
-	pk := (*btcec.PublicKey)(&privKey.PublicKey)
+	pk := privKey.PubKey()
 	var pkData []byte
 	if compress {
 		pkData = pk.SerializeCompressed()
@@ -270,7 +263,7 @@ sigLoop:
 		tSig := sig[:len(sig)-1]
 		hashType := SigHashType(sig[len(sig)-1])
 
-		pSig, err := btcec.ParseDERSignature(tSig, btcec.S256())
+		pSig, err := btcec.ParseDERSignature(tSig)
 		if err != nil {
 			continue
 		}

@@ -12,7 +12,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/wire"
 )
 

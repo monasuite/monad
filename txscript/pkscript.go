@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/monautil"
 	"github.com/monasuite/monad/wire"

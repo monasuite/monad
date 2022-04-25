@@ -30,7 +30,7 @@ import (
 	"github.com/btcsuite/websocket"
 	"github.com/monasuite/monad/blockchain"
 	"github.com/monasuite/monad/blockchain/indexers"
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg"
 	"github.com/monasuite/monad/chaincfg/chainhash"
@@ -1252,14 +1252,14 @@ func handleGetBlockChainInfo(s *rpcServer, cmd interface{}, closeChan <-chan str
 		case chaincfg.DeploymentTestDummy:
 			forkName = "dummy"
 
+		case chaincfg.DeploymentTestDummyMinActivation:
+			forkName = "dummy-min-activation"
+
 		case chaincfg.DeploymentCSV:
 			forkName = "csv"
 
 		case chaincfg.DeploymentSegwit:
 			forkName = "segwit"
-
-		case chaincfg.DeploymentTaproot:
-			forkName = "taproot"
 
 		default:
 			return nil, &btcjson.RPCError{
@@ -1291,11 +1291,19 @@ func handleGetBlockChainInfo(s *rpcServer, cmd interface{}, closeChan <-chan str
 
 		// Finally, populate the soft-fork description with all the
 		// information gathered above.
+		var startTime, endTime int64
+		if starter, ok := deploymentDetails.DeploymentStarter.(*chaincfg.MedianTimeDeploymentStarter); ok {
+			startTime = starter.StartTime().Unix()
+		}
+		if ender, ok := deploymentDetails.DeploymentEnder.(*chaincfg.MedianTimeDeploymentEnder); ok {
+			endTime = ender.EndTime().Unix()
+		}
 		chainInfo.SoftForks.Bip9SoftForks[forkName] = &btcjson.Bip9SoftForkDescription{
-			Status:     strings.ToLower(statusString),
-			Bit:        deploymentDetails.BitNumber,
-			StartTime2: int64(deploymentDetails.StartTime),
-			Timeout:    int64(deploymentDetails.ExpireTime),
+			Status:              strings.ToLower(statusString),
+			Bit:                 deploymentDetails.BitNumber,
+			StartTime2:          startTime,
+			Timeout:             endTime,
+			MinActivationHeight: int32(deploymentDetails.MinActivationHeight),
 		}
 	}
 
@@ -3514,7 +3522,7 @@ func handleSignMessageWithPrivKey(s *rpcServer, cmd interface{}, closeChan <-cha
 	wire.WriteVarString(&buf, 0, c.Message)
 	messageHash := chainhash.DoubleHashB(buf.Bytes())
 
-	sig, err := btcec.SignCompact(btcec.S256(), wif.PrivKey,
+	sig, err := btcec.SignCompact(wif.PrivKey,
 		messageHash, wif.CompressPubKey)
 	if err != nil {
 		return nil, &btcjson.RPCError{
@@ -3718,7 +3726,7 @@ func handleVerifyMessage(s *rpcServer, cmd interface{}, closeChan <-chan struct{
 	wire.WriteVarString(&buf, 0, messageSignatureHeader)
 	wire.WriteVarString(&buf, 0, c.Message)
 	expectedMessageHash := chainhash.DoubleHashB(buf.Bytes())
-	pk, wasCompressed, err := btcec.RecoverCompact(btcec.S256(), sig,
+	pk, wasCompressed, err := btcec.RecoverCompact(sig,
 		expectedMessageHash)
 	if err != nil {
 		// Mirror Bitcoin Core behavior, which treats error in

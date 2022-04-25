@@ -1757,6 +1757,20 @@ func New(config *Config) (*BlockChain, error) {
 		deploymentCaches:    newThresholdCaches(chaincfg.DefinedDeployments),
 	}
 
+	// Ensure all the deployments are synchronized with our clock if
+	// needed.
+	for _, deployment := range b.chainParams.Deployments {
+		deploymentStarter := deployment.DeploymentStarter
+		if clockStarter, ok := deploymentStarter.(chaincfg.ClockConsensusDeploymentStarter); ok {
+			clockStarter.SynchronizeClock(&b)
+		}
+
+		deploymentEnder := deployment.DeploymentEnder
+		if clockEnder, ok := deploymentEnder.(chaincfg.ClockConsensusDeploymentEnder); ok {
+			clockEnder.SynchronizeClock(&b)
+		}
+	}
+
 	// Initialize the chain state from the passed database.  When the db
 	// does not yet contain any chain state, both it and the chain state
 	// will be initialized to contain only the genesis block.

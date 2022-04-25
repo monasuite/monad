@@ -7,7 +7,7 @@ package txscript
 import (
 	"sync"
 
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/chaincfg/chainhash"
 )
 

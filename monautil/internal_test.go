@@ -12,7 +12,7 @@ interface. The functions are only exported while the tests are being run.
 package monautil
 
 import (
-	"github.com/monasuite/monad/btcec"
+	"github.com/monasuite/monad/btcec/v2"
 	"github.com/monasuite/monad/monautil/base58"
 	"github.com/monasuite/monad/monautil/bech32"
 	"golang.org/x/crypto/ripemd160"
@@ -99,7 +99,7 @@ func TstAddressTaproot(version byte, program [32]byte,
 func TstAddressPubKey(serializedPubKey []byte, pubKeyFormat PubKeyFormat,
 	netID byte) *AddressPubKey {
 
-	pubKey, _ := btcec.ParsePubKey(serializedPubKey, btcec.S256())
+	pubKey, _ := btcec.ParsePubKey(serializedPubKey)
 	return &AddressPubKey{
 		pubKeyFormat: pubKeyFormat,
 		pubKey:       pubKey,

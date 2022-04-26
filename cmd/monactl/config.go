@@ -13,7 +13,6 @@ import (
 	"regexp"
 	"strings"
 
-
 	flags "github.com/jessevdk/go-flags"
 	"github.com/monasuite/monad/btcjson"
 	"github.com/monasuite/monad/chaincfg"

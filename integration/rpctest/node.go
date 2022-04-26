@@ -14,8 +14,8 @@ import (
 	"runtime"
 	"time"
 
-	rpc "github.com/monasuite/monad/rpcclient"
 	"github.com/monasuite/monad/monautil"
+	rpc "github.com/monasuite/monad/rpcclient"
 )
 
 // nodeConfig contains all the args, and data required to launch a monad process

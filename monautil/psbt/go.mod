@@ -6,7 +6,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/monasuite/monad v0.22.3-beta.0.20220423152854-630e468daa19
 	github.com/monasuite/monad/btcec/v2 v2.1.0
-	github.com/monasuite/monad/monautil v1.0.0 // indirect
+	github.com/monasuite/monad/monautil v1.1.0
 )
 
 require (

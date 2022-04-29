@@ -42,6 +42,8 @@ github.com/monasuite/monad v0.21.0-beta/go.mod h1:3Xp+i5gmkjEl2pUvj558OUuLsMqjB5
 github.com/monasuite/monad v0.22.0-beta/go.mod h1:ZHQyEBbhHEPYyhDn9VxJoWW2GJ5lZgOUtIw4xMVOAVE=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225 h1:erTmj1ljFGYYpq2Sj0gshVsBznE8RHcL21DskHx3WYM=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225/go.mod h1:KH0yZrcZYBhL6uKlHPDyXv7P6hXMwstSuJQcZ5iVtEM=
+github.com/monasuite/monad/chaincfg/chainhash v1.0.1 h1:vP/pZogC/GREzHJKpFDakcGD+4r4/qZLH3a/U7VA3q4=
+github.com/monasuite/monad/chaincfg/chainhash v1.0.1/go.mod h1:EeTDpYGmOWLFkKhF+EzOI3ESfTDpu44E10mysOrpVgI=
 github.com/monasuite/monautil v0.0.0-20190606162653-90b266792864/go.mod h1:kIVSL9QpyEYOh60Z7DIAAIhzOd9pHpRbMA3rOqVXOwc=
 github.com/monasuite/monautil v1.1.0/go.mod h1:b5tmGuaSp+AMFptTgNUuYWwct+WTaS+lSh2yUkQQQvw=
 github.com/monasuite/monautil v1.1.1/go.mod h1:N1fiuHcY7yZtugY+8dUeJyFjcBRJvk1z/P/KpGpkHU4=

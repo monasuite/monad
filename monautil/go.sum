@@ -60,6 +60,10 @@ github.com/monasuite/monad v0.22.1-beta h1:3B/p24izNkbBmLds8nuAl6Sg9S+ZLLjbAxvic
 github.com/monasuite/monad v0.22.1-beta/go.mod h1:Z8IF4S54MQMjSoQ+2KAJdewQVuJsYGZ7i1fOtHgk5Zc=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225 h1:erTmj1ljFGYYpq2Sj0gshVsBznE8RHcL21DskHx3WYM=
 github.com/monasuite/monad v0.22.3-beta.0.20220423063808-650fda45e225/go.mod h1:KH0yZrcZYBhL6uKlHPDyXv7P6hXMwstSuJQcZ5iVtEM=
+github.com/monasuite/monad/btcec/v2 v2.1.0 h1:oYPyc7S9lxD+0lUkV26vSpM75B/aevzYm9UewaqfknA=
+github.com/monasuite/monad/btcec/v2 v2.1.0/go.mod h1:kV95/Yy3mUS6A45yvNynYHjIXM+4k8GsL61EyxaL6H0=
+github.com/monasuite/monad/btcec/v2 v2.1.1 h1:H+ALriOrjf0f2VpocsKYTTHb5Q/IhhiFMNckTRE5Eog=
+github.com/monasuite/monad/btcec/v2 v2.1.1/go.mod h1:rN4QOdkW77MBKiMZEEpEPUZHarnR0wmGm4XdzHHdDZI=
 github.com/monasuite/monad/chaincfg/chainhash v1.0.1 h1:vP/pZogC/GREzHJKpFDakcGD+4r4/qZLH3a/U7VA3q4=
 github.com/monasuite/monad/chaincfg/chainhash v1.0.1/go.mod h1:EeTDpYGmOWLFkKhF+EzOI3ESfTDpu44E10mysOrpVgI=
 github.com/monasuite/monad/monautil v1.0.0/go.mod h1:es9mTGw/7FeHWHd8qAm3IwwRY+CWu4fTUqRgyQgZjQo=

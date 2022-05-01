@@ -29,8 +29,6 @@ require (
 
 replace github.com/monasuite/monad/monautil => ./monautil
 
-replace github.com/monasuite/monad/btcec/v2 => ./btcec
-
 // The retract statements below fixes an accidental push of the tags of a btcd
 // fork.
 retract (

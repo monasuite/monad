@@ -15,6 +15,4 @@ require (
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 )
 
-replace github.com/monasuite/monad/btcec/v2 => ../btcec
-
 replace github.com/monasuite/monad => ../

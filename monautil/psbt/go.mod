@@ -15,8 +15,6 @@ require (
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 )
 
-replace github.com/monasuite/monad/btcec/v2 => ../../btcec
-
 replace github.com/monasuite/monad/monautil => ../
 
 replace github.com/monasuite/monad => ../..

@@ -119,7 +119,7 @@ lint: $(LINT_BIN)
 
 clean:
 	@$(call print, "Cleaning source.$(NC)")
-	$(RM) coverage.txt btcec/coverage.txt monautil/coverage.txt monautil/psbt/coverage.txt
+	$(RM) coverage.txt btcec/coverage.txt btcec/coverage.txt.bak monautil/coverage.txt monautil/psbt/coverage.txt
 
 .PHONY: all \
 	default \

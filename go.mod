@@ -9,7 +9,7 @@ require (
 	github.com/decred/dcrd/lru v1.0.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monad/btcec/v2 v2.1.0
+	github.com/monasuite/monad/btcec/v2 v2.1.2
 	github.com/monasuite/monad/chaincfg/chainhash v1.0.1
 	github.com/monasuite/monad/monautil v1.1.0
 	github.com/shopspring/decimal v1.3.1

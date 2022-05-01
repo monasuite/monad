@@ -42,7 +42,7 @@ jobs:
         uses: shogo82148/actions-goveralls@v1
         with:
           path-to-profile: coverage.txt
-          flag-name: btcd
+          flag-name: monad
           parallel: true
 
       - name: Send btcec

@@ -242,7 +242,8 @@ func NewGetBalancesCmd() *GetBalancesCmd {
 
 // GetNewAddressCmd defines the getnewaddress JSON-RPC command.
 type GetNewAddressCmd struct {
-	Account *string
+	Account     *string
+	AddressType *string
 }
 
 // NewGetNewAddressCmd returns a new instance which can be used to issue a
@@ -250,15 +251,17 @@ type GetNewAddressCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewGetNewAddressCmd(account *string) *GetNewAddressCmd {
+func NewGetNewAddressCmd(account, addrType *string) *GetNewAddressCmd {
 	return &GetNewAddressCmd{
-		Account: account,
+		Account:     account,
+		AddressType: addrType,
 	}
 }
 
 // GetRawChangeAddressCmd defines the getrawchangeaddress JSON-RPC command.
 type GetRawChangeAddressCmd struct {
-	Account *string
+	Account     *string
+	AddressType *string
 }
 
 // NewGetRawChangeAddressCmd returns a new instance which can be used to issue a
@@ -266,9 +269,10 @@ type GetRawChangeAddressCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewGetRawChangeAddressCmd(account *string) *GetRawChangeAddressCmd {
+func NewGetRawChangeAddressCmd(account, addrType *string) *GetRawChangeAddressCmd {
 	return &GetRawChangeAddressCmd{
-		Account: account,
+		Account:     account,
+		AddressType: addrType,
 	}
 }
 

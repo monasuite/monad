@@ -159,6 +159,23 @@ func (view *UtxoViewpoint) LookupEntry(outpoint wire.OutPoint) *UtxoEntry {
 	return view.entries[outpoint]
 }
 
+// FetchPrevOutput fetches the previous output referenced by the passed
+// outpoint. This is identical to the LookupEntry method, but it returns a
+// wire.TxOut instead.
+//
+// NOTE: This is an implementation of the txscript.PrevOutputFetcher interface.
+func (view *UtxoViewpoint) FetchPrevOutput(op wire.OutPoint) *wire.TxOut {
+	prevOut := view.entries[op]
+	if prevOut == nil {
+		return nil
+	}
+
+	return &wire.TxOut{
+		Value:    prevOut.amount,
+		PkScript: prevOut.PkScript(),
+	}
+}
+
 // addTxOut adds the specified output to the view if it is not provably
 // unspendable.  When the view already has an entry for the output, it will be
 // marked unspent.  All fields will be updated for existing entries since it's

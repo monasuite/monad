@@ -13,3 +13,7 @@ require (
 replace github.com/monasuite/monad/monautil => ../
 
 replace github.com/monasuite/monad => ../..
+
+replace github.com/monasuite/monad/chaincfg/chainhash => ../../chaincfg/chainhash
+
+replace github.com/monasuite/monad/btcec/v2 => ../../btcec

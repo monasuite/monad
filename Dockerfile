@@ -2,14 +2,14 @@
 #
 # Clone this repository and run the following command to build and tag a fresh btcd amd64 container:
 #
-# docker build . -t yourregistry/btcd
+# docker build . -t wakiyamap/monad
 #
 # You can use the following command to buid an arm64v8 container:
 #
-# docker build . -t yourregistry/btcd --build-arg ARCH=arm64v8
+# docker build . -t wakiyamap/monad --build-arg ARCH=arm64v8
 #
 # For more information how to use this docker image visit:
-# https://github.com/btcsuite/btcd/tree/master/docs
+# https://github.com/monasuite/monad/tree/master/docs
 #
 # 8333  Mainnet Bitcoin peer-to-peer port
 # 8334  Mainet RPC port

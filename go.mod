@@ -10,8 +10,8 @@ require (
 	github.com/decred/dcrd/lru v1.0.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monad/btcec/v2 v2.1.2
-	github.com/monasuite/monad/chaincfg/chainhash v1.0.1
+	github.com/monasuite/monad/btcec/v2 v2.1.3
+	github.com/monasuite/monad/chaincfg/chainhash v1.0.2
 	github.com/monasuite/monad/monautil v1.1.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.0
@@ -32,10 +32,6 @@ require (
 )
 
 replace github.com/monasuite/monad/monautil => ./monautil
-
-replace github.com/monasuite/monad/chaincfg/chainhash => ./chaincfg/chainhash
-
-replace github.com/monasuite/monad/btcec/v2 => ./btcec
 
 // The retract statements below fixes an accidental push of the tags of a btcd
 // fork.

@@ -3,7 +3,7 @@ bloom
 
 [![Build Status](http://img.shields.io/travis/monasuite/monautil.svg)](https://travis-ci.org/monasuite/monautil)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monautil/bloom)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monad/monautil/bloom)
 
 
 Package bloom provides an API for dealing with monacoin-specific bloom filters.
@@ -16,14 +16,14 @@ report.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/monasuite/monautil/bloom
+$ go get -u github.com/monasuite/monad/monautil/bloom
 ```
 
 ## Examples
 
 =======
 * [NewFilter Example]
-  (http://godoc.org/github.com/monasuite/monautil/bloom#example-NewFilter)  
+  (http://godoc.org/github.com/monasuite/monad/monautil/bloom#example-NewFilter)  
   Demonstrates how to create a new bloom filter, add a transaction hash to it,
   and check if the filter matches the transaction.
 

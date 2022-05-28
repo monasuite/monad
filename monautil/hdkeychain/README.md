@@ -3,7 +3,7 @@ hdkeychain
 
 [![Build Status](http://img.shields.io/travis/monasuite/monautil.svg)](https://travis-ci.org/monasuite/monautil)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monautil/hdkeychain)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/monasuite/monad/monautil/hdkeychain)
 
 Package hdkeychain provides an API for monacoin hierarchical deterministic
 extended keys (BIP0032).
@@ -39,21 +39,21 @@ report.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/monasuite/monautil/hdkeychain
+$ go get -u github.com/monasuite/monad/monautil/hdkeychain
 ```
 
 ## Examples
 
 * [NewMaster Example]
-  (http://godoc.org/github.com/monasuite/monautil/hdkeychain#example-NewMaster)  
+  (http://godoc.org/github.com/monasuite/monad/monautil/hdkeychain#example-NewMaster)  
   Demonstrates how to generate a cryptographically random seed then use it to
   create a new master node (extended key).
 * [Default Wallet Layout Example]
-  (http://godoc.org/github.com/monasuite/monautil/hdkeychain#example-package--DefaultWalletLayout)  
+  (http://godoc.org/github.com/monasuite/monad/monautil/hdkeychain#example-package--DefaultWalletLayout)  
   Demonstrates the default hierarchical deterministic wallet layout as described
   in BIP0032.
 * [Audits Use Case Example]
-  (http://godoc.org/github.com/monasuite/monautil/hdkeychain#example-package--Audits)  
+  (http://godoc.org/github.com/monasuite/monad/monautil/hdkeychain#example-package--Audits)  
   Demonstrates the audits use case in BIP0032.
 
 ## License

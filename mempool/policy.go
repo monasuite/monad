@@ -280,14 +280,14 @@ func IsDust(txOut *wire.TxOut, minRelayTxFee monautil.Amount) bool {
 	//return txOut.Value*1000/GetDustThreshold(txOut) < int64(minRelayTxFee)
 }
 
-// checkTransactionStandard performs a series of checks on a transaction to
+// CheckTransactionStandard performs a series of checks on a transaction to
 // ensure it is a "standard" transaction.  A standard transaction is one that
 // conforms to several additional limiting cases over what is considered a
 // "sane" transaction such as having a version in the supported range, being
 // finalized, conforming to more stringent size constraints, having scripts
 // of recognized forms, and not containing "dust" outputs (those that are
 // so small it costs more to process them than they are worth).
-func checkTransactionStandard(tx *monautil.Tx, height int32,
+func CheckTransactionStandard(tx *monautil.Tx, height int32,
 	medianTimePast time.Time, minRelayTxFee monautil.Amount,
 	maxTxVersion int32) error {
 

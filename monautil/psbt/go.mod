@@ -7,7 +7,7 @@ require (
 	github.com/monasuite/monad v0.22.3-beta.0.20220528054306-a5fb7bce8b48
 	github.com/monasuite/monad/btcec/v2 v2.1.3
 	github.com/monasuite/monad/chaincfg/chainhash v1.0.2
-	github.com/monasuite/monad/monautil v1.1.0
+	github.com/monasuite/monad/monautil v1.1.2-0.20220529200742-de38c6468c62
 	github.com/stretchr/testify v1.7.0
 )
 

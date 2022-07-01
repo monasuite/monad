@@ -10,14 +10,15 @@ require (
 	github.com/decred/dcrd/lru v1.0.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/jrick/logrotate v1.0.0
-	github.com/monasuite/monad/btcec/v2 v2.1.2
-	github.com/monasuite/monad/chaincfg/chainhash v1.0.1
-	github.com/monasuite/monad/monautil v1.1.0
+	github.com/monasuite/monad/btcec/v2 v2.1.3
+	github.com/monasuite/monad/chaincfg/chainhash v1.0.2
+	github.com/monasuite/monad/monautil v1.1.2-0.20220529200742-de38c6468c62
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 	github.com/wakiyamap/lyra2rev2 v0.1.2
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654
 )
 
 require (
@@ -28,14 +29,10 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/kkdai/bstream v1.0.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	gopkg.in/yaml.v3 v3.0.0 // indirect
 )
 
 replace github.com/monasuite/monad/monautil => ./monautil
-
-replace github.com/monasuite/monad/chaincfg/chainhash => ./chaincfg/chainhash
-
-replace github.com/monasuite/monad/btcec/v2 => ./btcec
 
 // The retract statements below fixes an accidental push of the tags of a btcd
 // fork.

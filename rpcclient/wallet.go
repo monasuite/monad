@@ -1090,8 +1090,8 @@ func (r FutureGetNewAddressResult) Receive() (monautil.Address, error) {
 // returned instance.
 //
 // See GetNewAddress for the blocking version and more details.
-func (c *Client) GetNewAddressAsync(account string) FutureGetNewAddressResult {
-	cmd := btcjson.NewGetNewAddressCmd(&account)
+func (c *Client) GetNewAddressAsync(account, addrType string) FutureGetNewAddressResult {
+	cmd := btcjson.NewGetNewAddressCmd(&account, &addrType)
 	result := FutureGetNewAddressResult{
 		network:         c.chainParams,
 		responseChannel: c.SendCmd(cmd),
@@ -1101,8 +1101,8 @@ func (c *Client) GetNewAddressAsync(account string) FutureGetNewAddressResult {
 
 // GetNewAddress returns a new address, and decodes based on the client's
 // chain params.
-func (c *Client) GetNewAddress(account string) (monautil.Address, error) {
-	return c.GetNewAddressAsync(account).Receive()
+func (c *Client) GetNewAddress(account, addrType string) (monautil.Address, error) {
+	return c.GetNewAddressAsync(account, addrType).Receive()
 }
 
 // FutureGetRawChangeAddressResult is a future promise to deliver the result of
@@ -1136,8 +1136,8 @@ func (r FutureGetRawChangeAddressResult) Receive() (monautil.Address, error) {
 // function on the returned instance.
 //
 // See GetRawChangeAddress for the blocking version and more details.
-func (c *Client) GetRawChangeAddressAsync(account string) FutureGetRawChangeAddressResult {
-	cmd := btcjson.NewGetRawChangeAddressCmd(&account)
+func (c *Client) GetRawChangeAddressAsync(account, addrType string) FutureGetRawChangeAddressResult {
+	cmd := btcjson.NewGetRawChangeAddressCmd(&account, &addrType)
 	result := FutureGetRawChangeAddressResult{
 		network:         c.chainParams,
 		responseChannel: c.SendCmd(cmd),
@@ -1148,8 +1148,8 @@ func (c *Client) GetRawChangeAddressAsync(account string) FutureGetRawChangeAddr
 // GetRawChangeAddress returns a new address for receiving change that will be
 // associated with the provided account.  Note that this is only for raw
 // transactions and NOT for normal use.
-func (c *Client) GetRawChangeAddress(account string) (monautil.Address, error) {
-	return c.GetRawChangeAddressAsync(account).Receive()
+func (c *Client) GetRawChangeAddress(account, addrType string) (monautil.Address, error) {
+	return c.GetRawChangeAddressAsync(account, addrType).Receive()
 }
 
 // FutureAddWitnessAddressResult is a future promise to deliver the result of

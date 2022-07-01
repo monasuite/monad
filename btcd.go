@@ -18,6 +18,7 @@ import (
 	"github.com/monasuite/monad/blockchain/indexers"
 	"github.com/monasuite/monad/database"
 	"github.com/monasuite/monad/limits"
+	"github.com/monasuite/monad/ossec"
 )
 
 const (
@@ -151,6 +152,16 @@ func monadMain(serverChan chan<- *server) error {
 
 		return nil
 	}
+
+	// The config file is already created if it did not exist and the log
+	// file has already been opened by now so we only need to allow
+	// creating rpc cert and key files if they don't exist.
+	unveilx(cfg.RPCKey, "rwc")
+	unveilx(cfg.RPCCert, "rwc")
+	unveilx(cfg.DataDir, "rwc")
+
+	// drop unveil and tty
+	pledgex("stdio rpath wpath cpath flock dns inet")
 
 	// Create server and start it.
 	server, err := newServer(cfg.Listeners, cfg.AgentBlacklist,
@@ -304,12 +315,35 @@ func loadBlockDB() (database.DB, error) {
 	return db, nil
 }
 
+func unveilx(path string, perms string) {
+	err := ossec.Unveil(path, perms)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "unveil failed: %v\n", err)
+		os.Exit(1)
+	}
+}
+
+func pledgex(promises string) {
+	err := ossec.PledgePromises(promises)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "pledge failed: %v\n", err)
+		os.Exit(1)
+	}
+}
+
+func init() {
+	pledgex("unveil stdio id rpath wpath cpath flock dns inet tty")
+}
+
 func main() {
-	// Block and transaction processing can cause bursty allocations.  This
-	// limits the garbage collector from excessively overallocating during
-	// bursts.  This value was arrived at with the help of profiling live
-	// usage.
-	debug.SetGCPercent(10)
+	// If GOGC is not explicitly set, override GC percent.
+	if os.Getenv("GOGC") == "" {
+		// Block and transaction processing can cause bursty allocations.  This
+		// limits the garbage collector from excessively overallocating during
+		// bursts.  This value was arrived at with the help of profiling live
+		// usage.
+		debug.SetGCPercent(10)
+	}
 
 	// Up some limits.
 	if err := limits.SetLimits(); err != nil {

@@ -49,13 +49,13 @@ var (
 	// DefaultSignetChallenge is the byte representation of the signet
 	// challenge for the default (public, Taproot enabled) signet network.
 	// This is the binary equivalent of the bitcoin script
-	//  1 03ad5e0edad18cb1f0fc0d28a3d4f1f3e445640337489abb10404f2d1e086be430
-	//  0359ef5021964fe22d6f8e05b2463c9540ce96883fe3b278760f048f5189f2e6c4 2
+	//  1 02e8d1c7458709457b2891190f0ad3a3640fdc41bb1f12be3cd5481cf4cbfcf2a5
+	//  030feec0d5619c13b786a7b938f5b20f43c7a11e7ed4fb733839d7c6a6f5fa72a3 2
 	//  OP_CHECKMULTISIG
 	DefaultSignetChallenge, _ = hex.DecodeString(
-		"512103ad5e0edad18cb1f0fc0d28a3d4f1f3e445640337489abb10404f2d" +
-			"1e086be430210359ef5021964fe22d6f8e05b2463c9540ce9688" +
-			"3fe3b278760f048f5189f2e6c452ae",
+		"512102e8d1c7458709457b2891190f0ad3a3640fdc41bb1f12be3cd5481c" +
+			"f4cbfcf2a521030feec0d5619c13b786a7b938f5b20f43c7a11e" +
+			"7ed4fb733839d7c6a6f5fa72a352ae",
 	)
 
 	// DefaultSignetDNSSeeds is the list of seed nodes for the default
@@ -866,11 +866,11 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 
 		// Human-readable part for Bech32 encoded segwit addresses, as defined in
 		// BIP 173.
-		Bech32HRPSegwit: "tb", // always tb for test net
+		Bech32HRPSegwit: "tmona", // always tb for test net
 
 		// Address encoding magics
 		PubKeyHashAddrID:        0x6f, // starts with m or n
-		ScriptHashAddrID:        0xc4, // starts with 2
+		ScriptHashAddrID:        0x75, // starts with p
 		WitnessPubKeyHashAddrID: 0x03, // starts with QW
 		WitnessScriptHashAddrID: 0x28, // starts with T7n
 		PrivateKeyID:            0xef, // starts with 9 (uncompressed) or c (compressed)
@@ -882,6 +882,9 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		// BIP44 coin type used in the hierarchical deterministic path for
 		// address generation.
 		HDCoinType: 1,
+
+		// Lyra2re2&DGWv3's HF height. Used to calculate Pow.
+		Lyra2re2DGWv3Height: 0,
 	}
 }
 

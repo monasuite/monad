@@ -44,7 +44,7 @@ var (
 
 	// sigNetPowLimit is the highest proof of work value a bitcoin block can
 	// have for the signet test network. It is the value 0x0377ae << 216.
-	sigNetPowLimit = new(big.Int).Lsh(new(big.Int).SetInt64(0x0377ae), 216)
+	sigNetPowLimit = new(big.Int).Lsh(new(big.Int).SetInt64(0x0ffff0), 216)
 
 	// DefaultSignetChallenge is the byte representation of the signet
 	// challenge for the default (public, Taproot enabled) signet network.
@@ -60,11 +60,7 @@ var (
 
 	// DefaultSignetDNSSeeds is the list of seed nodes for the default
 	// (public, Taproot enabled) signet network.
-	DefaultSignetDNSSeeds = []DNSSeed{
-		{"178.128.221.177", false},
-		{"2a01:7c8:d005:390::5", false},
-		{"v7ajjeirttkbnt32wpy3c6w3emwnfr3fkla7hpxcfokr3ysd3kqtzmqd.onion:38333", false},
-	}
+	DefaultSignetDNSSeeds = []DNSSeed{}
 )
 
 // Checkpoint identifies a known good point in the block chain.  Using
@@ -789,18 +785,18 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		GenesisBlock:             &sigNetGenesisBlock,
 		GenesisHash:              &sigNetGenesisHash,
 		PowLimit:                 sigNetPowLimit,
-		PowLimitBits:             0x1e0377ae,
+		PowLimitBits:             0x1e0ffff0,
 		BIP0034Height:            1,
 		BIP0065Height:            1,
 		BIP0066Height:            1,
 		CoinbaseMaturity:         100,
-		SubsidyReductionInterval: 210000,
-		TargetTimespan:           time.Hour * 24 * 14, // 14 days
-		TargetTimePerBlock:       time.Minute * 10,    // 10 minutes
+		SubsidyReductionInterval: 1051200,
+		TargetTimespan:           time.Hour * 24 * 11 / 10, // 1.1 days
+		TargetTimePerBlock:       time.Minute * 15 / 10,    // 1.5 minutes
 		RetargetAdjustmentFactor: 4,                   // 25% less, 400% more
 		ReduceMinDifficulty:      false,
 		MinDiffReductionTime:     time.Minute * 20, // TargetTimePerBlock * 2
-		GenerateSupported:        false,
+		GenerateSupported:        true,
 
 		// Checkpoints ordered from oldest to newest.
 		Checkpoints: nil,
@@ -809,8 +805,8 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		//
 		// The miner confirmation window is defined as:
 		//   target proof of work timespan / target proof of work spacing
-		RuleChangeActivationThreshold: 1916, // 95% of 2016
-		MinerConfirmationWindow:       2016,
+		RuleChangeActivationThreshold: 75, // 75% of 100
+		MinerConfirmationWindow:       100,
 		Deployments: [DefinedDeployments]ConsensusDeployment{
 			DeploymentTestDummy: {
 				BitNumber: 28,

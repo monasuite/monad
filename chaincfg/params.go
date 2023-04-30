@@ -780,7 +780,7 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 	return Params{
 		Name:        "signet",
 		Net:         wire.BitcoinNet(net),
-		DefaultPort: "38333",
+		DefaultPort: "39403",
 		DNSSeeds:    dnsSeeds,
 
 		// Chain parameters

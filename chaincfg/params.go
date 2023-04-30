@@ -60,7 +60,9 @@ var (
 
 	// DefaultSignetDNSSeeds is the list of seed nodes for the default
 	// (public, Taproot enabled) signet network.
-	DefaultSignetDNSSeeds = []DNSSeed{}
+	DefaultSignetDNSSeeds = []DNSSeed{
+		{"133.242.161.162", false},
+	}
 )
 
 // Checkpoint identifies a known good point in the block chain.  Using
@@ -796,7 +798,7 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		RetargetAdjustmentFactor: 4,                   // 25% less, 400% more
 		ReduceMinDifficulty:      false,
 		MinDiffReductionTime:     time.Minute * 20, // TargetTimePerBlock * 2
-		GenerateSupported:        true,
+		GenerateSupported:        false,
 
 		// Checkpoints ordered from oldest to newest.
 		Checkpoints: nil,

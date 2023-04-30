@@ -882,7 +882,7 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		HDCoinType: 1,
 
 		// Lyra2re2&DGWv3's HF height. Used to calculate Pow.
-		Lyra2re2DGWv3Height: 0,
+		Lyra2re2DGWv3Height: 1,
 	}
 }
 

@@ -181,10 +181,10 @@ var simNetGenesisBlock = wire.MsgBlock{
 // sigNetGenesisHash is the hash of the first block in the block chain for the
 // signet test network.
 var sigNetGenesisHash = chainhash.Hash{
-	0xb5, 0x35, 0x73, 0x56, 0xbb, 0xe2, 0x34, 0xd0,
-	0x22, 0xda, 0xbf, 0x6a, 0x31, 0x78, 0xcf, 0x61,
-	0x4a, 0xd2, 0xd1, 0xd4, 0x54, 0x85, 0xe3, 0xfc,
-	0xc4, 0xa3, 0xc5, 0xf4, 0x0b, 0x93, 0x0c, 0x40,
+	0xfd, 0xf6, 0x4a, 0xb4, 0xc3, 0x6e, 0x34, 0xf4,
+	0xad, 0xf2, 0xb1, 0xf0, 0x5f, 0x6a, 0x49, 0x22,
+	0x06, 0xf2, 0x44, 0x65, 0x1a, 0xe6, 0xd1, 0x11,
+	0xdd, 0x09, 0x71, 0x8a, 0x2c, 0x62, 0xed, 0x72,
 }
 
 // sigNetGenesisMerkleRoot is the hash of the first transaction in the genesis
@@ -200,8 +200,8 @@ var sigNetGenesisBlock = wire.MsgBlock{
 		PrevBlock:  chainhash.Hash{},         // 0000000000000000000000000000000000000000000000000000000000000000
 		MerkleRoot: sigNetGenesisMerkleRoot,  // 35e405a8a46f4dbc1941727aaf338939323c3b955232d0317f8731fe07ac4ba6
 		Timestamp:  time.Unix(1598918400, 0), // 2020-09-01 00:00:00 +0000 UTC
-		Bits:       0x1e0ffff0,               // 504365040 [00000ffff0000000000000000000000000000000000000000000000000000000]
-		Nonce:      3881977,
+		Bits:       0x1e0377ae,               // 503543726 [00000377ae000000000000000000000000000000000000000000000000000000]
+		Nonce:      55776027,
 	},
 	Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
 }

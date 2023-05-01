@@ -43,8 +43,8 @@ var (
 	simNetPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 255), bigOne)
 
 	// sigNetPowLimit is the highest proof of work value a bitcoin block can
-	// have for the signet test network. It is the value 0x0fffff << 224.
-	sigNetPowLimit = new(big.Int).Lsh(new(big.Int).SetInt64(0x0fffff), 224)
+	// have for the signet test network. 2^236 - 1.
+	sigNetPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 236), bigOne)
 
 	// DefaultSignetChallenge is the byte representation of the signet
 	// challenge for the default (public, Taproot enabled) signet network.

@@ -43,8 +43,8 @@ var (
 	simNetPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 255), bigOne)
 
 	// sigNetPowLimit is the highest proof of work value a bitcoin block can
-	// have for the signet test network. It is the value 0x0377ae << 216.
-	sigNetPowLimit = new(big.Int).Lsh(new(big.Int).SetInt64(0x0377ae), 216)
+	// have for the signet test network. It is the value 0x0ffff0 << 216.
+	sigNetPowLimit = new(big.Int).Lsh(new(big.Int).SetInt64(0x0ffff0), 216)
 
 	// DefaultSignetChallenge is the byte representation of the signet
 	// challenge for the default (public, Taproot enabled) signet network.
@@ -787,7 +787,7 @@ func CustomSignetParams(challenge []byte, dnsSeeds []DNSSeed) Params {
 		GenesisBlock:             &sigNetGenesisBlock,
 		GenesisHash:              &sigNetGenesisHash,
 		PowLimit:                 sigNetPowLimit,
-		PowLimitBits:             0x1e0377ae,
+		PowLimitBits:             0x1e0ffff0,
 		BIP0034Height:            1,
 		BIP0065Height:            1,
 		BIP0066Height:            1,

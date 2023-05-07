@@ -89,7 +89,7 @@ func TestInvalidHDKeyID(t *testing.T) {
 
 func TestSigNetPowLimit(t *testing.T) {
 	sigNetPowLimitHex, _ := hex.DecodeString(
-		"00000377ae000000000000000000000000000000000000000000000000000000",
+		"00000ffff0000000000000000000000000000000000000000000000000000000",
 	)
 	powLimit := new(big.Int).SetBytes(sigNetPowLimitHex)
 	if sigNetPowLimit.Cmp(powLimit) != 0 {

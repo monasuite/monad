@@ -230,7 +230,7 @@ func (b *BlockChain) calcNextRequiredDifficulty(lastNode *blockNode, newBlockTim
 	}
 
 	// I'm writing this for the test, but I don't use it. When in mainnet , still 1056.
-	if lastNode.height+1 < b.blocksPerRetarget {
+	if lastNode.height+1 < b.blocksPerRetarget && b.chainParams.Name != "signet" {
 		return lastNode.bits, nil
 	}
 

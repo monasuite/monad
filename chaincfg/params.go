@@ -62,6 +62,8 @@ var (
 	// (public, Taproot enabled) signet network.
 	DefaultSignetDNSSeeds = []DNSSeed{
 		{"133.242.161.162", false},
+		{"2401:2500:102:1111:133:242:161:162", false},
+		{"un6pcf4ybh6yxu4rcebvsvllfkugxyszuyfj6oqxr52gzsopz6r2z7yd.onion:39403", false},
 	}
 )
 
